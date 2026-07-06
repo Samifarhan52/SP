@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SOLO PLAY — BGMI Arena</title>
+<title>SOLO PLAY — Arena Mode</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -61,6 +61,26 @@ img{max-width:100%;display:block; border-radius: 4px;}
 }
 canvas#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
+/* ========== POP-UP MODAL ========== */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  z-index: 1000; display: flex; justify-content: center; align-items: center;
+  opacity: 0; visibility: hidden; transition: 0.3s;
+}
+.modal-overlay.show { opacity: 1; visibility: visible; }
+.modal-box {
+  background: var(--panel); border: 2px solid var(--yellow);
+  padding: 40px; max-width: 500px; text-align: center; width: 90%;
+  box-shadow: 0 0 40px rgba(255,210,63,0.3);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+  transform: translateY(50px) scale(0.9); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-overlay.show .modal-box { transform: translateY(0) scale(1); }
+.modal-title { font-family: 'Orbitron', sans-serif; color: var(--yellow); font-size: 26px; margin-bottom: 15px; font-weight: 900;}
+.modal-text { color: var(--text); margin-bottom: 25px; font-size: 16px; line-height: 1.6; }
+.modal-highlight { color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;}
+
 /* ========== NAVIGATION ========== */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -109,7 +129,7 @@ nav{
   max-width: 1250px;
   margin: 140px auto 50px;
   padding: 0 30px;
-  flex: 1; /* Pushes footer to bottom */
+  flex: 1;
 }
 .split-layout {
   display: grid;
@@ -164,41 +184,17 @@ nav{
   font-size: 18px;
   letter-spacing: 1px;
 }
-.content-card p {
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 16px;
-}
+.content-card p { color: var(--muted); line-height: 1.6; font-size: 16px; }
 .terms-box {
   background: rgba(255,43,214,0.05);
   border-left: 3px solid var(--magenta);
   padding: 20px;
   margin-top: 20px;
 }
-.terms-box h4 {
-  font-family: 'Orbitron', sans-serif;
-  color: var(--magenta);
-  margin-bottom: 15px;
-}
-.rules-list{
-  list-style: none;
-  color: var(--text);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.rules-list li{
-  margin-bottom: 12px;
-  position: relative;
-  padding-left: 20px;
-}
-.rules-list li::before{
-  content: '⚠';
-  position: absolute;
-  left: 0;
-  color: var(--magenta);
-  font-size: 12px;
-  top: 2px;
-}
+.terms-box h4 { font-family: 'Orbitron', sans-serif; color: var(--magenta); margin-bottom: 15px; }
+.rules-list{ list-style: none; color: var(--text); font-size: 15px; line-height: 1.6; }
+.rules-list li{ margin-bottom: 12px; position: relative; padding-left: 20px; }
+.rules-list li::before{ content: '⚠'; position: absolute; left: 0; color: var(--magenta); font-size: 12px; top: 2px; }
 
 /* ========== PANELS (Forms) ========== */
 .panel{
@@ -222,44 +218,24 @@ nav{
 
 .form-group{ margin-bottom: 20px; }
 .form-group label{
-  display: block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 13px;
-  color: var(--muted);
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-  text-transform: uppercase;
+  display: block; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--muted);
+  letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;
 }
 .form-control{
-  width: 100%;
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(0,240,255,0.2);
-  padding: 14px 18px;
-  color: var(--text);
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 16px;
-  outline: none;
-  transition: all .3s;
+  width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,240,255,0.2);
+  padding: 14px 18px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 16px;
+  outline: none; transition: all .3s;
 }
-.form-control:focus{
-  border-color: var(--cyan);
-  box-shadow: 0 0 15px rgba(0,240,255,0.1);
-}
+.form-control:focus{ border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.1); }
 textarea.form-control { resize: vertical; min-height: 120px; }
 select.form-control{ appearance: none; cursor: pointer; }
 .form-control option { background: var(--panel); color: var(--text); }
 
 .btn{
-  width: 100%;
-  padding: 16px;
-  font-family:'Orbitron',sans-serif;font-weight:700;font-size:16px;
-  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-  transition:all .3s;
-  border:none;
-  background:linear-gradient(90deg,var(--orange),var(--magenta));
-  color:#fff;
-  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
-  margin-top: 10px;
+  width: 100%; padding: 16px; font-family:'Orbitron',sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:2px;text-transform:uppercase;cursor:pointer; transition:all .3s; border:none;
+  background:linear-gradient(90deg,var(--orange),var(--magenta)); color:#fff;
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%); margin-top: 10px;
 }
 .btn:hover{ transform:translateY(-2px); box-shadow:0 0 25px rgba(255,140,0,0.5); }
 .btn-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); }
@@ -267,100 +243,87 @@ select.form-control{ appearance: none; cursor: pointer; }
 .btn-outline { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
 .btn-outline:hover { background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.3); }
 
-/* ========== TOURNAMENTS PAGE ========== */
+/* ========== TOURNAMENTS PAGE GRID ========== */
 .tourney-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
   margin-top: 40px;
 }
-@media(max-width: 850px){ .tourney-grid { grid-template-columns: 1fr; } }
-
 .t-card {
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(0,240,255,0.2);
-  padding: 40px;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s;
+  background: rgba(0,0,0,0.5); border: 1px solid rgba(0,240,255,0.2); padding: 35px;
+  text-align: center; position: relative; transition: all 0.3s;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
-.t-card:hover {
-  transform: translateY(-5px);
-}
-.t-card h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 30px;
-  margin-bottom: 10px;
-}
+.t-card:hover { transform: translateY(-5px); }
+.t-card h2 { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 10px; }
 .t-card .entry-fee {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 20px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px dashed rgba(255,255,255,0.1);
+  font-family: 'Share Tech Mono', monospace; font-size: 18px; margin-bottom: 25px;
+  padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1);
 }
-.t-card .prizes {
-  list-style: none;
-  margin-bottom: 30px;
-  text-align: left;
-}
-.t-card .prizes li {
-  font-size: 18px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-}
+.t-card .prizes { list-style: none; margin-bottom: 25px; text-align: left; }
+.t-card .prizes li { font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; }
 .t-card .prizes li span { font-weight: bold; }
 
-/* Standard Match Theme */
+/* Themes for Tournaments */
+/* 1. Standard (Cyan) */
 .t-card.standard { border-color: var(--cyan); }
 .t-card.standard:hover { box-shadow: 0 15px 30px rgba(0,240,255,0.2); }
 .t-card.standard h2 { color: var(--cyan); }
 .t-card.standard .entry-fee { color: var(--muted); }
-.t-card.standard .prizes li span { color: var(--green); }
+.t-card.standard .prizes li span { color: var(--cyan); }
 .t-card.standard .btn { background: linear-gradient(90deg, #001827, var(--cyan)); }
 
-/* Royal Match Theme */
-.t-card.royal { 
-  border-color: var(--yellow); 
-  background: linear-gradient(180deg, rgba(255,210,63,0.05), rgba(0,0,0,0.6));
-}
+/* 2. Royal (Yellow) */
+.t-card.royal { border-color: var(--yellow); background: linear-gradient(180deg, rgba(255,210,63,0.05), rgba(0,0,0,0.6));}
 .t-card.royal:hover { box-shadow: 0 15px 30px rgba(255,210,63,0.2); }
 .t-card.royal h2 { color: var(--yellow); text-shadow: 0 0 15px rgba(255,210,63,0.5); }
-.t-card.royal .entry-fee { color: var(--orange); font-weight: bold;}
+.t-card.royal .entry-fee { color: var(--yellow); }
 .t-card.royal .prizes li span { color: var(--yellow); }
 .t-card.royal .btn { background: linear-gradient(90deg, var(--orange), var(--yellow)); color: #000; }
 .royal-badge {
-  position: absolute;
-  top: 15px; left: 15px;
-  background: var(--yellow); color: #000;
-  padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 11px;
-  font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
+  position: absolute; top: 15px; left: 15px; background: var(--yellow); color: #000;
+  padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
 }
 
+/* 3. TDM 4v4 (Magenta) */
+.t-card.tdm4 { border-color: var(--magenta); }
+.t-card.tdm4:hover { box-shadow: 0 15px 30px rgba(255,43,214,0.2); }
+.t-card.tdm4 h2 { color: var(--magenta); }
+.t-card.tdm4 .entry-fee { color: var(--muted); }
+.t-card.tdm4 .prizes li span { color: var(--magenta); }
+.t-card.tdm4 .btn { background: linear-gradient(90deg, #1a001a, var(--magenta)); }
+
+/* 4. TDM 1v1 (Green) */
+.t-card.tdm1 { border-color: var(--green); }
+.t-card.tdm1:hover { box-shadow: 0 15px 30px rgba(57,255,136,0.2); }
+.t-card.tdm1 h2 { color: var(--green); }
+.t-card.tdm1 .entry-fee { color: var(--muted); }
+.t-card.tdm1 .prizes li span { color: var(--green); }
+.t-card.tdm1 .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
+
+/* 5. DUO (Orange) */
+.t-card.duo { border-color: var(--orange); }
+.t-card.duo:hover { box-shadow: 0 15px 30px rgba(255,140,0,0.2); }
+.t-card.duo h2 { color: var(--orange); }
+.t-card.duo .entry-fee { color: var(--muted); }
+.t-card.duo .prizes li span { color: var(--orange); }
+.t-card.duo .btn { background: linear-gradient(90deg, #261200, var(--orange)); }
+
+
 /* ========== PAYMENT PAGE SPECIFICS ========== */
-.step-guide {
-  margin-bottom: 30px; background: rgba(255,140,0,0.05);
-  padding: 20px; border: 1px solid rgba(255,140,0,0.2);
-}
+.step-guide { margin-bottom: 30px; background: rgba(255,140,0,0.05); padding: 20px; border: 1px solid rgba(255,140,0,0.2); }
 .step-guide h3 { font-family: 'Orbitron', sans-serif; color: var(--yellow); margin-bottom: 15px; font-size: 18px; }
 .step-list { list-style: none; counter-reset: my-counter; }
-.step-list li {
-  counter-increment: my-counter; position: relative;
-  padding-left: 35px; margin-bottom: 15px; color: var(--text); font-size: 16px;
-}
+.step-list li { counter-increment: my-counter; position: relative; padding-left: 35px; margin-bottom: 15px; color: var(--text); font-size: 16px; }
 .step-list li::before {
-  content: counter(my-counter); position: absolute; left: 0; top: -2px;
-  width: 24px; height: 24px; background: var(--orange); color: #000;
-  font-family: 'Orbitron', sans-serif; font-weight: 900; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center; font-size: 12px;
+  content: counter(my-counter); position: absolute; left: 0; top: -2px; width: 24px; height: 24px; background: var(--orange); color: #000;
+  font-family: 'Orbitron', sans-serif; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;
 }
 .upi-grid{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px; }
 .upi-item{
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1);
-  padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-  font-family: 'Share Tech Mono', monospace; font-size: 15px; transition: all 0.3s;
+  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px;
+  display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px; transition: all 0.3s;
 }
 .upi-item:hover { border-color: var(--cyan); background: rgba(0,240,255,0.05); }
 .upi-name { color: var(--muted); font-weight: bold;}
@@ -375,13 +338,7 @@ select.form-control{ appearance: none; cursor: pointer; }
   border: 1px dashed var(--orange); margin-bottom: 25px;
   font-family: 'Orbitron', sans-serif; font-size: 18px;
 }
-.dynamic-price-highlight {
-  color: var(--green);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  font-weight: 900;
-  text-shadow: 0 0 10px rgba(57,255,136,0.5);
-}
+.dynamic-price-highlight { color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; text-shadow: 0 0 10px rgba(57,255,136,0.5); }
 
 /* Toast Notification */
 #toast {
@@ -395,36 +352,19 @@ select.form-control{ appearance: none; cursor: pointer; }
 @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
 /* ========== SUPPORT PAGE SPECIFICS ========== */
-.support-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-}
+.support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
 @media(max-width: 850px){ .support-grid { grid-template-columns: 1fr; } }
-.contact-info-card {
-  background: rgba(0,0,0,0.4);
-  border: 1px solid rgba(0,240,255,0.2);
-  padding: 30px;
-  margin-bottom: 20px;
-  text-align: center;
-}
+.contact-info-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); padding: 30px; margin-bottom: 20px; text-align: center; }
 .contact-info-card h3 { font-family: 'Orbitron', sans-serif; color: var(--cyan); margin-bottom: 10px; }
 .contact-info-card p { font-size: 18px; color: var(--text); font-family: 'Share Tech Mono', monospace; }
 
 /* ========== FOOTER ========== */
 footer {
-  margin-top: auto; 
-  padding: 40px 30px;
-  background: rgba(5,6,13,0.9);
-  border-top: 1px solid rgba(255,140,0,0.15);
-  text-align: center;
-  position: relative;
-  z-index: 10;
-  backdrop-filter: blur(10px);
+  margin-top: auto; padding: 40px 30px; background: rgba(5,6,13,0.9);
+  border-top: 1px solid rgba(255,140,0,0.15); text-align: center; position: relative;
+  z-index: 10; backdrop-filter: blur(10px);
 }
-.footer-content {
-  max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center;
-}
+.footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center; }
 .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; justify-content: center; }
 .footer-links a { color: var(--muted); font-size: 14px; transition: color 0.3s; font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
 .footer-links a:hover { color: var(--cyan); }
@@ -439,6 +379,18 @@ footer {
 <div class="bg-orb orb-1"></div>
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
+
+<!-- Welcome Pop-up Modal -->
+<div class="modal-overlay" id="welcomeModal">
+  <div class="modal-box">
+    <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
+    <div class="modal-text">
+      New intense battle modes have been added to the arena! <br><br>
+      Explore the <span class="modal-highlight">Tournaments Tab</span> to jump into the new <span class="modal-highlight">TDM (4v4 & 1v1)</span> or <span class="modal-highlight">DUO Matches</span>. Assemble your squad and claim your UC!
+    </div>
+    <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000;" onclick="closeModal()">Enter The Arena</button>
+  </div>
+</div>
 
 <!-- Navigation -->
 <nav>
@@ -462,7 +414,7 @@ footer {
         
         <div class="content-card">
           <h4>🔥 THE ULTIMATE PROVING GROUNDS</h4>
-          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community. No teammates to drag you down—just raw skill and the hunt for the Chicken Dinner.</p>
+          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community. Whether you are running Solo, Duo, or Squad TDM—we have a battle for you.</p>
         </div>
 
         <div class="content-card" style="border-color: var(--yellow);">
@@ -470,7 +422,10 @@ footer {
           <p style="margin-bottom:10px;">Visit the <strong>Tournaments Tab</strong> to choose your battle:</p>
           <ul style="color:var(--muted); margin-left: 20px; font-size:15px; line-height:1.6;">
             <li><strong>Standard Match:</strong> Entry ₹25 | Win 60 UC</li>
-            <li><strong>Royal Match:</strong> Entry ₹100 | Win 300 + 25 UC (Runner up 120 UC)</li>
+            <li><strong>Royal Match:</strong> Entry ₹100 | Win 300 UC</li>
+            <li><strong>TDM (4v4 AR):</strong> Entry ₹100/player | Win 120 UC Each</li>
+            <li><strong>TDM (1v1 Sniper):</strong> Entry ₹95 | Win 120 UC</li>
+            <li><strong>DUO Match:</strong> Entry ₹100/player | Win 300+25 UC</li>
           </ul>
         </div>
 
@@ -494,7 +449,10 @@ footer {
             <label>Select Match Tier</label>
             <select id="match-tier" class="form-control" required style="border-color:var(--yellow); color:var(--yellow); font-weight:bold;">
               <option value="standard">Standard Match (Fee: ₹25 | Prize: 60 UC)</option>
-              <option value="royal">Royal Match (Fee: ₹100 | Prize: 300 + 25 UC)</option>
+              <option value="royal">Royal Match (Fee: ₹100 | Prize: 300 UC)</option>
+              <option value="tdm-4v4">TDM (4v4 AR) - Fee: ₹100/player | Prize: 120 UC each</option>
+              <option value="tdm-1v1">TDM (1v1 Sniper) - Fee: ₹95 | Prize: 120 UC</option>
+              <option value="duo">DUO Match - Fee: ₹100/player | Prize: 300+25 UC</option>
             </select>
           </div>
 
@@ -514,10 +472,10 @@ footer {
             <label>Select Time Slot</label>
             <select id="slot" class="form-control" required>
               <option value="" disabled selected>Choose a slot...</option>
-              <option value="Morning">Morning 10-11</option>
-              <option value="Afternoon">Afternoon 2-3</option>
-              <option value="Evening">Evening 6-7</option>
-              <option value="Night">Night 9-10</option>
+              <option value="Morning">Morning Phase</option>
+              <option value="Afternoon">Afternoon Phase</option>
+              <option value="Evening">Evening Phase</option>
+              <option value="Night">Night Phase</option>
             </select>
           </div>
           <button type="submit" class="btn">Proceed to Payment Details</button>
@@ -535,10 +493,11 @@ footer {
     </div>
 
     <div class="tourney-grid">
+      
       <!-- Standard Match -->
       <div class="t-card standard">
         <h2>STANDARD MATCH</h2>
-        <div class="entry-fee">Entry Fee: ₹25</div>
+        <div class="entry-fee">Fee: ₹25 / player</div>
         <ul class="prizes">
           <li>1st Place (Winner) <span>60 UC</span></li>
           <li style="color:var(--muted); font-size:14px;">2nd Place <span>-</span></li>
@@ -550,13 +509,47 @@ footer {
       <div class="t-card royal">
         <div class="royal-badge">High Stakes</div>
         <h2>ROYAL MATCH</h2>
-        <div class="entry-fee">Entry Fee: ₹100</div>
+        <div class="entry-fee">Fee: ₹100 / player</div>
         <ul class="prizes">
-          <li>1st Place (Winner) <span>300 + 25 UC</span></li>
-          <li>2nd Place (Runner up) <span>120 UC (60+60)</span></li>
+          <li>1st Place (Winner) <span>300 UC</span></li>
+          <li>2nd Place (Runner up) <span>120 UC</span></li>
         </ul>
         <button class="btn" onclick="selectTournament('royal')">Select & Register</button>
       </div>
+
+      <!-- TDM 4v4 AR -->
+      <div class="t-card tdm4">
+        <h2>TDM (4v4 AR)</h2>
+        <div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes">
+          <li>Winning Squad <span>120 UC / player</span></li>
+          <li style="color:var(--muted); font-size:14px;">Total Squad Payout <span>480 UC</span></li>
+        </ul>
+        <button class="btn" onclick="selectTournament('tdm-4v4')">Select & Register</button>
+      </div>
+
+      <!-- TDM 1v1 Sniper -->
+      <div class="t-card tdm1">
+        <h2>TDM (1v1 SNIPER)</h2>
+        <div class="entry-fee">Fee: ₹95 / player</div>
+        <ul class="prizes">
+          <li>1st Place (Winner) <span>120 UC</span></li>
+          <li style="color:var(--muted); font-size:14px;">Loser <span>-</span></li>
+        </ul>
+        <button class="btn" onclick="selectTournament('tdm-1v1')">Select & Register</button>
+      </div>
+
+      <!-- DUO Match -->
+      <div class="t-card duo">
+        <h2>DUO MATCH</h2>
+        <div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes">
+          <li>1st Place Duo <span>300 + 25 UC</span></li>
+          <li style="color:var(--muted); font-size:14px;">Survival is Key <span>Partner up</span></li>
+        </ul>
+        <button class="btn" onclick="selectTournament('duo')">Select & Register</button>
+      </div>
+
     </div>
   </div>
 
@@ -632,7 +625,10 @@ footer {
           <p>farhanulla.shaik@gmail.com</p>
         </div>
         
-        
+        <div class="contact-info-card">
+          <h3>📱 WHATSAPP SUPPORT</h3>
+          <p>+91 7676808068</p>
+        </div>
       </div>
 
       <!-- Support Form (Mailto Trigger) -->
@@ -683,7 +679,7 @@ footer {
     </ul>
     <div class="copyright">
       &copy; 2026 <span>ElavteX</span>. All Rights Reserved. <br>
-      <small style="color:var(--muted); font-size:11px;">BGMI is a registered trademark of Krafton. This platform is not officially affiliated with Krafton & BGMI.</small>
+      <small style="color:var(--muted); font-size:11px;">BGMI is a registered trademark of Krafton. This platform is not officially affiliated with Krafton.</small>
     </div>
   </div>
 </footer>
@@ -692,6 +688,18 @@ footer {
 <div id="toast">UPI ID Copied!</div>
 
 <script>
+/* ========== MODAL LOGIC ========== */
+window.addEventListener('load', () => {
+  // Show the modal 1 second after page load
+  setTimeout(() => {
+    document.getElementById('welcomeModal').classList.add('show');
+  }, 1000);
+});
+
+function closeModal() {
+  document.getElementById('welcomeModal').classList.remove('show');
+}
+
 /* ========== TAB NAVIGATION LOGIC ========== */
 const homePage = document.getElementById('home-page');
 const tournamentsPage = document.getElementById('tournaments-page');
@@ -749,11 +757,20 @@ let currentTierName = "Standard Match";
 regForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
-  // Check which tier is selected to update pricing
+  // Check which tier is selected to update pricing dynamically
   const selectedTier = document.getElementById('match-tier').value;
   if(selectedTier === 'royal') {
     currentFee = 100;
     currentTierName = "Royal Match";
+  } else if (selectedTier === 'tdm-4v4') {
+    currentFee = 100;
+    currentTierName = "TDM (4v4 AR)";
+  } else if (selectedTier === 'tdm-1v1') {
+    currentFee = 95;
+    currentTierName = "TDM (1v1 Sniper)";
+  } else if (selectedTier === 'duo') {
+    currentFee = 100;
+    currentTierName = "DUO Match";
   } else {
     currentFee = 25;
     currentTierName = "Standard Match";
@@ -782,7 +799,7 @@ function copyUPI(upiID) {
     const toast = document.getElementById("toast");
     toast.innerText = "Copied: " + upiID;
     toast.className = "show";
-    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 300 + 250);
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
   });
 }
 
