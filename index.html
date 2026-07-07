@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SOLO PLAY — Arena Mode</title>
+<title>SOLO PLAY — BGMI Arena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -12,25 +12,13 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Rajdhani',sans-serif;
-  background:#05060d;
-  color:#e6f1ff;
-  overflow-x:hidden;
-  min-height:100vh;
-  display: flex;
-  flex-direction: column;
+  font-family:'Rajdhani',sans-serif; background:#05060d; color:#e6f1ff;
+  overflow-x:hidden; min-height:100vh; display: flex; flex-direction: column;
 }
 :root{
-  --bg:#05060d;
-  --panel:#0f1424;
-  --cyan:#00f0ff;
-  --magenta:#ff2bd6;
-  --orange:#ff8c00; 
-  --yellow:#ffd23f;
-  --green:#39ff88;
-  --text:#e6f1ff;
-  --muted:#8592b8;
-  --grid:rgba(255,140,0,0.08);
+  --bg:#05060d; --panel:#0f1424; --cyan:#00f0ff; --magenta:#ff2bd6;
+  --orange:#ff8c00; --yellow:#ffd23f; --green:#39ff88; --red:#ff3333;
+  --text:#e6f1ff; --muted:#8592b8; --grid:rgba(255,140,0,0.08);
 }
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block; border-radius: 4px;}
@@ -45,23 +33,14 @@ img{max-width:100%;display:block; border-radius: 4px;}
   background-size: 100% 100%, 60px 60px, 60px 60px;
   animation: gridMove 20s linear infinite;
 }
-@keyframes gridMove{
-  0%{background-position:0 0,0 0,0 0}
-  100%{background-position:0 0, 60px 60px, 60px 60px}
-}
-.bg-orb{
-  position:fixed;border-radius:50%;filter:blur(120px);opacity:.25;z-index:-2;
-  pointer-events:none;
-}
+@keyframes gridMove{ 0%{background-position:0 0,0 0,0 0} 100%{background-position:0 0, 60px 60px, 60px 60px} }
+.bg-orb{ position:fixed;border-radius:50%;filter:blur(120px);opacity:.25;z-index:-2; pointer-events:none; }
 .orb-1{width:500px;height:500px;background:var(--orange);top:-100px;left:-100px;animation:float 14s ease-in-out infinite}
-.orb-2{width:450px;height:450px;background:var(--magenta);bottom:-100px;right:-100px;animation:float 18s ease-in-out infinite reverse}
-@keyframes float{
-  0%,100%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(50px,-30px) scale(1.1)}
-}
+.orb-2{width:450px;height:450px;background:var(--cyan);bottom:-100px;right:-100px;animation:float 18s ease-in-out infinite reverse}
+@keyframes float{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,-30px) scale(1.1)} }
 canvas#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
-/* ========== POP-UP MODAL ========== */
+/* ========== MODALS ========== */
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
@@ -70,166 +49,92 @@ canvas#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
 }
 .modal-overlay.show { opacity: 1; visibility: visible; }
 .modal-box {
-  background: var(--panel); border: 2px solid var(--yellow);
+  background: var(--panel); border: 2px solid var(--cyan);
   padding: 40px; max-width: 500px; text-align: center; width: 90%;
-  box-shadow: 0 0 40px rgba(255,210,63,0.3);
+  box-shadow: 0 0 40px rgba(0,240,255,0.2); position: relative;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
   transform: translateY(50px) scale(0.9); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .modal-overlay.show .modal-box { transform: translateY(0) scale(1); }
-.modal-title { font-family: 'Orbitron', sans-serif; color: var(--yellow); font-size: 26px; margin-bottom: 15px; font-weight: 900;}
-.modal-text { color: var(--text); margin-bottom: 25px; font-size: 16px; line-height: 1.6; }
-.modal-highlight { color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;}
+.modal-title { font-family: 'Orbitron', sans-serif; color: var(--cyan); font-size: 26px; margin-bottom: 15px; font-weight: 900;}
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; color: var(--muted); cursor: pointer; background: none; border: none;}
+.close-btn:hover { color: var(--red); }
 
 /* ========== NAVIGATION ========== */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:18px 50px;
+  position:fixed;top:0;left:0;right:0;z-index:100; padding:18px 50px;
   display:flex;justify-content:space-between;align-items:center;
-  backdrop-filter:blur(16px);
-  background:rgba(5,6,13,0.8);
-  border-bottom:1px solid rgba(255,140,0,0.15);
+  backdrop-filter:blur(16px); background:rgba(5,6,13,0.8); border-bottom:1px solid rgba(255,140,0,0.15);
 }
 .logo{
-  font-family:'Orbitron',sans-serif;font-weight:900;font-size:24px;
-  letter-spacing:3px;
-  background:linear-gradient(90deg,var(--orange),var(--yellow));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  display:flex;align-items:center;gap:10px;
-  cursor: pointer;
+  font-family:'Orbitron',sans-serif;font-weight:900;font-size:24px; letter-spacing:3px;
+  background:linear-gradient(90deg,var(--orange),var(--yellow)); -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:flex;align-items:center;gap:10px; cursor: pointer;
 }
-.logo::before{
-  content:'';width:12px;height:12px;border-radius:50%;
-  background:var(--orange);box-shadow:0 0 15px var(--orange);
-  animation:pulse 2s infinite;
-}
+.logo::before{ content:'';width:12px;height:12px;border-radius:50%; background:var(--orange);box-shadow:0 0 15px var(--orange); animation:pulse 2s infinite; }
 .nav-links{display:flex;gap:35px;list-style:none}
 .nav-links li{cursor:pointer;}
 .nav-links a{
   font-family:'Rajdhani',sans-serif;font-weight:600;font-size:16px;
-  letter-spacing:2px;text-transform:uppercase;color:var(--text);
-  position:relative;transition:color .3s;
+  letter-spacing:2px;text-transform:uppercase;color:var(--text); position:relative;transition:color .3s;
 }
 .nav-links a:hover, .nav-links a.active{color:var(--orange)}
 .nav-links a::after{
-  content:'';position:absolute;bottom:-6px;left:0;
-  width:0;height:2px;background:var(--orange);
+  content:'';position:absolute;bottom:-6px;left:0; width:0;height:2px;background:var(--orange);
   box-shadow:0 0 10px var(--orange);transition:width .3s;
 }
 .nav-links a:hover::after, .nav-links a.active::after{width:100%}
 
-@media(max-width: 768px) {
+@media(max-width: 900px) {
   nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
   .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
   .nav-links a { font-size: 14px; }
 }
 
 /* ========== MAIN LAYOUT ========== */
-.container{
-  max-width: 1250px;
-  margin: 140px auto 50px;
-  padding: 0 30px;
-  flex: 1;
-}
-.split-layout {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 50px;
-  align-items: flex-start;
-}
-@media(max-width: 950px){
-  .split-layout { grid-template-columns: 1fr; }
-}
+.container{ max-width: 1250px; margin: 140px auto 50px; padding: 0 30px; flex: 1; width: 100%;}
+.split-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: flex-start; }
+@media(max-width: 950px){ .split-layout { grid-template-columns: 1fr; } }
 
 /* ========== PAGE VIEWS ========== */
-#home-page { display: block; animation: fadeIn .5s ease; }
-#tournaments-page { display: none; animation: fadeIn .5s ease; }
-#payment-page { display: none; animation: fadeIn .5s ease; }
-#support-page { display: none; animation: fadeIn .5s ease; }
+.page-view { display: none; animation: fadeIn .5s ease; }
+.page-view.active { display: block; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ========== INFO SECTION (HOME) ========== */
+/* ========== COMPONENTS ========== */
 .hero-badge{
-  display:inline-block;padding:8px 22px;
-  border:1px solid var(--orange);border-radius:30px;
-  font-family:'Share Tech Mono',monospace;font-size:12px;
-  letter-spacing:3px;color:var(--orange);
-  background:rgba(255,140,0,0.08);
-  margin-bottom:20px;
+  display:inline-block;padding:8px 22px; border:1px solid var(--orange);border-radius:30px;
+  font-family:'Share Tech Mono',monospace;font-size:12px; letter-spacing:3px;color:var(--orange);
+  background:rgba(255,140,0,0.08); margin-bottom:20px;
 }
-.info-section h1{
-  font-family:'Orbitron',sans-serif;font-weight:900;
-  font-size:clamp(35px,4vw,60px);
-  line-height:1.1;letter-spacing:-1px;
-  margin-bottom:20px;
-}
-.info-section h1 span{
-  background:linear-gradient(90deg,var(--orange),var(--yellow));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.content-card {
-  background: rgba(0,0,0,0.4);
-  border-left: 3px solid var(--cyan);
-  padding: 20px;
-  margin-bottom: 25px;
-}
-.content-card h4 {
-  font-family: 'Orbitron', sans-serif;
-  color: var(--cyan);
-  margin-bottom: 10px;
-  font-size: 18px;
-  letter-spacing: 1px;
-}
+.info-section h1{ font-family:'Orbitron',sans-serif;font-weight:900; font-size:clamp(35px,4vw,60px); line-height:1.1;letter-spacing:-1px; margin-bottom:20px; }
+.info-section h1 span{ background:linear-gradient(90deg,var(--orange),var(--yellow)); -webkit-background-clip:text;background-clip:text;color:transparent; }
+.content-card { background: rgba(0,0,0,0.4); border-left: 3px solid var(--cyan); padding: 20px; margin-bottom: 25px; }
+.content-card h4 { font-family: 'Orbitron', sans-serif; color: var(--cyan); margin-bottom: 10px; font-size: 18px; letter-spacing: 1px; }
 .content-card p { color: var(--muted); line-height: 1.6; font-size: 16px; }
-.terms-box {
-  background: rgba(255,43,214,0.05);
-  border-left: 3px solid var(--magenta);
-  padding: 20px;
-  margin-top: 20px;
-}
-.terms-box h4 { font-family: 'Orbitron', sans-serif; color: var(--magenta); margin-bottom: 15px; }
-.rules-list{ list-style: none; color: var(--text); font-size: 15px; line-height: 1.6; }
-.rules-list li{ margin-bottom: 12px; position: relative; padding-left: 20px; }
-.rules-list li::before{ content: '⚠'; position: absolute; left: 0; color: var(--magenta); font-size: 12px; top: 2px; }
 
-/* ========== PANELS (Forms) ========== */
+/* Form Panels */
 .panel{
-  background: var(--panel);
-  border: 1px solid rgba(0,240,255,0.15);
-  padding: 40px;
-  position: relative;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+  background: var(--panel); border: 1px solid rgba(0,240,255,0.15); padding: 40px; position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
-.panel-header{
-  font-family: 'Orbitron', sans-serif;
-  font-size: 24px;
-  margin-bottom: 25px;
-  color: var(--cyan);
-  border-bottom: 1px dashed rgba(0,240,255,0.2);
-  padding-bottom: 15px;
-}
+.panel-header{ font-family: 'Orbitron', sans-serif; font-size: 24px; margin-bottom: 25px; color: var(--cyan); border-bottom: 1px dashed rgba(0,240,255,0.2); padding-bottom: 15px; }
 .payment-panel-wrapper { max-width: 800px; margin: 0 auto; border-color: var(--orange); }
 .payment-panel-wrapper .panel-header { color: var(--orange); border-bottom-color: rgba(255,140,0,0.2); }
 
-.form-group{ margin-bottom: 20px; }
-.form-group label{
-  display: block; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--muted);
-  letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;
-}
+.form-group{ margin-bottom: 20px; text-align: left; }
+.form-group label{ display: block; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
 .form-control{
   width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,240,255,0.2);
-  padding: 14px 18px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 16px;
-  outline: none; transition: all .3s;
+  padding: 14px 18px; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 16px; outline: none; transition: all .3s;
 }
 .form-control:focus{ border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.1); }
 textarea.form-control { resize: vertical; min-height: 120px; }
 select.form-control{ appearance: none; cursor: pointer; }
-.form-control option { background: var(--panel); color: var(--text); }
+select.form-control option { background: var(--panel); color: var(--text); }
+.team-members-box { background: rgba(0,240,255,0.05); border-left: 2px solid var(--cyan); padding: 15px; margin-bottom: 20px; }
+.team-members-box h5 { font-family: 'Orbitron', sans-serif; color: var(--cyan); margin-bottom: 15px; letter-spacing: 1px; text-align: left;}
 
 .btn{
   width: 100%; padding: 16px; font-family:'Orbitron',sans-serif;font-weight:700;font-size:16px;
@@ -243,30 +148,56 @@ select.form-control{ appearance: none; cursor: pointer; }
 .btn-outline { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
 .btn-outline:hover { background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.3); }
 
-/* ========== TOURNAMENTS PAGE GRID ========== */
-.tourney-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
+/* ========== DATA TABLES (Roster & Admin) ========== */
+.table-wrapper { width: 100%; overflow-x: auto; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); }
+table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; }
+th { background: rgba(0,240,255,0.1); color: var(--cyan); font-family: 'Orbitron', sans-serif; padding: 15px; text-align: left; font-size: 14px; letter-spacing: 1px; }
+td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); font-size: 16px; }
+tr:hover { background: rgba(255,255,255,0.02); }
+
+/* Registration Status Badges */
+.status-badge { padding: 5px 10px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+.status-pending { background: rgba(255,140,0,0.2); color: var(--orange); border: 1px solid var(--orange); }
+.status-verified { background: rgba(57,255,136,0.2); color: var(--green); border: 1px solid var(--green); }
+.status-cancelled { background: rgba(133,146,184,0.2); color: var(--muted); border: 1px solid var(--muted); }
+.status-kickedout { background: rgba(255,51,51,0.2); color: var(--red); border: 1px solid var(--red); }
+.status-banned { background: rgba(0,0,0,0.8); color: var(--red); border: 1px solid var(--red); text-shadow: 0 0 5px var(--red); }
+
+.admin-action-btn { background: transparent; border: 1px solid var(--muted); color: var(--text); padding: 5px 10px; cursor: pointer; font-size: 12px; margin-right: 5px; transition: 0.3s; }
+.admin-action-btn:hover { background: var(--cyan); border-color: var(--cyan); color: #000; }
+
+/* ========== TOURNAMENTS GRID ========== */
+.tourney-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
 .t-card {
-  background: rgba(0,0,0,0.5); border: 1px solid rgba(0,240,255,0.2); padding: 35px;
-  text-align: center; position: relative; transition: all 0.3s;
+  background: rgba(0,0,0,0.5); border: 1px solid rgba(0,240,255,0.2); padding: 35px; text-align: center; position: relative; transition: all 0.3s;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
 .t-card:hover { transform: translateY(-5px); }
-.t-card h2 { font-family: 'Orbitron', sans-serif; font-size: 26px; margin-bottom: 10px; }
-.t-card .entry-fee {
-  font-family: 'Share Tech Mono', monospace; font-size: 18px; margin-bottom: 25px;
-  padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1);
-}
+.t-card h2 { font-family: 'Orbitron', sans-serif; font-size: 24px; margin-bottom: 10px; }
+.t-card .entry-fee { font-family: 'Share Tech Mono', monospace; font-size: 16px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); }
 .t-card .prizes { list-style: none; margin-bottom: 25px; text-align: left; }
-.t-card .prizes li { font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; }
+.t-card .prizes li { font-size: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; }
 .t-card .prizes li span { font-weight: bold; }
+.royal-badge { position: absolute; top: 15px; left: 15px; background: var(--yellow); color: #000; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+.coming-soon-badge { position: absolute; top: 15px; right: 15px; background: var(--magenta); color: #fff; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+
+/* Coming Soon Matches */
+.t-card.ff { border-color: var(--red); opacity: 0.8; filter: grayscale(20%); }
+.t-card.ff h2 { color: var(--red); }
+.t-card.ff .prizes li span { color: var(--red); }
+.t-card.ff .btn { background: transparent; border: 1px solid var(--red); color: var(--red); }
+
+.t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
+.t-card.val h2 { color: #ff4655; }
+.t-card.val .prizes li span { color: #ff4655; }
+.t-card.val .btn { background: transparent; border: 1px solid #ff4655; color: #ff4655; }
+
+.t-card.cs { border-color: #e8a825; opacity: 0.8; filter: grayscale(20%); } 
+.t-card.cs h2 { color: #e8a825; }
+.t-card.cs .prizes li span { color: #e8a825; }
+.t-card.cs .btn { background: transparent; border: 1px solid #e8a825; color: #e8a825; }
 
 /* Themes for Tournaments */
-/* 1. Standard (Cyan) */
 .t-card.standard { border-color: var(--cyan); }
 .t-card.standard:hover { box-shadow: 0 15px 30px rgba(0,240,255,0.2); }
 .t-card.standard h2 { color: var(--cyan); }
@@ -274,19 +205,13 @@ select.form-control{ appearance: none; cursor: pointer; }
 .t-card.standard .prizes li span { color: var(--cyan); }
 .t-card.standard .btn { background: linear-gradient(90deg, #001827, var(--cyan)); }
 
-/* 2. Royal (Yellow) */
 .t-card.royal { border-color: var(--yellow); background: linear-gradient(180deg, rgba(255,210,63,0.05), rgba(0,0,0,0.6));}
 .t-card.royal:hover { box-shadow: 0 15px 30px rgba(255,210,63,0.2); }
 .t-card.royal h2 { color: var(--yellow); text-shadow: 0 0 15px rgba(255,210,63,0.5); }
 .t-card.royal .entry-fee { color: var(--yellow); }
 .t-card.royal .prizes li span { color: var(--yellow); }
 .t-card.royal .btn { background: linear-gradient(90deg, var(--orange), var(--yellow)); color: #000; }
-.royal-badge {
-  position: absolute; top: 15px; left: 15px; background: var(--yellow); color: #000;
-  padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
-}
 
-/* 3. TDM 4v4 (Magenta) */
 .t-card.tdm4 { border-color: var(--magenta); }
 .t-card.tdm4:hover { box-shadow: 0 15px 30px rgba(255,43,214,0.2); }
 .t-card.tdm4 h2 { color: var(--magenta); }
@@ -294,7 +219,6 @@ select.form-control{ appearance: none; cursor: pointer; }
 .t-card.tdm4 .prizes li span { color: var(--magenta); }
 .t-card.tdm4 .btn { background: linear-gradient(90deg, #1a001a, var(--magenta)); }
 
-/* 4. TDM 1v1 (Green) */
 .t-card.tdm1 { border-color: var(--green); }
 .t-card.tdm1:hover { box-shadow: 0 15px 30px rgba(57,255,136,0.2); }
 .t-card.tdm1 h2 { color: var(--green); }
@@ -302,7 +226,6 @@ select.form-control{ appearance: none; cursor: pointer; }
 .t-card.tdm1 .prizes li span { color: var(--green); }
 .t-card.tdm1 .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
 
-/* 5. DUO (Orange) */
 .t-card.duo { border-color: var(--orange); }
 .t-card.duo:hover { box-shadow: 0 15px 30px rgba(255,140,0,0.2); }
 .t-card.duo h2 { color: var(--orange); }
@@ -310,75 +233,91 @@ select.form-control{ appearance: none; cursor: pointer; }
 .t-card.duo .prizes li span { color: var(--orange); }
 .t-card.duo .btn { background: linear-gradient(90deg, #261200, var(--orange)); }
 
-
-/* ========== PAYMENT PAGE SPECIFICS ========== */
-.step-guide { margin-bottom: 30px; background: rgba(255,140,0,0.05); padding: 20px; border: 1px solid rgba(255,140,0,0.2); }
-.step-guide h3 { font-family: 'Orbitron', sans-serif; color: var(--yellow); margin-bottom: 15px; font-size: 18px; }
-.step-list { list-style: none; counter-reset: my-counter; }
-.step-list li { counter-increment: my-counter; position: relative; padding-left: 35px; margin-bottom: 15px; color: var(--text); font-size: 16px; }
-.step-list li::before {
-  content: counter(my-counter); position: absolute; left: 0; top: -2px; width: 24px; height: 24px; background: var(--orange); color: #000;
-  font-family: 'Orbitron', sans-serif; font-weight: 900; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;
-}
-.upi-grid{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px; }
-.upi-item{
-  background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px;
-  display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px; transition: all 0.3s;
-}
-.upi-item:hover { border-color: var(--cyan); background: rgba(0,240,255,0.05); }
-.upi-name { color: var(--muted); font-weight: bold;}
-.upi-id { color: var(--green); }
-.copy-btn {
-  background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan);
-  padding: 5px 12px; font-size: 12px; cursor: pointer; transition: 0.3s; text-transform: uppercase;
-}
-.copy-btn:hover { background: var(--cyan); color: #000; }
-.contact-reveal{
-  text-align: center; padding: 15px; background: rgba(255,140,0,0.1);
-  border: 1px dashed var(--orange); margin-bottom: 25px;
-  font-family: 'Orbitron', sans-serif; font-size: 18px;
-}
-.dynamic-price-highlight { color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 20px; font-weight: 900; text-shadow: 0 0 10px rgba(57,255,136,0.5); }
-
 /* Toast Notification */
 #toast {
-  visibility: hidden; min-width: 250px; background-color: var(--green); color: #000;
-  text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 1000;
-  left: 50%; bottom: 30px; transform: translateX(-50%);
-  font-family: 'Orbitron', sans-serif; font-weight: 700;
+  visibility: hidden; min-width: 250px; background-color: var(--green); color: #000; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 1000;
+  left: 50%; bottom: 30px; transform: translateX(-50%); font-family: 'Orbitron', sans-serif; font-weight: 700;
 }
 #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
 @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
-/* ========== SUPPORT PAGE SPECIFICS ========== */
-.support-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-@media(max-width: 850px){ .support-grid { grid-template-columns: 1fr; } }
-.contact-info-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); padding: 30px; margin-bottom: 20px; text-align: center; }
-.contact-info-card h3 { font-family: 'Orbitron', sans-serif; color: var(--cyan); margin-bottom: 10px; }
-.contact-info-card p { font-size: 18px; color: var(--text); font-family: 'Share Tech Mono', monospace; }
-
 /* ========== FOOTER ========== */
 footer {
   margin-top: auto; padding: 40px 30px; background: rgba(5,6,13,0.9);
-  border-top: 1px solid rgba(255,140,0,0.15); text-align: center; position: relative;
-  z-index: 10; backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,140,0,0.15); text-align: center; position: relative; z-index: 10; backdrop-filter: blur(10px);
 }
 .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center; }
 .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; justify-content: center; }
 .footer-links a { color: var(--muted); font-size: 14px; transition: color 0.3s; font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
 .footer-links a:hover { color: var(--cyan); }
 .copyright { color: var(--muted); font-size: 13px; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; margin-top: 10px; }
-.copyright span { color: var(--orange); font-weight: 700; }
+.copyright span { color: var(--orange); font-weight: 700; cursor: pointer; transition: 0.3s;}
+.copyright span:hover { text-shadow: 0 0 10px var(--orange); }
 </style>
 </head>
 <body>
 
-<!-- Backgrounds -->
 <div class="bg-grid"></div>
 <div class="bg-orb orb-1"></div>
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
+
+<!-- Admin Login Modal (Hidden) -->
+<div class="modal-overlay" id="adminLoginModal">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeAdminLogin()">×</button>
+    <div class="modal-title">SYSTEM OVERRIDE</div>
+    <form id="adminLoginForm">
+      <div class="form-group">
+        <label>Admin ID</label>
+        <input type="text" id="adminId" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Passphrase</label>
+        <input type="password" id="adminPass" class="form-control" required>
+      </div>
+      <button type="submit" class="btn" style="background:var(--cyan); color:#000;">Access Command Center</button>
+      <div id="adminError" style="color:var(--red); margin-top:10px; font-size:14px; display:none;">Access Denied. Invalid credentials.</div>
+    </form>
+  </div>
+</div>
+
+<!-- Admin Edit Record Modal -->
+<div class="modal-overlay" id="adminEditModal">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeAdminEdit()">×</button>
+    <div class="modal-title">EDIT REGISTRATION</div>
+    <form id="adminEditForm">
+      <input type="hidden" id="edit-id">
+      <div class="form-group">
+        <label>Player IGN</label>
+        <input type="text" id="edit-ign" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Match Tier / Plan</label>
+        <select id="edit-tier" class="form-control" required>
+          <option value="Standard Match">Standard Match</option>
+          <option value="Royal Match">Royal Match</option>
+          <option value="TDM (4v4 AR)">TDM (4v4 AR)</option>
+          <option value="TDM (1v1 Sniper)">TDM (1v1 Sniper)</option>
+          <option value="DUO Match">DUO Match</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Registration Status</label>
+        <select id="edit-status" class="form-control" required>
+          <option value="Pending">Pending</option>
+          <option value="Verified">Verified</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Kicked Out">Kicked Out</option>
+          <option value="Banned">Banned</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Save Database Changes</button>
+    </form>
+  </div>
+</div>
 
 <!-- Welcome Pop-up Modal -->
 <div class="modal-overlay" id="welcomeModal">
@@ -386,7 +325,7 @@ footer {
     <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
     <div class="modal-text">
       New intense battle modes have been added to the arena! <br><br>
-      Explore the <span class="modal-highlight">Tournaments Tab</span> to jump into the new <span class="modal-highlight">TDM (4v4 & 1v1)</span> or <span class="modal-highlight">DUO Matches</span>. Assemble your squad and claim your UC!
+      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">TDM (4v4 & 1v1)</span> or <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">DUO Matches</span>. Assemble your squad and claim your UC!
     </div>
     <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000;" onclick="closeModal()">Enter The Arena</button>
   </div>
@@ -398,28 +337,28 @@ footer {
   <ul class="nav-links">
     <li><a id="nav-home" class="active" onclick="switchTab('home')">Arena Home</a></li>
     <li><a id="nav-tournaments" onclick="switchTab('tournaments')">Tournaments</a></li>
-    <li><a id="nav-support" onclick="switchTab('support')">Support / Collab</a></li>
+    <li><a id="nav-roster" onclick="switchTab('roster')">Live Roster</a></li>
+    <li><a id="nav-support" onclick="switchTab('support')">Support</a></li>
+    <!-- Admin Nav hidden by default -->
+    <li id="nav-admin-li" style="display:none;"><a id="nav-admin" style="color:var(--magenta);" onclick="switchTab('admin')">Admin Panel</a></li>
   </ul>
 </nav>
 
 <div class="container">
   
   <!-- ==================== HOME PAGE VIEW ==================== -->
-  <div id="home-page">
+  <div id="home-page" class="page-view active">
     <div class="split-layout">
-      <!-- Info Section -->
       <div class="info-section">
         <div class="hero-badge">BATTLEGROUNDS MOBILE INDIA</div>
         <h1>ENTER THE<br><span>KILL ZONE</span></h1>
-        
         <div class="content-card">
           <h4>🔥 THE ULTIMATE PROVING GROUNDS</h4>
           <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community. Whether you are running Solo, Duo, or Squad TDM—we have a battle for you.</p>
         </div>
-
         <div class="content-card" style="border-color: var(--yellow);">
           <h4 style="color: var(--yellow);">🏆 SELECT YOUR TIER</h4>
-          <p style="margin-bottom:10px;">Visit the <strong>Tournaments Tab</strong> to choose your battle:</p>
+          <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for details.</p>
           <ul style="color:var(--muted); margin-left: 20px; font-size:15px; line-height:1.6;">
             <li><strong>Standard Match:</strong> Entry ₹25 | Win 60 UC</li>
             <li><strong>Royal Match:</strong> Entry ₹100 | Win 300 UC</li>
@@ -428,474 +367,565 @@ footer {
             <li><strong>DUO Match:</strong> Entry ₹100/player | Win 300+25 UC</li>
           </ul>
         </div>
-
-        <div class="terms-box">
-          <h4>⚠ STRICT ARENA RULES</h4>
-          <ul class="rules-list">
-            <li><strong>No Hacks:</strong> Use of ESP, aimbots, or third-party plugins results in an instant permanent hardware ban.</li>
-            <li><strong>Registration Mandatory:</strong> Only paid, registered players can join the room.</li>
-            <li><strong>No Refunds:</strong> If you miss the timing or exit the lobby, the entry fee is non-refundable.</li>
-            <li><strong>Match Details:</strong> Room ID & Pass are provided in WhatsApp exactly 1 hour before the match.</li>
-          </ul>
-        </div>
       </div>
 
-      <!-- Registration Form Panel -->
       <div class="panel">
         <div class="panel-header">📝 SECURE YOUR SLOT</div>
         <form id="regForm">
-          
           <div class="form-group">
             <label>Select Match Tier</label>
             <select id="match-tier" class="form-control" required style="border-color:var(--yellow); color:var(--yellow); font-weight:bold;">
-              <option value="standard">Standard Match (Fee: ₹25 | Prize: 60 UC)</option>
-              <option value="royal">Royal Match (Fee: ₹100 | Prize: 300 UC)</option>
-              <option value="tdm-4v4">TDM (4v4 AR) - Fee: ₹100/player | Prize: 120 UC each</option>
-              <option value="tdm-1v1">TDM (1v1 Sniper) - Fee: ₹95 | Prize: 120 UC</option>
-              <option value="duo">DUO Match - Fee: ₹100/player | Prize: 300+25 UC</option>
+              <option value="standard">Standard Match (Fee: ₹25)</option>
+              <option value="royal">Royal Match (Fee: ₹100)</option>
+              <option value="tdm-4v4">TDM (4v4 AR) - Squad Reg</option>
+              <option value="tdm-1v1">TDM (1v1 Sniper) (Fee: ₹95)</option>
+              <option value="duo">DUO Match - Duo Reg</option>
             </select>
           </div>
-
-          <div class="form-group">
-            <label>Player ID (Number)</label>
-            <input type="number" id="pid" class="form-control" required placeholder="e.g. 5123456789">
-          </div>
-          <div class="form-group">
-            <label>In-Game Name (IGN)</label>
-            <input type="text" id="ign" class="form-control" required placeholder="e.g. SoloSlayer99">
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="email" class="form-control" required placeholder="Mandatory for updates">
+          <div class="form-group"><label>Your Player ID</label><input type="number" id="pid" class="form-control" required placeholder="e.g. 5123456789"></div>
+          <div class="form-group"><label>Your IGN</label><input type="text" id="ign" class="form-control" required placeholder="e.g. SoloSlayer99"></div>
+          <div id="dynamic-teammates"></div>
+          <div class="form-group" id="payment-type-group" style="display: none;">
+            <label>How are you paying?</label>
+            <select id="payment-type" class="form-control" style="border-color:var(--cyan); color:var(--cyan); font-weight:bold;"></select>
           </div>
           <div class="form-group">
             <label>Select Time Slot</label>
             <select id="slot" class="form-control" required>
               <option value="" disabled selected>Choose a slot...</option>
-              <option value="Morning">Morning Phase</option>
-              <option value="Afternoon">Afternoon Phase</option>
-              <option value="Evening">Evening Phase</option>
-              <option value="Night">Night Phase</option>
+              <option value="Morning">Morning 9-10</option>
+              <option value="Afternoon">Afternoon 1-2</option>
+              <option value="Evening">Evening 3-4</option>
+              <option value="Night">Night 9-10</option>
             </select>
           </div>
-          <button type="submit" class="btn">Proceed to Payment Details</button>
+          <button type="submit" class="btn">Proceed to Payment</button>
         </form>
       </div>
     </div>
   </div>
 
   <!-- ==================== TOURNAMENTS PAGE VIEW ==================== -->
-  <div id="tournaments-page">
+  <div id="tournaments-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-      <div class="hero-badge" style="border-color:var(--cyan); color:var(--cyan); background:rgba(0,240,255,0.1);">ACTIVE TOURNAMENTS</div>
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px; margin-bottom:15px;">CHOOSE YOUR <span style="color:var(--yellow)">BATTLE</span></h1>
-      <p style="color:var(--muted); font-size:18px;">Select a tier that matches your skill level and risk appetite. Register, grab the Room ID, and dominate the lobby.</p>
+    </div>
+    
+    <div class="tourney-grid">
+      <div class="t-card standard">
+        <h2>STANDARD MATCH</h2><div class="entry-fee">Fee: ₹25 / player</div>
+        <ul class="prizes"><li>1st Place <span>60 UC</span></li></ul>
+        <button class="btn" onclick="selectTournament('standard')">Select & Register</button>
+      </div>
+      <div class="t-card royal">
+        <div class="royal-badge">High Stakes</div>
+        <h2>ROYAL MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes"><li>1st Place <span>300 UC</span></li><li>2nd Place <span>120 UC</span></li></ul>
+        <button class="btn" onclick="selectTournament('royal')">Select & Register</button>
+      </div>
+      <div class="t-card tdm4">
+        <h2>TDM (4v4 AR)</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes"><li>Winning Squad <span>120 UC / player</span></li></ul>
+        <button class="btn" onclick="selectTournament('tdm-4v4')">Select & Register</button>
+      </div>
+      <div class="t-card tdm1">
+        <h2>TDM (1v1 SNIPER)</h2><div class="entry-fee">Fee: ₹95 / player</div>
+        <ul class="prizes"><li>1st Place <span>120 UC</span></li></ul>
+        <button class="btn" onclick="selectTournament('tdm-1v1')">Select & Register</button>
+      </div>
+      <div class="t-card duo">
+        <h2>DUO MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes"><li>1st Place Duo <span>300 + 25 UC</span></li></ul>
+        <button class="btn" onclick="selectTournament('duo')">Select & Register</button>
+      </div>
+    </div>
+
+    <!-- Coming Soon Section -->
+    <div style="text-align: center; margin-top: 80px; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <h2 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--text);">INCOMING <span style="color:var(--magenta)">TRANSMISSIONS</span></h2>
+      <p style="color:var(--muted); font-size:16px;">New battlegrounds are being prepped. Get ready for the next wave of tournaments.</p>
     </div>
 
     <div class="tourney-grid">
-      
-      <!-- Standard Match -->
-      <div class="t-card standard">
-        <h2>STANDARD MATCH</h2>
-        <div class="entry-fee">Fee: ₹25 / player</div>
-        <ul class="prizes">
-          <li>1st Place (Winner) <span>60 UC</span></li>
-          <li style="color:var(--muted); font-size:14px;">2nd Place <span>-</span></li>
-        </ul>
-        <button class="btn" onclick="selectTournament('standard')">Select & Register</button>
+      <div class="t-card ff">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <h2>FREE FIRE (MOBILE)</h2>
+        <div class="entry-fee">Fee: TBA</div>
+        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Preparing Lobbies</span></li></ul>
+        <button class="btn" onclick="alert('Free Fire tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
       </div>
 
-      <!-- Royal Match -->
-      <div class="t-card royal">
-        <div class="royal-badge">High Stakes</div>
-        <h2>ROYAL MATCH</h2>
-        <div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes">
-          <li>1st Place (Winner) <span>300 UC</span></li>
-          <li>2nd Place (Runner up) <span>120 UC</span></li>
-        </ul>
-        <button class="btn" onclick="selectTournament('royal')">Select & Register</button>
+      <div class="t-card val">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <h2>VALORANT (PC)</h2>
+        <div class="entry-fee">Fee: TBA</div>
+        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
+        <button class="btn" onclick="alert('Valorant PC tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
       </div>
 
-      <!-- TDM 4v4 AR -->
-      <div class="t-card tdm4">
-        <h2>TDM (4v4 AR)</h2>
-        <div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes">
-          <li>Winning Squad <span>120 UC / player</span></li>
-          <li style="color:var(--muted); font-size:14px;">Total Squad Payout <span>480 UC</span></li>
-        </ul>
-        <button class="btn" onclick="selectTournament('tdm-4v4')">Select & Register</button>
+      <div class="t-card cs">
+        <div class="coming-soon-badge">Coming Soon</div>
+        <h2>COUNTER STRIKE (PC)</h2>
+        <div class="entry-fee">Fee: TBA</div>
+        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
+        <button class="btn" onclick="alert('Counter Strike PC tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
       </div>
-
-      <!-- TDM 1v1 Sniper -->
-      <div class="t-card tdm1">
-        <h2>TDM (1v1 SNIPER)</h2>
-        <div class="entry-fee">Fee: ₹95 / player</div>
-        <ul class="prizes">
-          <li>1st Place (Winner) <span>120 UC</span></li>
-          <li style="color:var(--muted); font-size:14px;">Loser <span>-</span></li>
-        </ul>
-        <button class="btn" onclick="selectTournament('tdm-1v1')">Select & Register</button>
-      </div>
-
-      <!-- DUO Match -->
-      <div class="t-card duo">
-        <h2>DUO MATCH</h2>
-        <div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes">
-          <li>1st Place Duo <span>300 + 25 UC</span></li>
-          <li style="color:var(--muted); font-size:14px;">Survival is Key <span>Partner up</span></li>
-        </ul>
-        <button class="btn" onclick="selectTournament('duo')">Select & Register</button>
-      </div>
-
     </div>
   </div>
 
+  <!-- ==================== PUBLIC ROSTER PAGE VIEW ==================== -->
+  <div id="roster-page" class="page-view">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
+      <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">LIVE <span style="color:var(--green)">ROSTER</span></h1>
+      <p style="color:var(--muted); font-size:16px;">View all active registrations. Only verified players will receive Room IDs.</p>
+    </div>
+    <div class="table-wrapper">
+      <table id="public-roster-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Player (IGN)</th>
+            <th>Match Tier</th>
+            <th>Registration Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+    <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.</p>
+  </div>
+
   <!-- ==================== PAYMENT PAGE VIEW ==================== -->
-  <div id="payment-page">
-    <div class="panel payment-panel-wrapper">
-      <div class="panel-header">💳 COMPLETE YOUR REGISTRATION</div>
-      
-      <div class="step-guide">
-        <h3>PAYMENT PROCESS (Amount: <span id="display-fee" class="dynamic-price-highlight">₹25</span>)</h3>
-        <ul class="step-list">
-          <li><strong>Copy a UPI ID:</strong> Click the "Copy" button next to your preferred method below.</li>
-          <li><strong>Make the Payment:</strong> Open GPay, PhonePe, Paytm, or CRED, paste the UPI ID, and pay exactly <strong id="display-fee-2" class="dynamic-price-highlight">₹25</strong>.</li>
-          <li><strong>Note the Transaction ID:</strong> Copy the 12-digit UTR or Transaction ID.</li>
-          <li><strong>Submit & Join WhatsApp:</strong> Enter your Transaction ID below. This will open our WhatsApp where you must send your screenshot to get the Room ID!</li>
-        </ul>
+  <div id="payment-page" class="page-view">
+    <div class="panel" style="max-width: 800px; margin: 0 auto; border-color:var(--orange);">
+      <div class="panel-header" style="color:var(--orange);">💳 COMPLETE YOUR REGISTRATION</div>
+      <div style="background: rgba(255,140,0,0.05); padding: 20px; border: 1px solid rgba(255,140,0,0.2); margin-bottom:25px;">
+        <h3 style="font-family: 'Orbitron', sans-serif; color: var(--yellow); margin-bottom: 15px; font-size: 18px;">PAY EXACTLY: <span id="display-fee" style="color:var(--green);">₹0</span></h3>
+        <p style="color:var(--muted);">Copy a UPI ID, make the payment, enter your Transaction UTR below, and click Submit to send your screenshot via WhatsApp.</p>
       </div>
-
-      <!-- Hidden Mobile Number revealed here -->
-      <div class="contact-reveal">
-        <span style="color:var(--muted); font-size:14px; display:block; margin-bottom:5px;">OFFICIAL GPAY / PHONEPE NUMBER</span>
-        📞 <strong>7676808068</strong>
-      </div>
-
-      <div class="upi-grid">
-        <div class="upi-item">
-          <div><span class="upi-name">Google Pay:</span> <span class="upi-id">samifarhan64@oksbi</span></div>
-          <button type="button" class="copy-btn" onclick="copyUPI('samifarhan64@oksbi')">Copy ID</button>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px;">
+        <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
+          <div><span style="color:var(--muted); font-weight:bold;">GPay/PhonePe Number:</span> <span style="color:var(--green);">7676808068</span></div>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068')">Copy</button>
         </div>
-        <div class="upi-item">
-          <div><span class="upi-name">PhonePe:</span> <span class="upi-id">farhansami@ybl</span></div>
-          <button type="button" class="copy-btn" onclick="copyUPI('farhansami@ybl')">Copy ID</button>
+        <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
+          <div><span style="color:var(--muted); font-weight:bold;">Navi UPI:</span> <span style="color:var(--green);">7676808068@nyes</span></div>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@nyes')">Copy</button>
         </div>
-        <div class="upi-item">
-          <div><span class="upi-name">Navi:</span> <span class="upi-id">7676808068@nyes</span></div>
-          <button type="button" class="copy-btn" onclick="copyUPI('7676808068@nyes')">Copy ID</button>
+        <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
+          <div><span style="color:var(--muted); font-weight:bold;">CRED Pay:</span> <span style="color:var(--green);">7676808068@yescred</span></div>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@yescred')">Copy</button>
         </div>
-        <div class="upi-item">
-          <div><span class="upi-name">CRED Pay:</span> <span class="upi-id">7676808068@yescred</span></div>
-          <button type="button" class="copy-btn" onclick="copyUPI('7676808068@yescred')">Copy ID</button>
-        </div>
-        <div class="upi-item">
-          <div><span class="upi-name">Paytm:</span> <span class="upi-id">7676808068@ptsbi</span></div>
-          <button type="button" class="copy-btn" onclick="copyUPI('7676808068@ptsbi')">Copy ID</button>
+        <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
+          <div><span style="color:var(--muted); font-weight:bold;">Paytm:</span> <span style="color:var(--green);">7676808068@ptsbi</span></div>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@ptsbi')">Copy</button>
         </div>
       </div>
-
       <form id="paymentForm">
-        <div class="form-group" style="margin-top: 30px;">
-          <label>Enter Transaction ID / UTR Number</label>
-          <input type="text" id="utr" class="form-control" required placeholder="Paste the 12-digit UTR here">
+        <div class="form-group">
+          <label>Enter 12-Digit Transaction ID (UTR)</label>
+          <input type="text" id="utr" class="form-control" required>
         </div>
-
         <button type="submit" class="btn btn-whatsapp">Send Screenshot on WhatsApp 💬</button>
-        <button type="button" class="btn" id="backBtn" style="background:transparent; border:1px solid var(--muted); color:var(--muted); margin-top:15px;">⬅ Back to Edit Details</button>
+        <button type="button" class="btn" style="background:transparent; border:1px solid var(--muted); color:var(--muted);" onclick="switchTab('home')">⬅ Cancel & Edit Form</button>
       </form>
     </div>
   </div>
 
-  <!-- ==================== SUPPORT & COLLAB PAGE VIEW ==================== -->
-  <div id="support-page">
-    <div class="support-grid">
-      
-      <!-- Support Info -->
-      <div>
-        <h1 style="font-family:'Orbitron',sans-serif; font-size:40px; margin-bottom: 20px;">COMMAND <span style="color:var(--cyan)">CENTER</span></h1>
-        <p style="color:var(--muted); font-size:18px; margin-bottom:40px; line-height:1.6;">
-          Experiencing issues with your slot? Didn't receive your Room ID? Or are you a streamer/brand looking to collaborate and host official tournaments with us? Send us a direct transmission.
-        </p>
-
-        <div class="contact-info-card">
-          <h3>📧 DIRECT EMAIL</h3>
-          <p>farhanulla.shaik@gmail.com</p>
-        </div>
-        
-        <div class="contact-info-card">
-          <h3>📱 WHATSAPP SUPPORT</h3>
-          <p>+91 7676808068</p>
-        </div>
-      </div>
-
-      <!-- Support Form (Mailto Trigger) -->
-      <div class="panel">
-        <div class="panel-header">📡 SEND TRANSMISSION</div>
-        <form id="supportForm">
-          <div class="form-group">
-            <label>Your Name / IGN</label>
-            <input type="text" id="sup-name" class="form-control" required placeholder="Who are we speaking with?">
-          </div>
-          
-          <div class="form-group">
-            <label>Inquiry Type</label>
-            <select id="sup-type" class="form-control" required>
-              <option value="Registration Issue">Registration / Payment Issue</option>
-              <option value="Prize Claim">Prize Claim Issue</option>
-              <option value="Report Player">Report a Hacker / Cheater</option>
-              <option value="Collaboration">Partnership / Collaboration</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Message</label>
-            <textarea id="sup-msg" class="form-control" required placeholder="Describe your issue or proposal in detail..."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-outline">Initialize Email Client ✉</button>
-          <p style="color:var(--muted); font-size:12px; margin-top:15px; text-align:center;">
-            *Clicking this will securely open your device's default email app (Gmail/Outlook) with your message pre-filled.
-          </p>
-        </form>
-      </div>
-
+  <!-- ==================== ADMIN DASHBOARD VIEW ==================== -->
+  <div id="admin-page" class="page-view">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+      <h1 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--magenta);">COMMAND <span style="color:#fff;">CENTER</span></h1>
+      <button class="btn-outline" style="width:auto; padding:10px 20px;" onclick="adminLogout()">Logout</button>
+    </div>
+    
+    <div class="table-wrapper">
+      <table id="admin-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Player IGN</th>
+            <th>Match Tier</th>
+            <th>Amount</th>
+            <th>UTR</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
     </div>
   </div>
 
-</div>
+</div> <!-- End Container -->
 
 <!-- ==================== FOOTER ==================== -->
 <footer>
   <div class="footer-content">
-    <div class="logo" style="font-size: 20px; cursor: pointer;" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
+    <div class="logo" style="font-size: 20px;" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
     <ul class="footer-links">
       <li><a href="#" onclick="switchTab('home')">Home</a></li>
       <li><a href="#" onclick="switchTab('tournaments')">Tournaments</a></li>
+      <li><a href="#" onclick="switchTab('roster')">Live Roster</a></li>
       <li><a href="#" onclick="switchTab('support')">Contact & Support</a></li>
     </ul>
     <div class="copyright">
-      &copy; 2026 <span>ElavteX</span>. All Rights Reserved. <br>
-      <small style="color:var(--muted); font-size:11px;">BGMI is a registered trademark of Krafton. This platform is not officially affiliated with Krafton.</small>
+      <!-- SECRET ADMIN LOGIN TRIGGER -->
+      &copy; 2026 <span onclick="openAdminLogin()">ElavteX</span>. All Rights Reserved. <br>
+      <small style="color:var(--muted); font-size:11px;">BGMI and other game titles are registered trademarks of their respective owners.</small>
     </div>
   </div>
 </footer>
 
-<!-- Toast Notification Element -->
-<div id="toast">UPI ID Copied!</div>
+<div id="toast">Copied!</div>
 
 <script>
 /* ========== MODAL LOGIC ========== */
 window.addEventListener('load', () => {
-  // Show the modal 1 second after page load
   setTimeout(() => {
     document.getElementById('welcomeModal').classList.add('show');
   }, 1000);
 });
-
 function closeModal() {
   document.getElementById('welcomeModal').classList.remove('show');
 }
 
+/* ========== DATABASE SIMULATION (Local Storage) ========== */
+function getDatabase() {
+  const data = localStorage.getItem('soloPlayRegistrations');
+  return data ? JSON.parse(data) : [];
+}
+function saveDatabase(dataArray) {
+  localStorage.setItem('soloPlayRegistrations', JSON.stringify(dataArray));
+}
+
 /* ========== TAB NAVIGATION LOGIC ========== */
-const homePage = document.getElementById('home-page');
-const tournamentsPage = document.getElementById('tournaments-page');
-const paymentPage = document.getElementById('payment-page');
-const supportPage = document.getElementById('support-page');
-const navHome = document.getElementById('nav-home');
-const navTournaments = document.getElementById('nav-tournaments');
-const navSupport = document.getElementById('nav-support');
-
-function switchTab(tab) {
-  // Reset visibility
-  homePage.style.display = 'none';
-  tournamentsPage.style.display = 'none';
-  paymentPage.style.display = 'none';
-  supportPage.style.display = 'none';
-  
-  // Reset nav active states
-  navHome.classList.remove('active');
-  navTournaments.classList.remove('active');
-  navSupport.classList.remove('active');
-
-  // Show selected
-  if(tab === 'home') {
-    homePage.style.display = 'block';
-    navHome.classList.add('active');
-  } else if (tab === 'tournaments') {
-    tournamentsPage.style.display = 'block';
-    navTournaments.classList.add('active');
-  } else if (tab === 'support') {
-    supportPage.style.display = 'block';
-    navSupport.classList.add('active');
+const pages = ['home', 'tournaments', 'roster', 'support', 'payment', 'admin'];
+function switchTab(target) {
+  if(target === 'admin' && sessionStorage.getItem('isAdmin') !== 'true') {
+    openAdminLogin();
+    return;
   }
+
+  pages.forEach(page => {
+    const el = document.getElementById(page + '-page');
+    if(el) el.classList.remove('active');
+    
+    const navEl = document.getElementById('nav-' + page);
+    if(navEl) navEl.classList.remove('active');
+  });
+
+  const targetEl = document.getElementById(target + '-page');
+  if(targetEl) targetEl.classList.add('active');
+  
+  const targetNav = document.getElementById('nav-' + target);
+  if(targetNav) targetNav.classList.add('active');
+
+  if(target === 'roster') loadPublicRoster();
+  if(target === 'admin') loadAdminDashboard();
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ========== TOURNAMENT SELECTION FROM CARDS ========== */
 function selectTournament(tier) {
-  // Auto-select the dropdown in the registration form
   const dropdown = document.getElementById('match-tier');
   dropdown.value = tier;
-  
-  // Switch to home page where the form is
+  dropdown.dispatchEvent(new Event('change'));
   switchTab('home');
 }
 
-/* ========== REGISTRATION / DYNAMIC PAYMENT LOGIC ========== */
-const regForm = document.getElementById('regForm');
-const paymentForm = document.getElementById('paymentForm');
-const backBtn = document.getElementById('backBtn');
-
-let currentFee = 25;
-let currentTierName = "Standard Match";
-
-// Proceed to payment page
-regForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  
-  // Check which tier is selected to update pricing dynamically
-  const selectedTier = document.getElementById('match-tier').value;
-  if(selectedTier === 'royal') {
-    currentFee = 100;
-    currentTierName = "Royal Match";
-  } else if (selectedTier === 'tdm-4v4') {
-    currentFee = 100;
-    currentTierName = "TDM (4v4 AR)";
-  } else if (selectedTier === 'tdm-1v1') {
-    currentFee = 95;
-    currentTierName = "TDM (1v1 Sniper)";
-  } else if (selectedTier === 'duo') {
-    currentFee = 100;
-    currentTierName = "DUO Match";
+/* ========== ADMIN LOGIN LOGIC ========== */
+function openAdminLogin() {
+  if(sessionStorage.getItem('isAdmin') === 'true') {
+    switchTab('admin');
   } else {
-    currentFee = 25;
-    currentTierName = "Standard Match";
+    document.getElementById('adminLoginModal').classList.add('show');
+  }
+}
+function closeAdminLogin() {
+  document.getElementById('adminLoginModal').classList.remove('show');
+  document.getElementById('adminError').style.display = 'none';
+}
+
+document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = document.getElementById('adminId').value;
+  const pass = document.getElementById('adminPass').value;
+  
+  // SECURE CREDENTIALS
+  if(id === "Farhan" && pass === "web solutions") {
+    sessionStorage.setItem('isAdmin', 'true');
+    document.getElementById('nav-admin-li').style.display = 'block';
+    closeAdminLogin();
+    switchTab('admin');
+  } else {
+    document.getElementById('adminError').style.display = 'block';
+  }
+});
+
+function adminLogout() {
+  sessionStorage.removeItem('isAdmin');
+  document.getElementById('nav-admin-li').style.display = 'none';
+  switchTab('home');
+}
+
+/* ========== DYNAMIC FORM LOGIC ========== */
+const matchTierSelect = document.getElementById('match-tier');
+const dynamicTeammates = document.getElementById('dynamic-teammates');
+const paymentTypeGroup = document.getElementById('payment-type-group');
+const paymentTypeSelect = document.getElementById('payment-type');
+
+matchTierSelect.addEventListener('change', (e) => {
+  const val = e.target.value;
+  if (val === 'tdm-4v4') {
+    dynamicTeammates.innerHTML = `
+      <div class="team-members-box">
+        <h5>👥 SQUAD DETAILS</h5>
+        <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
+        <div class="form-group"><input type="text" id="p3" class="form-control" placeholder="Player 3 (IGN - ID)" required></div>
+        <div class="form-group"><input type="text" id="p4" class="form-control" placeholder="Player 4 (IGN - ID)" required></div>
+      </div>
+    `;
+    paymentTypeGroup.style.display = 'block';
+    paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="400">Pay Full Squad (₹400)</option>`;
+  } else if (val === 'duo') {
+    dynamicTeammates.innerHTML = `
+      <div class="team-members-box">
+        <h5>👥 DUO PARTNER</h5>
+        <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
+      </div>
+    `;
+    paymentTypeGroup.style.display = 'block';
+    paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="200">Pay Full Duo (₹200)</option>`;
+  } else {
+    dynamicTeammates.innerHTML = '';
+    paymentTypeGroup.style.display = 'none';
+  }
+});
+
+/* ========== REGISTRATION FLOW ========== */
+let currentRegistration = {};
+let teamDetailsText = "";
+let paymentTypeText = "";
+
+document.getElementById('regForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const tierVal = matchTierSelect.value;
+  let fee = 25, tierName = "Standard Match";
+  let mates = [];
+  teamDetailsText = "";
+  paymentTypeText = "";
+
+  if(tierVal === 'royal') { fee = 100; tierName = "Royal Match"; }
+  else if(tierVal === 'tdm-1v1') { fee = 95; tierName = "TDM (1v1 Sniper)"; }
+  else if(tierVal === 'tdm-4v4') { 
+    fee = parseInt(paymentTypeSelect.value); tierName = "TDM (4v4 AR)"; 
+    paymentTypeText = paymentTypeSelect.options[paymentTypeSelect.selectedIndex].text;
+    mates = [document.getElementById('p2').value, document.getElementById('p3').value, document.getElementById('p4').value];
+    teamDetailsText += `%0A*P2 Details:* ${mates[0]}%0A*P3 Details:* ${mates[1]}%0A*P4 Details:* ${mates[2]}`;
+  }
+  else if(tierVal === 'duo') {
+    fee = parseInt(paymentTypeSelect.value); tierName = "DUO Match";
+    paymentTypeText = paymentTypeSelect.options[paymentTypeSelect.selectedIndex].text;
+    mates = [document.getElementById('p2').value];
+    teamDetailsText += `%0A*P2 Details:* ${mates[0]}`;
+  }
+
+  currentRegistration = {
+    id: 'REG-' + Math.floor(Math.random() * 1000000),
+    date: new Date().toLocaleDateString(),
+    timestamp: new Date().getTime(),
+    ign: document.getElementById('ign').value,
+    pid: document.getElementById('pid').value,
+    tier: tierName,
+    amount: fee,
+    teammates: mates,
+    status: 'Pending'
+  };
+
+  document.getElementById('display-fee').innerText = `₹${fee}`;
+  switchTab('payment');
+});
+
+// Finalize Payment / Save to DB
+document.getElementById('paymentForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const utr = document.getElementById('utr').value;
+  currentRegistration.utr = utr;
+
+  // Save to Database (Local Storage)
+  const db = getDatabase();
+  db.push(currentRegistration);
+  saveDatabase(db);
+
+  // Format WhatsApp Message
+  let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
+  if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
+  msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}`;
+  if(teamDetailsText !== "") { msg += teamDetailsText; }
+  msg += `%0A*UTR:* ${utr}%0A%0APlease check my screenshot and verify!`;
+  
+  window.open(`https://wa.me/917676808068?text=${msg}`, '_blank');
+  
+  // Reset and Redirect
+  document.getElementById('regForm').reset();
+  document.getElementById('paymentForm').reset();
+  document.getElementById('dynamic-teammates').innerHTML = '';
+  document.getElementById('payment-type-group').style.display = 'none';
+  switchTab('roster'); 
+});
+
+/* ========== STATUS UI MAPPER ========== */
+function getStatusClass(status) {
+  if (status === 'Verified') return 'status-verified';
+  if (status === 'Cancelled') return 'status-cancelled';
+  if (status === 'Kicked Out') return 'status-kickedout';
+  if (status === 'Banned') return 'status-banned';
+  return 'status-pending';
+}
+
+/* ========== PUBLIC ROSTER DATA RENDER ========== */
+function loadPublicRoster() {
+  const db = getDatabase();
+  const tbody = document.querySelector('#public-roster-table tbody');
+  tbody.innerHTML = '';
+  
+  if(db.length === 0) {
+    document.getElementById('no-roster-msg').style.display = 'block';
+    document.getElementById('public-roster-table').style.display = 'none';
+    return;
   }
   
-  // Update UI texts on the payment page dynamically
-  document.getElementById('display-fee').innerText = `₹${currentFee}`;
-  document.getElementById('display-fee-2').innerText = `₹${currentFee}`;
+  document.getElementById('no-roster-msg').style.display = 'none';
+  document.getElementById('public-roster-table').style.display = 'table';
 
-  // Hide home, show payment
-  homePage.style.display = 'none';
-  paymentPage.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// Back to registration
-backBtn.addEventListener('click', () => {
-  paymentPage.style.display = 'none';
-  homePage.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-/* ========== COPY UPI FUNCTION ========== */
-function copyUPI(upiID) {
-  navigator.clipboard.writeText(upiID).then(() => {
-    const toast = document.getElementById("toast");
-    toast.innerText = "Copied: " + upiID;
-    toast.className = "show";
-    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+  db.sort((a,b) => b.timestamp - a.timestamp).forEach(reg => {
+    let statusClass = getStatusClass(reg.status);
+    tbody.innerHTML += `
+      <tr>
+        <td>${reg.date}</td>
+        <td style="font-weight:bold;">${reg.ign}</td>
+        <td style="color:var(--yellow);">${reg.tier}</td>
+        <td><span class="status-badge ${statusClass}">${reg.status}</span></td>
+      </tr>
+    `;
   });
 }
 
-/* ========== WHATSAPP SUBMISSION ========== */
-paymentForm.addEventListener('submit', (e) => {
+/* ========== ADMIN DASHBOARD LOGIC ========== */
+function loadAdminDashboard() {
+  const db = getDatabase();
+  const tbody = document.querySelector('#admin-table tbody');
+  tbody.innerHTML = '';
+  
+  db.sort((a,b) => b.timestamp - a.timestamp).forEach(reg => {
+    let statusClass = getStatusClass(reg.status);
+    tbody.innerHTML += `
+      <tr>
+        <td>${reg.date}</td>
+        <td style="font-weight:bold; color:var(--cyan);">${reg.ign}</td>
+        <td>${reg.tier}</td>
+        <td>₹${reg.amount}</td>
+        <td style="font-family:monospace;">${reg.utr}</td>
+        <td><span class="status-badge ${statusClass}">${reg.status}</span></td>
+        <td>
+          <button class="admin-action-btn" onclick="openAdminEdit('${reg.id}')">Edit</button>
+          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.id}')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+function deleteRecord(id) {
+  if(confirm("Are you sure you want to delete this registration?")) {
+    let db = getDatabase();
+    db = db.filter(r => r.id !== id);
+    saveDatabase(db);
+    loadAdminDashboard();
+  }
+}
+
+function openAdminEdit(id) {
+  const db = getDatabase();
+  const record = db.find(r => r.id === id);
+  if(record) {
+    document.getElementById('edit-id').value = record.id;
+    document.getElementById('edit-ign').value = record.ign;
+    document.getElementById('edit-tier').value = record.tier;
+    document.getElementById('edit-status').value = record.status;
+    document.getElementById('adminEditModal').classList.add('show');
+  }
+}
+function closeAdminEdit() {
+  document.getElementById('adminEditModal').classList.remove('show');
+}
+
+document.getElementById('adminEditForm').addEventListener('submit', (e) => {
   e.preventDefault();
+  const id = document.getElementById('edit-id').value;
+  let db = getDatabase();
   
-  const ign = document.getElementById('ign').value;
-  const pid = document.getElementById('pid').value;
-  const slot = document.getElementById('slot').value;
-  const utr = document.getElementById('utr').value;
-  
-  const message = `Hello Solo Play! 🎮%0A%0AI have completed my ₹${currentFee} registration payment. Here are my details:%0A%0A*Match Tier:* ${currentTierName}%0A*IGN:* ${ign}%0A*Player ID:* ${pid}%0A*Selected Slot:* ${slot}%0A*Transaction UTR:* ${utr}%0A%0APlease check the attached payment screenshot and provide the Room ID.`;
-  
-  window.open(`https://wa.me/917676808068?text=${message}`, '_blank');
-  
-  setTimeout(() => {
-    regForm.reset();
-    paymentForm.reset();
-    switchTab('home');
-  }, 2000);
+  const index = db.findIndex(r => r.id === id);
+  if(index !== -1) {
+    db[index].ign = document.getElementById('edit-ign').value;
+    db[index].tier = document.getElementById('edit-tier').value;
+    db[index].status = document.getElementById('edit-status').value;
+    saveDatabase(db);
+    closeAdminEdit();
+    loadAdminDashboard();
+  }
 });
 
 /* ========== SUPPORT EMAIL TRIGGER ========== */
 document.getElementById('supportForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  
   const name = document.getElementById('sup-name').value;
   const type = document.getElementById('sup-type').value;
   const msg = document.getElementById('sup-msg').value;
-  
   const targetEmail = "farhanulla.shaik@gmail.com";
   const subject = `[Solo Play Arena] - ${type} - From ${name}`;
   const body = `Sender Name / IGN: ${name}\nInquiry Type: ${type}\n\nMessage:\n${msg}\n\n-------------------------\n(Please reply directly to this email)`;
-  
   window.location.href = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
-/* ========== PARTICLES ANIMATION ========== */
+/* ========== UTILS ========== */
+function copyUPI(upiID) {
+  navigator.clipboard.writeText(upiID).then(() => {
+    const toast = document.getElementById("toast");
+    toast.className = "show";
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+  });
+}
+
+// Initial Load Check for Admin Status
+if(sessionStorage.getItem('isAdmin') === 'true') {
+  document.getElementById('nav-admin-li').style.display = 'block';
+}
+
+/* ========== PARTICLES (Background) ========== */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let w, h, particles = [];
-
-function resize(){
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize',resize);
-
+function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize',resize);
 function initParticles(){
   particles = [];
   const count = Math.min(60, Math.floor(w*h/20000));
-  for(let i=0;i<count;i++){
-    particles.push({
-      x: Math.random()*w,
-      y: Math.random()*h,
-      vx: (Math.random()-.5)*.5,
-      vy: (Math.random()-.5)*.5,
-      r: Math.random()*1.5 + 0.5,
-      c: Math.random() > .5 ? '255,140,0' : '0,240,255'
-    });
-  }
+  for(let i=0;i<count;i++){ particles.push({ x: Math.random()*w, y: Math.random()*h, vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5, r: Math.random()*1.5 + 0.5, c: Math.random() > .5 ? '255,140,0' : '0,240,255' }); }
 }
 initParticles();
-
 function animate(){
   ctx.clearRect(0,0,w,h);
   particles.forEach(p=>{
     p.x += p.vx; p.y += p.vy;
-    if(p.x<0||p.x>w) p.vx*=-1;
-    if(p.y<0||p.y>h) p.vy*=-1;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(${p.c},.7)`;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = `rgba(${p.c},.8)`;
-    ctx.fill();
+    if(p.x<0||p.x>w) p.vx*=-1; if(p.y<0||p.y>h) p.vy*=-1;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle = `rgba(${p.c},.7)`; ctx.fill();
   });
-  
-  ctx.shadowBlur = 0;
-  for(let i=0;i<particles.length;i++){
-    for(let j=i+1;j<particles.length;j++){
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d = Math.sqrt(dx*dx+dy*dy);
-      if(d < 120){
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x,particles[i].y);
-        ctx.lineTo(particles[j].x,particles[j].y);
-        ctx.strokeStyle = `rgba(255,140,0,${(1-d/120)*.15})`;
-        ctx.lineWidth = .5;
-        ctx.stroke();
-      }
-    }
-  }
   requestAnimationFrame(animate);
 }
 animate();
