@@ -181,22 +181,6 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .royal-badge { position: absolute; top: 15px; left: 15px; background: var(--yellow); color: #000; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
 .coming-soon-badge { position: absolute; top: 15px; right: 15px; background: var(--magenta); color: #fff; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
 
-/* Coming Soon Matches */
-.t-card.ff { border-color: var(--red); opacity: 0.8; filter: grayscale(20%); }
-.t-card.ff h2 { color: var(--red); }
-.t-card.ff .prizes li span { color: var(--red); }
-.t-card.ff .btn { background: transparent; border: 1px solid var(--red); color: var(--red); }
-
-.t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
-.t-card.val h2 { color: #ff4655; }
-.t-card.val .prizes li span { color: #ff4655; }
-.t-card.val .btn { background: transparent; border: 1px solid #ff4655; color: #ff4655; }
-
-.t-card.cs { border-color: #e8a825; opacity: 0.8; filter: grayscale(20%); } 
-.t-card.cs h2 { color: #e8a825; }
-.t-card.cs .prizes li span { color: #e8a825; }
-.t-card.cs .btn { background: transparent; border: 1px solid #e8a825; color: #e8a825; }
-
 /* Themes for Tournaments */
 .t-card.standard { border-color: var(--cyan); }
 .t-card.standard:hover { box-shadow: 0 15px 30px rgba(0,240,255,0.2); }
@@ -232,6 +216,22 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .t-card.duo .entry-fee { color: var(--muted); }
 .t-card.duo .prizes li span { color: var(--orange); }
 .t-card.duo .btn { background: linear-gradient(90deg, #261200, var(--orange)); }
+
+/* Coming Soon matches */
+.t-card.ff { border-color: var(--red); opacity: 0.8; filter: grayscale(20%); }
+.t-card.ff h2 { color: var(--red); }
+.t-card.ff .prizes li span { color: var(--red); }
+.t-card.ff .btn { background: transparent; border: 1px solid var(--red); color: var(--red); }
+
+.t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
+.t-card.val h2 { color: #ff4655; }
+.t-card.val .prizes li span { color: #ff4655; }
+.t-card.val .btn { background: transparent; border: 1px solid #ff4655; color: #ff4655; }
+
+.t-card.cs { border-color: #e8a825; opacity: 0.8; filter: grayscale(20%); } 
+.t-card.cs h2 { color: #e8a825; }
+.t-card.cs .prizes li span { color: #e8a825; }
+.t-card.cs .btn { background: transparent; border: 1px solid #e8a825; color: #e8a825; }
 
 /* Toast Notification */
 #toast {
@@ -323,11 +323,14 @@ footer {
 <div class="modal-overlay" id="welcomeModal">
   <div class="modal-box">
     <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
-    <div class="modal-text">
+    <div class="modal-text" style="margin-bottom: 10px;">
       New intense battle modes have been added to the arena! <br><br>
       Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">TDM (4v4 & 1v1)</span> or <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">DUO Matches</span>. Assemble your squad and claim your UC!
     </div>
-    <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000;" onclick="closeModal()">Enter The Arena</button>
+    <div style="display: flex; gap: 15px; margin-top: 20px;">
+      <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000; margin-top:0;" onclick="goToTournaments()">Enter The Arena</button>
+      <button class="btn btn-outline" style="margin-top:0;" onclick="closeModal()">Explore Home</button>
+    </div>
   </div>
 </div>
 
@@ -497,6 +500,42 @@ footer {
     <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.</p>
   </div>
 
+  <!-- ==================== SUPPORT PAGE VIEW ==================== -->
+  <div id="support-page" class="page-view">
+    <div class="panel" style="max-width: 700px; margin: 0 auto; border-color:var(--cyan);">
+      <div class="panel-header">✉ CONTACT SUPPORT & COLLAB</div>
+      <p style="color:var(--muted); font-size:15px; margin-bottom: 25px;">Use the form below to reach out for payment issues, general inquiries, or partnership opportunities. You can choose to contact us via WhatsApp or Email.</p>
+      
+      <form id="contactForm">
+        <div class="form-group">
+          <label>Your Name / IGN</label>
+          <input type="text" id="contactName" class="form-control" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label>Inquiry Type</label>
+          <select id="contactType" class="form-control" required>
+            <option value="General Support">General Support</option>
+            <option value="Payment Issue">Payment Issue</option>
+            <option value="Collaboration">Collaboration / Sponsor</option>
+            <option value="Bug Report">Report a Bug</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="contactMessage" class="form-control" placeholder="How can we help?" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Send Via</label>
+          <select id="contactMethod" class="form-control" required style="border-color:var(--orange); color:var(--orange); font-weight:bold;">
+            <option value="whatsapp">💬 Send via WhatsApp</option>
+            <option value="email">📧 Send via Email</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Transmit Message</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ==================== PAYMENT PAGE VIEW ==================== -->
   <div id="payment-page" class="page-view">
     <div class="panel" style="max-width: 800px; margin: 0 auto; border-color:var(--orange);">
@@ -539,6 +578,36 @@ footer {
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--magenta);">COMMAND <span style="color:#fff;">CENTER</span></h1>
       <button class="btn-outline" style="width:auto; padding:10px 20px;" onclick="adminLogout()">Logout</button>
+    </div>
+
+    <!-- Manual Player Add Section -->
+    <div class="panel" style="margin-bottom: 30px; border-color:var(--green); padding: 25px;">
+      <h3 style="font-family:'Orbitron',sans-serif; color:var(--green); margin-bottom:15px; font-size:18px;">➕ MANUAL PLAYER ADD</h3>
+      <form id="adminAddForm" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:200px;">
+          <label>Player IGN</label>
+          <input type="text" id="manual-ign" class="form-control" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:200px;">
+          <label>Match Tier</label>
+          <select id="manual-tier" class="form-control" required>
+            <option value="Standard Match">Standard Match</option>
+            <option value="Royal Match">Royal Match</option>
+            <option value="TDM (4v4 AR)">TDM (4v4 AR)</option>
+            <option value="TDM (1v1 Sniper)">TDM (1v1 Sniper)</option>
+            <option value="DUO Match">DUO Match</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:150px;">
+          <label>Status</label>
+          <select id="manual-status" class="form-control">
+            <option value="Verified">Verified</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #004d00, var(--green)); color:#000;">Add to Roster</button>
+      </form>
     </div>
     
     <div class="table-wrapper">
@@ -592,6 +661,10 @@ window.addEventListener('load', () => {
 });
 function closeModal() {
   document.getElementById('welcomeModal').classList.remove('show');
+}
+function goToTournaments() {
+  closeModal();
+  switchTab('tournaments');
 }
 
 /* ========== DATABASE SIMULATION (Local Storage) ========== */
@@ -881,16 +954,68 @@ document.getElementById('adminEditForm').addEventListener('submit', (e) => {
   }
 });
 
-/* ========== SUPPORT EMAIL TRIGGER ========== */
-document.getElementById('supportForm').addEventListener('submit', (e) => {
+/* ========== ADMIN MANUAL ADD LOGIC ========== */
+document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = document.getElementById('sup-name').value;
-  const type = document.getElementById('sup-type').value;
-  const msg = document.getElementById('sup-msg').value;
-  const targetEmail = "farhanulla.shaik@gmail.com";
-  const subject = `[Solo Play Arena] - ${type} - From ${name}`;
-  const body = `Sender Name / IGN: ${name}\nInquiry Type: ${type}\n\nMessage:\n${msg}\n\n-------------------------\n(Please reply directly to this email)`;
-  window.location.href = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const ign = document.getElementById('manual-ign').value;
+  const tier = document.getElementById('manual-tier').value;
+  const status = document.getElementById('manual-status').value;
+  
+  // Basic logic to determine standard amounts for the manual entry record
+  let amount = 0;
+  if(tier.includes('Standard')) amount = 25;
+  else if(tier.includes('Royal') || tier.includes('4v4') || tier.includes('DUO')) amount = 100;
+  else if(tier.includes('1v1')) amount = 95;
+
+  const newReg = {
+    id: 'REG-MANUAL-' + Math.floor(Math.random() * 1000000),
+    date: new Date().toLocaleDateString(),
+    timestamp: new Date().getTime(),
+    ign: ign,
+    pid: 'N/A',
+    tier: tier,
+    amount: amount,
+    teammates: [],
+    status: status,
+    utr: 'MANUAL-ENTRY'
+  };
+
+  const db = getDatabase();
+  db.push(newReg);
+  saveDatabase(db);
+  
+  document.getElementById('adminAddForm').reset();
+  loadAdminDashboard(); // Refresh the table
+  
+  // Show Toast
+  const toast = document.getElementById("toast");
+  toast.innerText = "Player Added Successfully!";
+  toast.className = "show";
+  setTimeout(() => { 
+    toast.className = toast.className.replace("show", ""); 
+    setTimeout(() => { toast.innerText = "Copied!"; }, 500); // reset text
+  }, 3000);
+});
+
+/* ========== SUPPORT & COLLAB FORM LOGIC ========== */
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('contactName').value;
+  const type = document.getElementById('contactType').value;
+  const msg = document.getElementById('contactMessage').value;
+  const method = document.getElementById('contactMethod').value;
+  
+  if (method === 'whatsapp') {
+    const waText = encodeURIComponent(`*${type} Request*\n\n*Name/IGN:* ${name}\n\n*Message:*\n${msg}`);
+    window.open(`https://wa.me/917676808068?text=${waText}`, '_blank');
+  } else {
+    const targetEmail = "farhanulla.shaik@gmail.com";
+    const subject = `[Solo Play Arena] - ${type} - From ${name}`;
+    const body = `Sender Name / IGN: ${name}\nInquiry Type: ${type}\n\nMessage:\n${msg}\n\n-------------------------\n(Please reply directly to this email)`;
+    window.location.href = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  
+  document.getElementById('contactForm').reset();
 });
 
 /* ========== UTILS ========== */
