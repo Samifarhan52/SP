@@ -255,6 +255,13 @@ footer {
 .copyright span { color: var(--orange); font-weight: 700; cursor: pointer; transition: 0.3s;}
 .copyright span:hover { text-shadow: 0 0 10px var(--orange); }
 </style>
+
+<!-- ========================================== -->
+<!-- 🔥 FIREBASE SDK (For Live, Real-Time Data) -->
+<!-- ========================================== -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 </head>
 <body>
 
@@ -480,7 +487,7 @@ footer {
   <div id="roster-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">LIVE <span style="color:var(--green)">ROSTER</span></h1>
-      <p style="color:var(--muted); font-size:16px;">View all active registrations. Only verified players will receive Room IDs.</p>
+      <p style="color:var(--muted); font-size:16px;">View all active registrations. Only verified players will receive Room IDs. Updates in real-time.</p>
     </div>
     <div class="table-wrapper">
       <table id="public-roster-table">
@@ -493,7 +500,7 @@ footer {
           </tr>
         </thead>
         <tbody>
-          <!-- Populated by JS -->
+          <!-- Populated by Firebase -->
         </tbody>
       </table>
     </div>
@@ -606,7 +613,7 @@ footer {
             <option value="Cancelled">Cancelled</option>
           </select>
         </div>
-        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #004d00, var(--green)); color:#000;">Add to Roster</button>
+        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #004d00, var(--green)); color:#000;">Add to Live Roster</button>
       </form>
     </div>
     
@@ -624,7 +631,7 @@ footer {
           </tr>
         </thead>
         <tbody>
-          <!-- Populated by JS -->
+          <!-- Populated by Firebase -->
         </tbody>
       </table>
     </div>
@@ -653,28 +660,53 @@ footer {
 <div id="toast">Copied!</div>
 
 <script>
+/* =========================================================
+   🔥 FIREBASE CONFIGURATION (YOUR LIVE KEYS) 🔥 
+   ========================================================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyCNHWvdt2r9LNgtiBlwsufVJ4AdNsdPHPs",
+  authDomain: "solo-play-12069.firebaseapp.com",
+  databaseURL: "https://solo-play-12069-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "solo-play-12069",
+  storageBucket: "solo-play-12069.firebasestorage.app",
+  messagingSenderId: "704000093544",
+  appId: "1:704000093544:web:458bbdf4f32967709f3add",
+  measurementId: "G-N3VDQ9Q32E"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const rosterRef = db.ref('soloPlayRegistrations');
+/* ========== LIVE DATA LISTENER ========== */
+let liveRegistrations = []; // Holds data globally
+
+// This function runs automatically every time data is added, changed, or removed in the database
+rosterRef.on('value', (snapshot) => {
+  liveRegistrations = [];
+  snapshot.forEach((childSnapshot) => {
+    let reg = childSnapshot.val();
+    reg.firebaseKey = childSnapshot.key; // Store the unique database key
+    liveRegistrations.push(reg);
+  });
+  
+  // Sort newest first
+  liveRegistrations.sort((a,b) => b.timestamp - a.timestamp);
+  
+  // Re-render tables dynamically
+  renderPublicRoster();
+  if(sessionStorage.getItem('isAdmin') === 'true') {
+    renderAdminDashboard();
+  }
+});
+
+
 /* ========== MODAL LOGIC ========== */
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('welcomeModal').classList.add('show');
-  }, 1000);
+  setTimeout(() => { document.getElementById('welcomeModal').classList.add('show'); }, 1000);
 });
-function closeModal() {
-  document.getElementById('welcomeModal').classList.remove('show');
-}
-function goToTournaments() {
-  closeModal();
-  switchTab('tournaments');
-}
-
-/* ========== DATABASE SIMULATION (Local Storage) ========== */
-function getDatabase() {
-  const data = localStorage.getItem('soloPlayRegistrations');
-  return data ? JSON.parse(data) : [];
-}
-function saveDatabase(dataArray) {
-  localStorage.setItem('soloPlayRegistrations', JSON.stringify(dataArray));
-}
+function closeModal() { document.getElementById('welcomeModal').classList.remove('show'); }
+function goToTournaments() { closeModal(); switchTab('tournaments'); }
 
 /* ========== TAB NAVIGATION LOGIC ========== */
 const pages = ['home', 'tournaments', 'roster', 'support', 'payment', 'admin'];
@@ -687,19 +719,14 @@ function switchTab(target) {
   pages.forEach(page => {
     const el = document.getElementById(page + '-page');
     if(el) el.classList.remove('active');
-    
     const navEl = document.getElementById('nav-' + page);
     if(navEl) navEl.classList.remove('active');
   });
 
   const targetEl = document.getElementById(target + '-page');
   if(targetEl) targetEl.classList.add('active');
-  
   const targetNav = document.getElementById('nav-' + target);
   if(targetNav) targetNav.classList.add('active');
-
-  if(target === 'roster') loadPublicRoster();
-  if(target === 'admin') loadAdminDashboard();
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -713,11 +740,8 @@ function selectTournament(tier) {
 
 /* ========== ADMIN LOGIN LOGIC ========== */
 function openAdminLogin() {
-  if(sessionStorage.getItem('isAdmin') === 'true') {
-    switchTab('admin');
-  } else {
-    document.getElementById('adminLoginModal').classList.add('show');
-  }
+  if(sessionStorage.getItem('isAdmin') === 'true') { switchTab('admin'); } 
+  else { document.getElementById('adminLoginModal').classList.add('show'); }
 }
 function closeAdminLogin() {
   document.getElementById('adminLoginModal').classList.remove('show');
@@ -729,12 +753,12 @@ document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
   const id = document.getElementById('adminId').value;
   const pass = document.getElementById('adminPass').value;
   
-  // SECURE CREDENTIALS
   if(id === "Farhan" && pass === "web solutions") {
     sessionStorage.setItem('isAdmin', 'true');
     document.getElementById('nav-admin-li').style.display = 'block';
     closeAdminLogin();
     switchTab('admin');
+    renderAdminDashboard(); // Render table when logging in
   } else {
     document.getElementById('adminError').style.display = 'block';
   }
@@ -816,7 +840,7 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
     pid: document.getElementById('pid').value,
     tier: tierName,
     amount: fee,
-    teammates: mates,
+    teammates: mates || [],
     status: 'Pending'
   };
 
@@ -824,16 +848,14 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
   switchTab('payment');
 });
 
-// Finalize Payment / Save to DB
+// Finalize Payment / Save to FIREBASE
 document.getElementById('paymentForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const utr = document.getElementById('utr').value;
   currentRegistration.utr = utr;
 
-  // Save to Database (Local Storage)
-  const db = getDatabase();
-  db.push(currentRegistration);
-  saveDatabase(db);
+  // Push to Live Firebase Database
+  rosterRef.push(currentRegistration);
 
   // Format WhatsApp Message
   let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
@@ -862,12 +884,11 @@ function getStatusClass(status) {
 }
 
 /* ========== PUBLIC ROSTER DATA RENDER ========== */
-function loadPublicRoster() {
-  const db = getDatabase();
+function renderPublicRoster() {
   const tbody = document.querySelector('#public-roster-table tbody');
   tbody.innerHTML = '';
   
-  if(db.length === 0) {
+  if(liveRegistrations.length === 0) {
     document.getElementById('no-roster-msg').style.display = 'block';
     document.getElementById('public-roster-table').style.display = 'none';
     return;
@@ -876,7 +897,7 @@ function loadPublicRoster() {
   document.getElementById('no-roster-msg').style.display = 'none';
   document.getElementById('public-roster-table').style.display = 'table';
 
-  db.sort((a,b) => b.timestamp - a.timestamp).forEach(reg => {
+  liveRegistrations.forEach(reg => {
     let statusClass = getStatusClass(reg.status);
     tbody.innerHTML += `
       <tr>
@@ -890,13 +911,13 @@ function loadPublicRoster() {
 }
 
 /* ========== ADMIN DASHBOARD LOGIC ========== */
-function loadAdminDashboard() {
-  const db = getDatabase();
+function renderAdminDashboard() {
   const tbody = document.querySelector('#admin-table tbody');
   tbody.innerHTML = '';
   
-  db.sort((a,b) => b.timestamp - a.timestamp).forEach(reg => {
+  liveRegistrations.forEach(reg => {
     let statusClass = getStatusClass(reg.status);
+    // passing the firebaseKey directly to the functions
     tbody.innerHTML += `
       <tr>
         <td>${reg.date}</td>
@@ -906,28 +927,26 @@ function loadAdminDashboard() {
         <td style="font-family:monospace;">${reg.utr}</td>
         <td><span class="status-badge ${statusClass}">${reg.status}</span></td>
         <td>
-          <button class="admin-action-btn" onclick="openAdminEdit('${reg.id}')">Edit</button>
-          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.id}')">Delete</button>
+          <button class="admin-action-btn" onclick="openAdminEdit('${reg.firebaseKey}')">Edit</button>
+          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.firebaseKey}')">Delete</button>
         </td>
       </tr>
     `;
   });
 }
 
-function deleteRecord(id) {
-  if(confirm("Are you sure you want to delete this registration?")) {
-    let db = getDatabase();
-    db = db.filter(r => r.id !== id);
-    saveDatabase(db);
-    loadAdminDashboard();
+// Delete from Firebase
+function deleteRecord(firebaseKey) {
+  if(confirm("Are you sure you want to delete this registration completely?")) {
+    db.ref('soloPlayRegistrations/' + firebaseKey).remove();
   }
 }
 
-function openAdminEdit(id) {
-  const db = getDatabase();
-  const record = db.find(r => r.id === id);
+// Edit via Firebase
+function openAdminEdit(firebaseKey) {
+  const record = liveRegistrations.find(r => r.firebaseKey === firebaseKey);
   if(record) {
-    document.getElementById('edit-id').value = record.id;
+    document.getElementById('edit-id').value = record.firebaseKey; // Use Firebase Key here
     document.getElementById('edit-ign').value = record.ign;
     document.getElementById('edit-tier').value = record.tier;
     document.getElementById('edit-status').value = record.status;
@@ -940,18 +959,16 @@ function closeAdminEdit() {
 
 document.getElementById('adminEditForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const id = document.getElementById('edit-id').value;
-  let db = getDatabase();
+  const firebaseKey = document.getElementById('edit-id').value;
   
-  const index = db.findIndex(r => r.id === id);
-  if(index !== -1) {
-    db[index].ign = document.getElementById('edit-ign').value;
-    db[index].tier = document.getElementById('edit-tier').value;
-    db[index].status = document.getElementById('edit-status').value;
-    saveDatabase(db);
-    closeAdminEdit();
-    loadAdminDashboard();
-  }
+  // Update specific fields in Firebase
+  db.ref('soloPlayRegistrations/' + firebaseKey).update({
+    ign: document.getElementById('edit-ign').value,
+    tier: document.getElementById('edit-tier').value,
+    status: document.getElementById('edit-status').value
+  });
+  
+  closeAdminEdit();
 });
 
 /* ========== ADMIN MANUAL ADD LOGIC ========== */
@@ -961,7 +978,6 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   const tier = document.getElementById('manual-tier').value;
   const status = document.getElementById('manual-status').value;
   
-  // Basic logic to determine standard amounts for the manual entry record
   let amount = 0;
   if(tier.includes('Standard')) amount = 25;
   else if(tier.includes('Royal') || tier.includes('4v4') || tier.includes('DUO')) amount = 100;
@@ -980,20 +996,17 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
     utr: 'MANUAL-ENTRY'
   };
 
-  const db = getDatabase();
-  db.push(newReg);
-  saveDatabase(db);
+  // Push directly to Firebase
+  rosterRef.push(newReg);
   
   document.getElementById('adminAddForm').reset();
-  loadAdminDashboard(); // Refresh the table
   
-  // Show Toast
   const toast = document.getElementById("toast");
-  toast.innerText = "Player Added Successfully!";
+  toast.innerText = "Player Added Live!";
   toast.className = "show";
   setTimeout(() => { 
     toast.className = toast.className.replace("show", ""); 
-    setTimeout(() => { toast.innerText = "Copied!"; }, 500); // reset text
+    setTimeout(() => { toast.innerText = "Copied!"; }, 500); 
   }, 3000);
 });
 
@@ -1027,7 +1040,6 @@ function copyUPI(upiID) {
   });
 }
 
-// Initial Load Check for Admin Status
 if(sessionStorage.getItem('isAdmin') === 'true') {
   document.getElementById('nav-admin-li').style.display = 'block';
 }
