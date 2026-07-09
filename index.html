@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SOLO PLAY — BGMI Arena</title>
+<title>SOLO PLAY — BGMI & FF Arena</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@ nav{
   display:flex;align-items:center;gap:10px; cursor: pointer;
 }
 .logo::before{ content:'';width:12px;height:12px;border-radius:50%; background:var(--orange);box-shadow:0 0 15px var(--orange); animation:pulse 2s infinite; }
-.nav-links{display:flex;gap:35px;list-style:none}
+.nav-links{display:flex;gap:30px;list-style:none}
 .nav-links li{cursor:pointer;}
 .nav-links a{
   font-family:'Rajdhani',sans-serif;font-weight:600;font-size:16px;
@@ -85,10 +85,10 @@ nav{
 }
 .nav-links a:hover::after, .nav-links a.active::after{width:100%}
 
-@media(max-width: 900px) {
+@media(max-width: 1000px) {
   nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
   .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-  .nav-links a { font-size: 14px; }
+  .nav-links a { font-size: 13px; letter-spacing: 1px; }
 }
 
 /* ========== MAIN LAYOUT ========== */
@@ -120,8 +120,6 @@ nav{
   box-shadow: 0 20px 40px rgba(0,0,0,0.5); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
 }
 .panel-header{ font-family: 'Orbitron', sans-serif; font-size: 24px; margin-bottom: 25px; color: var(--cyan); border-bottom: 1px dashed rgba(0,240,255,0.2); padding-bottom: 15px; }
-.payment-panel-wrapper { max-width: 800px; margin: 0 auto; border-color: var(--orange); }
-.payment-panel-wrapper .panel-header { color: var(--orange); border-bottom-color: rgba(255,140,0,0.2); }
 
 .form-group{ margin-bottom: 20px; text-align: left; }
 .form-group label{ display: block; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase; }
@@ -148,14 +146,13 @@ select.form-control option { background: var(--panel); color: var(--text); }
 .btn-outline { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); }
 .btn-outline:hover { background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.3); }
 
-/* ========== DATA TABLES (Roster & Admin) ========== */
+/* ========== DATA TABLES ========== */
 .table-wrapper { width: 100%; overflow-x: auto; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); }
 table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; }
 th { background: rgba(0,240,255,0.1); color: var(--cyan); font-family: 'Orbitron', sans-serif; padding: 15px; text-align: left; font-size: 14px; letter-spacing: 1px; }
 td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); font-size: 16px; }
 tr:hover { background: rgba(255,255,255,0.02); }
 
-/* Registration Status Badges */
 .status-badge { padding: 5px 10px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; }
 .status-pending { background: rgba(255,140,0,0.2); color: var(--orange); border: 1px solid var(--orange); }
 .status-verified { background: rgba(57,255,136,0.2); color: var(--green); border: 1px solid var(--green); }
@@ -217,11 +214,17 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .t-card.duo .prizes li span { color: var(--orange); }
 .t-card.duo .btn { background: linear-gradient(90deg, #261200, var(--orange)); }
 
-/* Coming Soon matches */
-.t-card.ff { border-color: var(--red); opacity: 0.8; filter: grayscale(20%); }
-.t-card.ff h2 { color: var(--red); }
-.t-card.ff .prizes li span { color: var(--red); }
-.t-card.ff .btn { background: transparent; border: 1px solid var(--red); color: var(--red); }
+/* FREE FIRE ACTIVE THEME */
+.t-card.ff-active { border-color: var(--red); background: linear-gradient(180deg, rgba(255,51,51,0.05), rgba(0,0,0,0.6));}
+.t-card.ff-active:hover { box-shadow: 0 15px 30px rgba(255,51,51,0.2); }
+.t-card.ff-active h2 { color: var(--red); text-shadow: 0 0 15px rgba(255,51,51,0.5); font-size: 26px;}
+.t-card.ff-active .entry-fee { color: var(--red); font-weight: bold; }
+.t-card.ff-active .prizes { list-style: none; margin-bottom: 20px; padding: 0; }
+.t-card.ff-active .prizes li { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; text-align: left;}
+.t-card.ff-active .prizes li:last-child { border-bottom: none; }
+.t-card.ff-active .prizes li b { font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 4px; font-size: 15px;}
+.t-card.ff-active .prizes li span { color: var(--muted); font-size: 14px; line-height: 1.4;}
+.t-card.ff-active .btn { background: linear-gradient(90deg, #330000, var(--red)); color: #fff; }
 
 .t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
 .t-card.val h2 { color: #ff4655; }
@@ -256,9 +259,6 @@ footer {
 .copyright span:hover { text-shadow: 0 0 10px var(--orange); }
 </style>
 
-<!-- ========================================== -->
-<!-- 🔥 FIREBASE SDK (For Live, Real-Time Data) -->
-<!-- ========================================== -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -270,7 +270,6 @@ footer {
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
 
-<!-- Admin Login Modal (Hidden) -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminLogin()">×</button>
@@ -290,7 +289,6 @@ footer {
   </div>
 </div>
 
-<!-- Admin Edit Record Modal -->
 <div class="modal-overlay" id="adminEditModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminEdit()">×</button>
@@ -304,6 +302,7 @@ footer {
       <div class="form-group">
         <label>Match Tier / Plan</label>
         <select id="edit-tier" class="form-control" required>
+          <option value="Free Fire BR">Free Fire BR</option>
           <option value="Standard Match">Standard Match</option>
           <option value="Royal Match">Royal Match</option>
           <option value="TDM (4v4 AR)">TDM (4v4 AR)</option>
@@ -326,13 +325,12 @@ footer {
   </div>
 </div>
 
-<!-- Welcome Pop-up Modal -->
 <div class="modal-overlay" id="welcomeModal">
   <div class="modal-box">
     <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
     <div class="modal-text" style="margin-bottom: 10px;">
       New intense battle modes have been added to the arena! <br><br>
-      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">TDM (4v4 & 1v1)</span> or <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">DUO Matches</span>. Assemble your squad and claim your UC!
+      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new <span style="color: var(--red); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Free Fire BR (48 Players)</span> match or BGMI TDMs. Assemble your squad and claim your rewards!
     </div>
     <div style="display: flex; gap: 15px; margin-top: 20px;">
       <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000; margin-top:0;" onclick="goToTournaments()">Enter The Arena</button>
@@ -341,39 +339,37 @@ footer {
   </div>
 </div>
 
-<!-- Navigation -->
 <nav>
   <div class="logo" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
   <ul class="nav-links">
-    <li><a id="nav-home" class="active" onclick="switchTab('home')">Arena Home</a></li>
+    <li><a id="nav-home" class="active" onclick="switchTab('home')">Home</a></li>
     <li><a id="nav-tournaments" onclick="switchTab('tournaments')">Tournaments</a></li>
     <li><a id="nav-roster" onclick="switchTab('roster')">Live Roster</a></li>
+    <li><a id="nav-winners" onclick="switchTab('winners')">Hall of Fame</a></li>
     <li><a id="nav-support" onclick="switchTab('support')">Support</a></li>
-    <!-- Admin Nav hidden by default -->
     <li id="nav-admin-li" style="display:none;"><a id="nav-admin" style="color:var(--magenta);" onclick="switchTab('admin')">Admin Panel</a></li>
   </ul>
 </nav>
 
 <div class="container">
   
-  <!-- ==================== HOME PAGE VIEW ==================== -->
   <div id="home-page" class="page-view active">
     <div class="split-layout">
       <div class="info-section">
-        <div class="hero-badge">BATTLEGROUNDS MOBILE INDIA</div>
+        <div class="hero-badge">BGMI & FREE FIRE BATTLES</div>
         <h1>ENTER THE<br><span>KILL ZONE</span></h1>
         <div class="content-card">
           <h4>🔥 THE ULTIMATE PROVING GROUNDS</h4>
-          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community. Whether you are running Solo, Duo, or Squad TDM—we have a battle for you.</p>
+          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community across BGMI and Free Fire.</p>
         </div>
         <div class="content-card" style="border-color: var(--yellow);">
           <h4 style="color: var(--yellow);">🏆 SELECT YOUR TIER</h4>
-          <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for details.</p>
+          <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for full prize details.</p>
           <ul style="color:var(--muted); margin-left: 20px; font-size:15px; line-height:1.6;">
+            <li><strong style="color:var(--red);">Free Fire BR (48 Players):</strong> Entry ₹35 | Massive Membership & Diamond Prizes!</li>
             <li><strong>Standard Match:</strong> Entry ₹25 | Win 60 UC</li>
             <li><strong>Royal Match:</strong> Entry ₹100 | Win 300 UC</li>
             <li><strong>TDM (4v4 AR):</strong> Entry ₹100/player | Win 120 UC Each</li>
-            <li><strong>TDM (1v1 Sniper):</strong> Entry ₹95 | Win 120 UC</li>
             <li><strong>DUO Match:</strong> Entry ₹100/player | Win 300+25 UC</li>
           </ul>
         </div>
@@ -385,15 +381,16 @@ footer {
           <div class="form-group">
             <label>Select Match Tier</label>
             <select id="match-tier" class="form-control" required style="border-color:var(--yellow); color:var(--yellow); font-weight:bold;">
-              <option value="standard">Standard Match (Fee: ₹25)</option>
-              <option value="royal">Royal Match (Fee: ₹100)</option>
-              <option value="tdm-4v4">TDM (4v4 AR) - Squad Reg</option>
-              <option value="tdm-1v1">TDM (1v1 Sniper) (Fee: ₹95)</option>
-              <option value="duo">DUO Match - Duo Reg</option>
+              <option value="ff-br">Free Fire BR (48 Players) (Fee: ₹35)</option>
+              <option value="standard">BGMI Standard Match (Fee: ₹25)</option>
+              <option value="royal">BGMI Royal Match (Fee: ₹100)</option>
+              <option value="tdm-4v4">BGMI TDM (4v4 AR) - Squad Reg</option>
+              <option value="tdm-1v1">BGMI TDM (1v1 Sniper) (Fee: ₹95)</option>
+              <option value="duo">BGMI DUO Match - Duo Reg</option>
             </select>
           </div>
-          <div class="form-group"><label>Your Player ID</label><input type="number" id="pid" class="form-control" required placeholder="e.g. 5123456789"></div>
-          <div class="form-group"><label>Your IGN</label><input type="text" id="ign" class="form-control" required placeholder="e.g. SoloSlayer99"></div>
+          <div class="form-group"><label>Your Player ID (UID)</label><input type="number" id="pid" class="form-control" required placeholder="e.g. 5123456789"></div>
+          <div class="form-group"><label>Your In-Game Name (IGN)</label><input type="text" id="ign" class="form-control" required placeholder="e.g. SoloSlayer99"></div>
           <div id="dynamic-teammates"></div>
           <div class="form-group" id="payment-type-group" style="display: none;">
             <label>How are you paying?</label>
@@ -415,62 +412,79 @@ footer {
     </div>
   </div>
 
-  <!-- ==================== TOURNAMENTS PAGE VIEW ==================== -->
   <div id="tournaments-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px; margin-bottom:15px;">CHOOSE YOUR <span style="color:var(--yellow)">BATTLE</span></h1>
     </div>
     
     <div class="tourney-grid">
+      <div class="t-card ff-active" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+        <div class="royal-badge" style="background:var(--red); color:#fff;">BR MATCH (48 PLAYERS)</div>
+        <h2 style="margin-top: 15px;">FREE FIRE (SOLO)</h2>
+        <div class="entry-fee">Fee: ₹35 / player</div>
+        
+        <ul class="prizes" style="width: 100%; max-width: 600px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,51,51,0.2);">
+          <li>
+            <b>🥇 1st Place</b> 
+            <span>Monthly Membership (₹799) + Booyah Pass (₹400) Google Code<br> 
+            <i style="color:var(--green)">Rewards: Instant 1000 💎 + Daily 50 💎</i></span>
+          </li>
+          <li>
+            <b>🥈 2nd Place</b> 
+            <span>Weekly Membership (₹159) Google Code<br>
+            <i style="color:var(--green)">Rewards: Instant 200 💎 + Daily 35 💎</i></span>
+          </li>
+          <li>
+            <b>🥉 3rd Place</b> 
+            <span>Weekly Membership (₹50) Google Code<br>
+            <i style="color:var(--green)">Rewards: Instant 20 💎 + Daily 10 💎</i></span>
+          </li>
+        </ul>
+        <button class="btn" style="max-width: 300px; margin-top: 10px;" onclick="selectTournament('ff-br')">Select & Register</button>
+      </div>
+
       <div class="t-card standard">
-        <h2>STANDARD MATCH</h2><div class="entry-fee">Fee: ₹25 / player</div>
+        <h2>BGMI STANDARD</h2><div class="entry-fee">Fee: ₹25 / player</div>
         <ul class="prizes"><li>1st Place <span>60 UC</span></li></ul>
         <button class="btn" onclick="selectTournament('standard')">Select & Register</button>
       </div>
+      
       <div class="t-card royal">
         <div class="royal-badge">High Stakes</div>
-        <h2>ROYAL MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <h2>BGMI ROYAL</h2><div class="entry-fee">Fee: ₹100 / player</div>
         <ul class="prizes"><li>1st Place <span>300 UC</span></li><li>2nd Place <span>120 UC</span></li></ul>
         <button class="btn" onclick="selectTournament('royal')">Select & Register</button>
       </div>
+      
       <div class="t-card tdm4">
-        <h2>TDM (4v4 AR)</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <h2>BGMI TDM (4v4)</h2><div class="entry-fee">Fee: ₹100 / player</div>
         <ul class="prizes"><li>Winning Squad <span>120 UC / player</span></li></ul>
         <button class="btn" onclick="selectTournament('tdm-4v4')">Select & Register</button>
       </div>
+      
       <div class="t-card tdm1">
-        <h2>TDM (1v1 SNIPER)</h2><div class="entry-fee">Fee: ₹95 / player</div>
+        <h2>BGMI TDM (1v1)</h2><div class="entry-fee">Fee: ₹95 / player</div>
         <ul class="prizes"><li>1st Place <span>120 UC</span></li></ul>
         <button class="btn" onclick="selectTournament('tdm-1v1')">Select & Register</button>
       </div>
+      
       <div class="t-card duo">
-        <h2>DUO MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <h2>BGMI DUO MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
         <ul class="prizes"><li>1st Place Duo <span>300 + 25 UC</span></li></ul>
         <button class="btn" onclick="selectTournament('duo')">Select & Register</button>
       </div>
     </div>
 
-    <!-- Coming Soon Section -->
     <div style="text-align: center; margin-top: 80px; max-width: 800px; margin-left: auto; margin-right: auto;">
       <h2 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--text);">INCOMING <span style="color:var(--magenta)">TRANSMISSIONS</span></h2>
-      <p style="color:var(--muted); font-size:16px;">New battlegrounds are being prepped. Get ready for the next wave of tournaments.</p>
     </div>
 
     <div class="tourney-grid">
-      <div class="t-card ff">
-        <div class="coming-soon-badge">Coming Soon</div>
-        <h2>FREE FIRE (MOBILE)</h2>
-        <div class="entry-fee">Fee: TBA</div>
-        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Preparing Lobbies</span></li></ul>
-        <button class="btn" onclick="alert('Free Fire tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
-      </div>
-
       <div class="t-card val">
         <div class="coming-soon-badge">Coming Soon</div>
         <h2>VALORANT (PC)</h2>
         <div class="entry-fee">Fee: TBA</div>
         <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
-        <button class="btn" onclick="alert('Valorant PC tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
       </div>
 
       <div class="t-card cs">
@@ -478,12 +492,10 @@ footer {
         <h2>COUNTER STRIKE (PC)</h2>
         <div class="entry-fee">Fee: TBA</div>
         <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
-        <button class="btn" onclick="alert('Counter Strike PC tournaments are launching very soon! Keep an eye on our announcements.')">Notify Me</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== PUBLIC ROSTER PAGE VIEW ==================== -->
   <div id="roster-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">LIVE <span style="color:var(--green)">ROSTER</span></h1>
@@ -500,18 +512,39 @@ footer {
           </tr>
         </thead>
         <tbody>
-          <!-- Populated by Firebase -->
-        </tbody>
+          </tbody>
       </table>
     </div>
     <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.</p>
   </div>
 
-  <!-- ==================== SUPPORT PAGE VIEW ==================== -->
+  <div id="winners-page" class="page-view">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
+      <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">HALL OF <span style="color:var(--yellow)">FAME</span></h1>
+      <p style="color:var(--muted); font-size:16px;">The legends of the arena. Verified match winners and their claimed rewards.</p>
+    </div>
+    <div class="table-wrapper">
+      <table id="public-winners-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th style="color:var(--yellow);">Winner (IGN)</th>
+            <th>Match Tier</th>
+            <th>Placement</th>
+            <th style="color:var(--green);">Prize Claimed</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+    </div>
+    <p id="no-winners-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No winners recorded yet. Will you be the first?</p>
+  </div>
+
   <div id="support-page" class="page-view">
     <div class="panel" style="max-width: 700px; margin: 0 auto; border-color:var(--cyan);">
       <div class="panel-header">✉ CONTACT SUPPORT & COLLAB</div>
-      <p style="color:var(--muted); font-size:15px; margin-bottom: 25px;">Use the form below to reach out for payment issues, general inquiries, or partnership opportunities. You can choose to contact us via WhatsApp or Email.</p>
+      <p style="color:var(--muted); font-size:15px; margin-bottom: 25px;">Use the form below to reach out for payment issues, general inquiries, or partnership opportunities.</p>
       
       <form id="contactForm">
         <div class="form-group">
@@ -543,7 +576,6 @@ footer {
     </div>
   </div>
 
-  <!-- ==================== PAYMENT PAGE VIEW ==================== -->
   <div id="payment-page" class="page-view">
     <div class="panel" style="max-width: 800px; margin: 0 auto; border-color:var(--orange);">
       <div class="panel-header" style="color:var(--orange);">💳 COMPLETE YOUR REGISTRATION</div>
@@ -553,20 +585,16 @@ footer {
       </div>
       <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px;">
         <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
-          <div><span style="color:var(--muted); font-weight:bold;">GPay/PhonePe Number:</span> <span style="color:var(--green);">7676808068</span></div>
-          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068')">Copy</button>
+          <div><span style="color:var(--muted); font-weight:bold;">GPay/PhonePe:</span> <span style="color:var(--green);">7676808068</span></div>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer;" onclick="copyUPI('7676808068')">Copy</button>
         </div>
         <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
           <div><span style="color:var(--muted); font-weight:bold;">Navi UPI:</span> <span style="color:var(--green);">7676808068@nyes</span></div>
-          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@nyes')">Copy</button>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer;" onclick="copyUPI('7676808068@nyes')">Copy</button>
         </div>
         <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
           <div><span style="color:var(--muted); font-weight:bold;">CRED Pay:</span> <span style="color:var(--green);">7676808068@yescred</span></div>
-          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@yescred')">Copy</button>
-        </div>
-        <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
-          <div><span style="color:var(--muted); font-weight:bold;">Paytm:</span> <span style="color:var(--green);">7676808068@ptsbi</span></div>
-          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer; text-transform: uppercase;" onclick="copyUPI('7676808068@ptsbi')">Copy</button>
+          <button style="background: rgba(0,240,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; font-size: 12px; cursor: pointer;" onclick="copyUPI('7676808068@yescred')">Copy</button>
         </div>
       </div>
       <form id="paymentForm">
@@ -580,16 +608,14 @@ footer {
     </div>
   </div>
 
-  <!-- ==================== ADMIN DASHBOARD VIEW ==================== -->
   <div id="admin-page" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--magenta);">COMMAND <span style="color:#fff;">CENTER</span></h1>
       <button class="btn-outline" style="width:auto; padding:10px 20px;" onclick="adminLogout()">Logout</button>
     </div>
 
-    <!-- Manual Player Add Section -->
     <div class="panel" style="margin-bottom: 30px; border-color:var(--green); padding: 25px;">
-      <h3 style="font-family:'Orbitron',sans-serif; color:var(--green); margin-bottom:15px; font-size:18px;">➕ MANUAL PLAYER ADD</h3>
+      <h3 style="font-family:'Orbitron',sans-serif; color:var(--green); margin-bottom:15px; font-size:18px;">➕ MANUAL PLAYER ADD (ROSTER)</h3>
       <form id="adminAddForm" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
         <div class="form-group" style="margin-bottom:0; flex:1; min-width:200px;">
           <label>Player IGN</label>
@@ -598,11 +624,12 @@ footer {
         <div class="form-group" style="margin-bottom:0; flex:1; min-width:200px;">
           <label>Match Tier</label>
           <select id="manual-tier" class="form-control" required>
-            <option value="Standard Match">Standard Match</option>
-            <option value="Royal Match">Royal Match</option>
-            <option value="TDM (4v4 AR)">TDM (4v4 AR)</option>
-            <option value="TDM (1v1 Sniper)">TDM (1v1 Sniper)</option>
-            <option value="DUO Match">DUO Match</option>
+            <option value="Free Fire BR">Free Fire BR</option>
+            <option value="Standard Match">BGMI Standard</option>
+            <option value="Royal Match">BGMI Royal</option>
+            <option value="TDM (4v4 AR)">BGMI TDM (4v4 AR)</option>
+            <option value="TDM (1v1 Sniper)">BGMI TDM (1v1 Sniper)</option>
+            <option value="DUO Match">BGMI DUO</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:0; flex:1; min-width:150px;">
@@ -617,6 +644,37 @@ footer {
       </form>
     </div>
     
+    <div class="panel" style="margin-bottom: 30px; border-color:var(--yellow); padding: 25px;">
+      <h3 style="font-family:'Orbitron',sans-serif; color:var(--yellow); margin-bottom:15px; font-size:18px;">🏆 PUBLISH WINNER (HALL OF FAME)</h3>
+      <form id="adminAddWinnerForm" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:150px;">
+          <label>Winner IGN</label>
+          <input type="text" id="win-ign" class="form-control" placeholder="Player Name" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:150px;">
+          <label>Match Tier</label>
+          <select id="win-tier" class="form-control" required>
+            <option value="Free Fire BR">Free Fire BR</option>
+            <option value="Standard Match">BGMI Standard</option>
+            <option value="Royal Match">BGMI Royal</option>
+            <option value="TDM (4v4 AR)">BGMI TDM (4v4 AR)</option>
+            <option value="TDM (1v1 Sniper)">BGMI TDM (1v1 Sniper)</option>
+            <option value="DUO Match">BGMI DUO</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom:0; flex:1; min-width:100px;">
+          <label>Placement</label>
+          <input type="text" id="win-placement" class="form-control" placeholder="e.g. 1st Place" required>
+        </div>
+        <div class="form-group" style="margin-bottom:0; flex:2; min-width:200px;">
+          <label>Prize Given</label>
+          <input type="text" id="win-prize" class="form-control" placeholder="e.g. 300 UC / Monthly Memb + Booyah" required>
+        </div>
+        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #664400, var(--yellow)); color:#000;">Publish to Site</button>
+      </form>
+    </div>
+    
+    <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:15px;">Live Roster Database</h3>
     <div class="table-wrapper">
       <table id="admin-table">
         <thead>
@@ -631,28 +689,42 @@ footer {
           </tr>
         </thead>
         <tbody>
-          <!-- Populated by Firebase -->
-        </tbody>
+          </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:15px; margin-top:40px; color:var(--yellow)">Winners Database</h3>
+    <div class="table-wrapper" style="margin-bottom:40px;">
+      <table id="admin-winners-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Winner IGN</th>
+            <th>Match Tier</th>
+            <th>Placement</th>
+            <th>Prize Claimed</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
       </table>
     </div>
   </div>
 
-</div> <!-- End Container -->
-
-<!-- ==================== FOOTER ==================== -->
-<footer>
+</div> <footer>
   <div class="footer-content">
     <div class="logo" style="font-size: 20px;" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
     <ul class="footer-links">
       <li><a href="#" onclick="switchTab('home')">Home</a></li>
       <li><a href="#" onclick="switchTab('tournaments')">Tournaments</a></li>
       <li><a href="#" onclick="switchTab('roster')">Live Roster</a></li>
+      <li><a href="#" onclick="switchTab('winners')">Hall of Fame</a></li>
       <li><a href="#" onclick="switchTab('support')">Contact & Support</a></li>
     </ul>
     <div class="copyright">
-      <!-- SECRET ADMIN LOGIN TRIGGER -->
       &copy; 2026 <span onclick="openAdminLogin()">ElavteX</span>. All Rights Reserved. <br>
-      <small style="color:var(--muted); font-size:11px;">BGMI and other game titles are registered trademarks of their respective owners.</small>
+      <small style="color:var(--muted); font-size:11px;">BGMI, Free Fire, and other game titles are registered trademarks of their respective owners.</small>
     </div>
   </div>
 </footer>
@@ -678,26 +750,38 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const rosterRef = db.ref('soloPlayRegistrations');
-/* ========== LIVE DATA LISTENER ========== */
-let liveRegistrations = []; // Holds data globally
+const winnersRef = db.ref('soloPlayWinners'); // New reference for Winners
 
-// This function runs automatically every time data is added, changed, or removed in the database
+/* ========== LIVE DATA LISTENERS ========== */
+let liveRegistrations = []; 
+let liveWinners = []; 
+
+// Listen for Roster Changes
 rosterRef.on('value', (snapshot) => {
   liveRegistrations = [];
   snapshot.forEach((childSnapshot) => {
     let reg = childSnapshot.val();
-    reg.firebaseKey = childSnapshot.key; // Store the unique database key
+    reg.firebaseKey = childSnapshot.key;
     liveRegistrations.push(reg);
   });
-  
-  // Sort newest first
   liveRegistrations.sort((a,b) => b.timestamp - a.timestamp);
   
-  // Re-render tables dynamically
   renderPublicRoster();
-  if(sessionStorage.getItem('isAdmin') === 'true') {
-    renderAdminDashboard();
-  }
+  if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminDashboard(); }
+});
+
+// Listen for Winners Changes
+winnersRef.on('value', (snapshot) => {
+  liveWinners = [];
+  snapshot.forEach((childSnapshot) => {
+    let win = childSnapshot.val();
+    win.firebaseKey = childSnapshot.key;
+    liveWinners.push(win);
+  });
+  liveWinners.sort((a,b) => b.timestamp - a.timestamp);
+  
+  renderPublicWinners();
+  if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminWinners(); }
 });
 
 
@@ -709,7 +793,7 @@ function closeModal() { document.getElementById('welcomeModal').classList.remove
 function goToTournaments() { closeModal(); switchTab('tournaments'); }
 
 /* ========== TAB NAVIGATION LOGIC ========== */
-const pages = ['home', 'tournaments', 'roster', 'support', 'payment', 'admin'];
+const pages = ['home', 'tournaments', 'roster', 'winners', 'support', 'payment', 'admin'];
 function switchTab(target) {
   if(target === 'admin' && sessionStorage.getItem('isAdmin') !== 'true') {
     openAdminLogin();
@@ -758,7 +842,8 @@ document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
     document.getElementById('nav-admin-li').style.display = 'block';
     closeAdminLogin();
     switchTab('admin');
-    renderAdminDashboard(); // Render table when logging in
+    renderAdminDashboard(); 
+    renderAdminWinners();
   } else {
     document.getElementById('adminError').style.display = 'block';
   }
@@ -818,6 +903,7 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
   paymentTypeText = "";
 
   if(tierVal === 'royal') { fee = 100; tierName = "Royal Match"; }
+  else if(tierVal === 'ff-br') { fee = 35; tierName = "Free Fire BR"; }
   else if(tierVal === 'tdm-1v1') { fee = 95; tierName = "TDM (1v1 Sniper)"; }
   else if(tierVal === 'tdm-4v4') { 
     fee = parseInt(paymentTypeSelect.value); tierName = "TDM (4v4 AR)"; 
@@ -854,10 +940,8 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
   const utr = document.getElementById('utr').value;
   currentRegistration.utr = utr;
 
-  // Push to Live Firebase Database
-  rosterRef.push(currentRegistration);
+  rosterRef.push(currentRegistration); // Push to Live DB
 
-  // Format WhatsApp Message
   let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
   if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
   msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}`;
@@ -866,7 +950,6 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
   
   window.open(`https://wa.me/917676808068?text=${msg}`, '_blank');
   
-  // Reset and Redirect
   document.getElementById('regForm').reset();
   document.getElementById('paymentForm').reset();
   document.getElementById('dynamic-teammates').innerHTML = '';
@@ -883,7 +966,9 @@ function getStatusClass(status) {
   return 'status-pending';
 }
 
-/* ========== PUBLIC ROSTER DATA RENDER ========== */
+/* ========== RENDERING TABLES (PUBLIC & ADMIN) ========== */
+
+// 1. Public Roster
 function renderPublicRoster() {
   const tbody = document.querySelector('#public-roster-table tbody');
   tbody.innerHTML = '';
@@ -910,14 +995,40 @@ function renderPublicRoster() {
   });
 }
 
-/* ========== ADMIN DASHBOARD LOGIC ========== */
+// 2. Public Winners
+function renderPublicWinners() {
+  const tbody = document.querySelector('#public-winners-table tbody');
+  tbody.innerHTML = '';
+  
+  if(liveWinners.length === 0) {
+    document.getElementById('no-winners-msg').style.display = 'block';
+    document.getElementById('public-winners-table').style.display = 'none';
+    return;
+  }
+  
+  document.getElementById('no-winners-msg').style.display = 'none';
+  document.getElementById('public-winners-table').style.display = 'table';
+
+  liveWinners.forEach(win => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${win.date}</td>
+        <td style="font-weight:bold; color:var(--yellow); text-transform:uppercase;">🏆 ${win.ign}</td>
+        <td style="color:var(--muted);">${win.tier}</td>
+        <td style="font-family:'Share Tech Mono';">${win.placement}</td>
+        <td style="color:var(--green); font-weight:bold;">${win.prize}</td>
+      </tr>
+    `;
+  });
+}
+
+// 3. Admin Roster
 function renderAdminDashboard() {
   const tbody = document.querySelector('#admin-table tbody');
   tbody.innerHTML = '';
   
   liveRegistrations.forEach(reg => {
     let statusClass = getStatusClass(reg.status);
-    // passing the firebaseKey directly to the functions
     tbody.innerHTML += `
       <tr>
         <td>${reg.date}</td>
@@ -928,50 +1039,69 @@ function renderAdminDashboard() {
         <td><span class="status-badge ${statusClass}">${reg.status}</span></td>
         <td>
           <button class="admin-action-btn" onclick="openAdminEdit('${reg.firebaseKey}')">Edit</button>
-          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.firebaseKey}')">Delete</button>
+          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.firebaseKey}', 'roster')">Del</button>
         </td>
       </tr>
     `;
   });
 }
 
-// Delete from Firebase
-function deleteRecord(firebaseKey) {
-  if(confirm("Are you sure you want to delete this registration completely?")) {
-    db.ref('soloPlayRegistrations/' + firebaseKey).remove();
+// 4. Admin Winners
+function renderAdminWinners() {
+  const tbody = document.querySelector('#admin-winners-table tbody');
+  tbody.innerHTML = '';
+  
+  liveWinners.forEach(win => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${win.date}</td>
+        <td style="font-weight:bold; color:var(--yellow);">${win.ign}</td>
+        <td>${win.tier}</td>
+        <td>${win.placement}</td>
+        <td style="color:var(--green);">${win.prize}</td>
+        <td>
+          <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${win.firebaseKey}', 'winner')">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+/* ========== ADMIN FUNCTIONS (Delete, Edit, Add) ========== */
+
+// Universal Delete function for both tables
+function deleteRecord(firebaseKey, type) {
+  if(confirm("Are you sure you want to delete this record completely?")) {
+    if(type === 'roster') db.ref('soloPlayRegistrations/' + firebaseKey).remove();
+    if(type === 'winner') db.ref('soloPlayWinners/' + firebaseKey).remove();
   }
 }
 
-// Edit via Firebase
+// Edit Roster Modal functions
 function openAdminEdit(firebaseKey) {
   const record = liveRegistrations.find(r => r.firebaseKey === firebaseKey);
   if(record) {
-    document.getElementById('edit-id').value = record.firebaseKey; // Use Firebase Key here
+    document.getElementById('edit-id').value = record.firebaseKey;
     document.getElementById('edit-ign').value = record.ign;
     document.getElementById('edit-tier').value = record.tier;
     document.getElementById('edit-status').value = record.status;
     document.getElementById('adminEditModal').classList.add('show');
   }
 }
-function closeAdminEdit() {
-  document.getElementById('adminEditModal').classList.remove('show');
-}
+function closeAdminEdit() { document.getElementById('adminEditModal').classList.remove('show'); }
 
 document.getElementById('adminEditForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const firebaseKey = document.getElementById('edit-id').value;
-  
-  // Update specific fields in Firebase
   db.ref('soloPlayRegistrations/' + firebaseKey).update({
     ign: document.getElementById('edit-ign').value,
     tier: document.getElementById('edit-tier').value,
     status: document.getElementById('edit-status').value
   });
-  
   closeAdminEdit();
 });
 
-/* ========== ADMIN MANUAL ADD LOGIC ========== */
+// Admin Add Manual Player to Roster
 document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ign = document.getElementById('manual-ign').value;
@@ -980,35 +1110,42 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   
   let amount = 0;
   if(tier.includes('Standard')) amount = 25;
-  else if(tier.includes('Royal') || tier.includes('4v4') || tier.includes('DUO')) amount = 100;
+  else if(tier.includes('Free Fire')) amount = 35;
   else if(tier.includes('1v1')) amount = 95;
+  else amount = 100; // Royal, 4v4, Duo
 
-  const newReg = {
+  rosterRef.push({
     id: 'REG-MANUAL-' + Math.floor(Math.random() * 1000000),
     date: new Date().toLocaleDateString(),
     timestamp: new Date().getTime(),
-    ign: ign,
-    pid: 'N/A',
-    tier: tier,
-    amount: amount,
-    teammates: [],
-    status: status,
-    utr: 'MANUAL-ENTRY'
-  };
-
-  // Push directly to Firebase
-  rosterRef.push(newReg);
+    ign: ign, pid: 'N/A', tier: tier, amount: amount, teammates: [], status: status, utr: 'MANUAL-ENTRY'
+  });
   
   document.getElementById('adminAddForm').reset();
-  
-  const toast = document.getElementById("toast");
-  toast.innerText = "Player Added Live!";
-  toast.className = "show";
-  setTimeout(() => { 
-    toast.className = toast.className.replace("show", ""); 
-    setTimeout(() => { toast.innerText = "Copied!"; }, 500); 
-  }, 3000);
+  showToast("Player Added to Roster!");
 });
+
+// Admin Add Winner to Hall of Fame
+document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ign = document.getElementById('win-ign').value;
+  const tier = document.getElementById('win-tier').value;
+  const placement = document.getElementById('win-placement').value;
+  const prize = document.getElementById('win-prize').value;
+  
+  winnersRef.push({
+    date: new Date().toLocaleDateString(),
+    timestamp: new Date().getTime(),
+    ign: ign,
+    tier: tier,
+    placement: placement,
+    prize: prize
+  });
+  
+  document.getElementById('adminAddWinnerForm').reset();
+  showToast("Winner Published Live!");
+});
+
 
 /* ========== SUPPORT & COLLAB FORM LOGIC ========== */
 document.getElementById('contactForm').addEventListener('submit', (e) => {
@@ -1027,17 +1164,19 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
     const body = `Sender Name / IGN: ${name}\nInquiry Type: ${type}\n\nMessage:\n${msg}\n\n-------------------------\n(Please reply directly to this email)`;
     window.location.href = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
-  
   document.getElementById('contactForm').reset();
 });
 
 /* ========== UTILS ========== */
 function copyUPI(upiID) {
-  navigator.clipboard.writeText(upiID).then(() => {
-    const toast = document.getElementById("toast");
-    toast.className = "show";
-    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-  });
+  navigator.clipboard.writeText(upiID).then(() => { showToast("UPI Copied!"); });
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.className = "show";
+  setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
 if(sessionStorage.getItem('isAdmin') === 'true') {
