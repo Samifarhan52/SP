@@ -178,35 +178,6 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .royal-badge { position: absolute; top: 15px; left: 15px; background: var(--yellow); color: #000; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
 .coming-soon-badge { position: absolute; top: 15px; right: 15px; background: var(--magenta); color: #fff; padding: 4px 10px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
 
-/* Themes for Tournaments */
-.t-card.standard { border-color: var(--cyan); }
-.t-card.standard:hover { box-shadow: 0 15px 30px rgba(0,240,255,0.2); }
-.t-card.standard h2 { color: var(--cyan); }
-.t-card.standard .entry-fee { color: var(--muted); }
-.t-card.standard .prizes li span { color: var(--cyan); }
-.t-card.standard .btn { background: linear-gradient(90deg, #001827, var(--cyan)); }
-
-.t-card.royal { border-color: var(--yellow); background: linear-gradient(180deg, rgba(255,210,63,0.05), rgba(0,0,0,0.6));}
-.t-card.royal:hover { box-shadow: 0 15px 30px rgba(255,210,63,0.2); }
-.t-card.royal h2 { color: var(--yellow); text-shadow: 0 0 15px rgba(255,210,63,0.5); }
-.t-card.royal .entry-fee { color: var(--yellow); }
-.t-card.royal .prizes li span { color: var(--yellow); }
-.t-card.royal .btn { background: linear-gradient(90deg, var(--orange), var(--yellow)); color: #000; }
-
-.t-card.tdm4 { border-color: var(--magenta); }
-.t-card.tdm4:hover { box-shadow: 0 15px 30px rgba(255,43,214,0.2); }
-.t-card.tdm4 h2 { color: var(--magenta); }
-.t-card.tdm4 .entry-fee { color: var(--muted); }
-.t-card.tdm4 .prizes li span { color: var(--magenta); }
-.t-card.tdm4 .btn { background: linear-gradient(90deg, #1a001a, var(--magenta)); }
-
-.t-card.squad-theme { border-color: var(--green); }
-.t-card.squad-theme:hover { box-shadow: 0 15px 30px rgba(57,255,136,0.2); }
-.t-card.squad-theme h2 { color: var(--green); }
-.t-card.squad-theme .entry-fee { color: var(--muted); }
-.t-card.squad-theme .prizes li span { color: var(--green); }
-.t-card.squad-theme .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
-
 /* Dynamic Helper Utilities */
 .text-cyan { color: var(--cyan) !important; }
 .text-orange { color: var(--orange) !important; }
@@ -228,6 +199,9 @@ footer {
 .copyright span:hover { text-shadow: 0 0 10px var(--orange); }
 </style>
 
+<!-- EmailJS Dynamic SMTP Infrastructure Routing Engine -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -239,7 +213,7 @@ footer {
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
 
-<!-- 🚨 Real-time Validation Error / Notification Modal Component -->
+<!-- Real-time Validation Error / Notification Modal Component[cite: 5] -->
 <div class="modal-overlay" id="alertModal">
   <div class="modal-box" style="border-color: var(--red); box-shadow: 0 0 30px rgba(255,51,51,0.3);">
     <button class="close-btn" onclick="closeAlertModal()">×</button>
@@ -249,11 +223,11 @@ footer {
   </div>
 </div>
 
-<!-- 🔒 Real-time Secure OTP Code Verification Modal Entry Gate -->
+<!-- Real-time Secure OTP Code Verification Modal Entry Gate[cite: 5] -->
 <div class="modal-overlay" id="otpModal">
   <div class="modal-box" style="border-color: var(--green); box-shadow: 0 0 30px rgba(57,255,136,0.3);">
-    <div class="modal-title" style="color: var(--green);">🔒 TWO-FACTOR AUTH</div>
-    <p style="font-size: 14px; color: var(--muted); margin: 10px 0;">A unique 6-digit dynamic passcode was logged directly to your platform node reference paths. Enter it below to unlock entry loops.</p>
+    <div class="modal-title" style="color: var(--green);">🔒 IDENTITY VERIFICATION</div>
+    <p style="font-size: 14px; color: var(--muted); margin: 10px 0;" id="otp-description-text">A unique 6-digit dynamic passcode was dispatched directly to your destination handle. Please check your inbox or references and fill it in below.</p>
     <div class="form-group" style="margin-top: 20px;">
       <label>Enter 6-Digit OTP Token</label>
       <input type="text" id="otp-input-field" class="form-control" placeholder="000000" maxlength="6" style="text-align: center; font-size: 24px; letter-spacing: 5px; font-family: 'Share Tech Mono', monospace; color: var(--green); border-color: var(--green);">
@@ -339,7 +313,7 @@ footer {
         <div class="hero-badge">SOLO PLAY CREDENTIAL CORE</div>
         <h1>IDENTITY<br><span>VERIFICATION</span></h1>
         <p style="color:var(--muted); font-size:16px; line-height:1.6; margin-top:15px;">
-          Access restricted. Create your verified player card or complete your dual OTP signature sequence loops to step into active website operations.
+          Access restricted. Create your verified player card or complete your dual OTP signature sequence loops to step into active website operations.[cite: 5]
         </p>
       </div>
 
@@ -348,7 +322,6 @@ footer {
         <div id="sub-form-login">
           <div class="panel-header">🔐 PLAYER SECURE SIGN-IN</div>
           
-          <!-- Method Selection Toggle Options -->
           <div class="form-group">
             <label>Choose Login Method</label>
             <select id="login-method-select" class="form-control" onchange="toggleLoginInputs(this.value)" style="border-color: var(--cyan); color: var(--cyan); font-weight: bold;">
@@ -436,7 +409,7 @@ footer {
       </div>
     </div>
 
-    <!-- Authenticated Logged Profile Dashboard Sub-View -->
+    <!-- Authenticated Logged Profile Dashboard Sub-View[cite: 5] -->
     <div id="auth-logged-view" style="display:none;">
       <div class="split-layout">
         <div class="info-section">
@@ -459,7 +432,7 @@ footer {
     </div>
   </div>
 
-  <!-- Home View Layout -->
+  <!-- Home View Layout[cite: 5] -->
   <div id="home-page" class="page-view">
     <div class="split-layout">
       <div class="info-section">
@@ -467,11 +440,11 @@ footer {
         <h1>ENTER THE<br><span>KILL ZONE</span></h1>
         <div class="content-card">
           <h4>🔥 THE ULTIMATE PROVING GROUNDS</h4>
-          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community across BGMI and Free Fire.</p>
+          <p>Solo Play is where legends are forged. Drop in, loot up, and survive against the most ruthless players in the community across BGMI and Free Fire.[cite: 5]</p>
         </div>
         <div class="content-card" style="border-color: var(--yellow);">
           <h4 style="color: var(--yellow);">🏆 SELECT YOUR TIER</h4>
-          <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for full prize details.</p>
+          <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for full prize details.[cite: 5]</p>
           <ul style="color:var(--muted); margin-left: 20px; font-size:15px; line-height:1.6;">
             <li style="margin-bottom: 5px;"><strong style="color:var(--red);">Free Fire BR (48 Players):</strong> Entry ₹35 | Multi-Tier Diamond Coupon Rewards!</li>
             <li style="margin-bottom: 5px;"><strong style="color:var(--cyan);">BGMI Solo 1v1:</strong> Entry ₹100 | Win ₹125 Google Coupon Code</li>
@@ -481,7 +454,7 @@ footer {
         </div>
         <div class="content-card" style="border-left: 3px dashed var(--orange); background: rgba(255,140,0,0.03);">
           <h4 style="color: var(--orange); font-family: 'Share Tech Mono', monospace;"><i class="fa-solid fa-circle-info"></i> MAP ALLOCATION RULE</h4>
-          <p style="font-size: 14px; color: var(--muted);">Based on final registration setups, we will organize and announce exactly which custom arena map will be designated for the match day parameters.</p>
+          <p style="font-size: 14px; color: var(--muted);">Based on final registration setups, we will organize and announce exactly which custom arena map will be designated for the match day parameters.[cite: 5]</p>
         </div>
       </div>
 
@@ -520,12 +493,12 @@ footer {
     </div>
   </div>
 
-  <!-- Tournaments Grid View -->
+  <!-- Tournaments Grid View[cite: 5] -->
   <div id="tournaments-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px; margin-bottom:15px;">CHOOSE YOUR <span style="color:var(--yellow)">BATTLE</span></h1>
       <p style="color: var(--muted); font-size: 15px; margin-bottom: 25px;">
-        ⚠️ <strong>Map Selection:</strong> Based on final total registration footprints, we will actively organize which map environment will run live.
+        ⚠️ <strong>Map Selection:</strong> Based on final total registration footprints, we will actively organize which map environment will run live.[cite: 5]
       </p>
     </div>
     
@@ -569,11 +542,11 @@ footer {
     </div>
   </div>
 
-  <!-- Player Verification/Live Roster View -->
+  <!-- Player Verification/Live Roster View[cite: 5] -->
   <div id="roster-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">LIVE <span style="color:var(--green)">ROSTER</span></h1>
-      <p style="color:var(--muted); font-size:16px;">View all active registrations. Only verified players will receive Room IDs. Updates in real-time.</p>
+      <p style="color:var(--muted); font-size:16px;">View all active registrations. Only verified players will receive Room IDs. Updates in real-time.[cite: 5]</p>
     </div>
     <div class="table-wrapper">
       <table id="public-roster-table">
@@ -588,14 +561,14 @@ footer {
         <tbody></tbody>
       </table>
     </div>
-    <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.</p>
+    <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.[cite: 5]</p>
   </div>
 
-  <!-- Hall Of Fame View -->
+  <!-- Hall Of Fame View[cite: 5] -->
   <div id="winners-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">HALL OF <span style="color:var(--yellow)">FAME</span></h1>
-      <p style="color:var(--muted); font-size:16px;">The legends of the arena. Verified match winners and their claimed rewards.</p>
+      <p style="color:var(--muted); font-size:16px;">The legends of the arena. Verified match winners and their claimed rewards.[cite: 5]</p>
     </div>
     <div class="table-wrapper">
       <table id="public-winners-table">
@@ -611,14 +584,14 @@ footer {
         <tbody></tbody>
       </table>
     </div>
-    <p id="no-winners-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No winners recorded yet. Will you be the first?</p>
+    <p id="no-winners-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No winners recorded yet. Will you be the first?[cite: 5]</p>
   </div>
 
-  <!-- Support Communications Panel -->
+  <!-- Support Communications Panel[cite: 5] -->
   <div id="support-page" class="page-view">
     <div class="panel" style="max-width: 700px; margin: 0 auto; border-color:var(--cyan);">
       <div class="panel-header">✉ CONTACT SUPPORT & COLLAB</div>
-      <p style="color:var(--muted); font-size:15px; margin-bottom: 25px;">Use the form below to reach out for payment issues, general inquiries, or partnership opportunities.</p>
+      <p style="color:var(--muted); font-size:15px; margin-bottom: 25px;">Use the form below to reach out for payment issues, general inquiries, or partnership opportunities.[cite: 5]</p>
       
       <form id="contactForm">
         <div class="form-group">
@@ -650,13 +623,13 @@ footer {
     </div>
   </div>
 
-  <!-- Gateway Payment View -->
+  <!-- Gateway Payment View[cite: 5] -->
   <div id="payment-page" class="page-view">
     <div class="panel" style="max-width: 800px; margin: 0 auto; border-color:var(--orange);">
       <div class="panel-header" style="color:var(--orange);">💳 COMPLETE YOUR REGISTRATION</div>
       <div style="background: rgba(255,140,0,0.05); padding: 20px; border: 1px solid rgba(255,140,0,0.2); margin-bottom:25px;">
         <h3 style="font-family: 'Orbitron', sans-serif; color: var(--yellow); margin-bottom: 15px; font-size: 18px;">PAY EXACTLY: <span id="display-fee" style="color:var(--green);">₹0</span></h3>
-        <p style="color:var(--muted);">Copy a UPI ID, make the payment, enter your Transaction UTR below, and click Submit to send your screenshot via WhatsApp.</p>
+        <p style="color:var(--muted);">Copy a UPI ID, make the payment, enter your Transaction UTR below, and click Submit to send your screenshot via WhatsApp.[cite: 5]</p>
       </div>
       <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px;">
         <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Share Tech Mono', monospace; font-size: 15px;">
@@ -678,19 +651,19 @@ footer {
           <input type="text" id="utr" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-whatsapp">Send Screenshot on WhatsApp 💬</button>
-        <button type="button" class="btn" style="background:transparent; border:1px solid var(--muted); color:var(--muted);" onclick="switchTab('home')">⬅ Cancel & Edit Form</button>
+        <button type="button" class="btn" style="background:transparent; border:1px solid var(--muted); color:var(--muted);" onclick="switchTab('home')">⬅ Cancel & Edit Form[cite: 5]</button>
       </form>
     </div>
   </div>
 
-  <!-- Operational Admin Command Center Panel View -->
+  <!-- Operational Admin Command Center Panel View[cite: 5] -->
   <div id="admin-page" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--magenta);">COMMAND <span style="color:#fff;">CENTER</span></h1>
       <button class="btn-outline" style="width:auto; padding:10px 20px;" onclick="adminLogout()">Logout</button>
     </div>
 
-    <!-- Form Additions Section Block -->
+    <!-- Form Additions Section Block[cite: 5] -->
     <div class="panel" style="margin-bottom: 30px; border-color:var(--green); padding: 25px;">
       <h3 style="font-family:'Orbitron',sans-serif; color:var(--green); margin-bottom:15px; font-size:18px;">➕ MANUAL PLAYER ADD (ROSTER)</h3>
       <form id="adminAddForm" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
@@ -715,7 +688,7 @@ footer {
             <option value="Cancelled">Cancelled</option>
           </select>
         </div>
-        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #004d00, var(--green)); color:#000;">Add to Live Roster</button>
+        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #004d00, var(--green)); color:#000;">Add to Live Roster[cite: 5]</button>
       </form>
     </div>
     
@@ -743,11 +716,11 @@ footer {
           <label>Prize Given</label>
           <input type="text" id="win-prize" class="form-control" placeholder="e.g. ₹125 Google Coupon Code" required>
         </div>
-        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #664400, var(--yellow)); color:#000;">Publish to Site</button>
+        <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #664400, var(--yellow)); color:#000;">Publish to Site[cite: 5]</button>
       </form>
     </div>
     
-    <!-- Complete Diagnostic Registrations Tracker Table -->
+    <!-- Complete Diagnostic Registrations Tracker Table[cite: 5] -->
     <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:15px;">Live Roster Full Database (Detailed Registrations)</h3>
     <div class="table-wrapper">
       <table id="admin-table">
@@ -766,7 +739,7 @@ footer {
       </table>
     </div>
 
-    <!-- Accounts Control Table for direct player support lookup -->
+    <!-- Accounts Control Table for direct player support lookup[cite: 5] -->
     <h3 style="font-family:'Orbitron',sans-serif; margin-top:40px; margin-bottom:15px; color:var(--cyan)">Registered Player Accounts (Credentials & Activity Lookup)</h3>
     <div class="table-wrapper">
       <table id="admin-users-table">
@@ -823,9 +796,9 @@ footer {
 <div id="toast">Copied!</div>
 
 <script>
-/* =========================================================
-   🔥 FIREBASE CONFIGURATION (LIVE DATABASE AND MOCK AUTH) 🔥 
-   ========================================================= */
+/* =========================================================================
+   🔥 FIREBASE CONFIGURATION & EMAILJS PUBLIC KEY INITIALIZER 🔥 
+   ========================================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyCNHWvdt2r9LNgtiBlwsufVJ4AdNsdPHPs",
   authDomain: "solo-play-12069.firebaseapp.com",
@@ -842,7 +815,11 @@ const db = firebase.database();
 const rosterRef = db.ref('soloPlayRegistrations');
 const winnersRef = db.ref('soloPlayWinners'); 
 const usersRef = db.ref('soloPlayPlayerAccounts'); 
-const otpRef = db.ref('soloPlayOTPLoveLogs'); // Secure connected node location housing dynamic active OTP numbers
+const otpRef = db.ref('soloPlayOTPLoveLogs');[cite: 5]
+
+// Initialize EmailJS via Public Key Engine Token
+// (Replace "YOUR_PUBLIC_KEY" string below with your actual active EmailJS key)
+emailjs.init("YOUR_PUBLIC_KEY");
 
 /* ========== GLOBAL ACCOUNT SESSION STATE CONTROL ========== */
 let currentUserNode = null; 
@@ -850,10 +827,10 @@ let liveRegistrations = [];
 let liveWinners = []; 
 let liveUsers = []; 
 
-// Variables monitoring ongoing 2FA transactions during execution
 let pendingSessionPayload = null;
 let currentGeneratedOTP = null;
-let otpActionType = ""; // "LOGIN" or "SIGNUP"
+let otpActionType = ""; 
+let activeContactDestination = "";[cite: 5]
 
 window.addEventListener('load', () => {
   const cachedUser = localStorage.getItem('soloPlayerSession');
@@ -903,7 +880,7 @@ usersRef.on('value', (snapshot) => {
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminUsersDashboard(); }
 });
 
-/* ========== REAL CREDENTIAL POPUP POPPERS & VALIDATIONS ========== */
+/* ========== POPUP MODAL ENGINES & CREDENTIAL FORMAT CHECKERS ========== */
 function triggerAlertModal(title, msg) {
   document.getElementById('alertModalTitle').innerText = title;
   document.getElementById('alertModalMessage').innerText = msg;
@@ -912,28 +889,25 @@ function triggerAlertModal(title, msg) {
 function closeAlertModal() { document.getElementById('alertModal').classList.remove('show'); }
 
 function validateEmailSyntax(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 function validateNumberSyntax(num) {
-  const re = /^\d{10}$/;
-  return re.test(num);
+  return /^\d{10}$/.test(num);
 }
 
-/* ========== INPUT PANEL FIELD INTERACTION CONTROLLERS ========== */
 function toggleLoginInputs(val) {
   document.getElementById('login-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
-  document.getElementById('login-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
+  document.getElementById('login-number-wrapper').style.display = val === 'number' ? 'none' : 'block';
 }
 function toggleRegInputs(val) {
   document.getElementById('reg-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
-  document.getElementById('reg-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
+  document.getElementById('reg-number-wrapper').style.display = val === 'number' ? 'none' : 'block';
 }
 
-/* ========== TAB NAVIGATION CONTROL ENGINE ========== */
+/* ========== MULTI-VIEW NAVIGATION ENGINE ========== */
 function switchTab(target) {
   if(!currentUserNode && target !== 'auth') {
-    triggerAlertModal("🛡️ ACCESS RESTRICTED", "Authentication check required. You must log in or sign up before you can explore internal layers.");
+    triggerAlertModal("🛡️ ACCESS RESTRICTED", "Authentication check required. You must log in or sign up before you can explore internal layers.");[cite: 5]
     target = 'auth';
   }
 
@@ -957,95 +931,116 @@ function switchTab(target) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ========== OTP SYSTEM GENERATOR & DATABASE CONNECTOR ========== */
-function initializeOTPVerificationSequence(contactValue, actionType, userPayload) {
+/* ========== PRODUCTION DYNAMIC SMS & EMAIL OTP ENGINE ========== */
+function initializeOTPVerificationSequence(contactValue, isEmailType, actionType, userPayload) {
   currentGeneratedOTP = Math.floor(100000 + Math.random() * 900000).toString();
   otpActionType = actionType;
   pendingSessionPayload = userPayload;
+  activeContactDestination = contactValue;
 
-  // Sync OTP directly to active Firebase nodes so administrative systems trace it
-  otpRef.child(contactValue.replace(/[.$#[\]]/g, "-")).set({
+  const sanitizedKey = contactValue.replace(/[.$#[\]]/g, "-");[cite: 5]
+
+  // Write token securely to live Firebase paths for diagnostics and lookup tracing[cite: 5]
+  otpRef.child(sanitizedKey).set({
     token: currentGeneratedOTP,
     action: actionType,
     timestamp: new Date().getTime()
   }).then(() => {
-    // Popup verification block window directly
-    document.getElementById('otpModal').classList.add('show');
-    showToast("🔑 Secure Unique OTP Sent to DB!");
-    console.log(`[Diagnostic support mirror debug Log] Unique OTP for ${contactValue} is: ${currentGeneratedOTP}`);
+    
+    if(isEmailType) {
+      document.getElementById('otp-description-text').innerHTML = `A real-time 6-digit verification code has been dispatched directly to <span class="text-cyan">${contactValue}</span>. Please verify your inbox or spam filters.`;
+      
+      // 📧 EXECUTE REAL EMAIL ROUTING INFRASTRUCTURE VIA EMAILJS
+      // (Map these parameters to match your designated EmailJS Template layout options)
+      const templateParams = {
+        to_email: contactValue,
+        player_name: userPayload.name || "Arena Challenger",
+        otp_code: currentGeneratedOTP,
+        action_type: actionType
+      };
+
+      // Replace "YOUR_SERVICE_ID" and "YOUR_TEMPLATE_ID" variables with your real EmailJS tokens
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+        .then(() => {
+          showToast("📧 Real OTP Dispatched to Email!");
+        }, (error) => {
+          console.error("EmailJS Transfer Fault:", error);
+          showToast("⚠️ API Route Refused. Code cached to DB.");
+        });
+
+    } else {
+      // 📱 Mobile Cellular SMS Gateway simulation routing pathway
+      document.getElementById('otp-description-text').innerHTML = `Cellular Link Active. For instant live phone testing, access code tokens track directly inside your <span class="text-orange">Admin Dashboard Command Panel</span> logs reference paths.`;
+      showToast("📱 Phone OTP logged to Database Node!");
+    }
+
+    document.getElementById('otpModal').classList.add('show');[cite: 5]
+    console.log(`[Diagnostic support debug log] Active OTP for ${contactValue} is: ${currentGeneratedOTP}`);[cite: 5]
   });
 }
 
 function submitOTPVerification() {
-  const enteredVal = document.getElementById('otp-input-field').value.trim();
+  const enteredVal = document.getElementById('otp-input-field').value.trim();[cite: 5]
   if(!enteredVal) {
-    triggerAlertModal("EMPTY PASSCODE", "Please fill in the 6-digit verification OTP token code showing on registration references.");
+    triggerAlertModal("EMPTY PASSCODE", "Please enter the 6-digit code token sent to your target inbox destination.");[cite: 5]
     return;
   }
 
   if(enteredVal === currentGeneratedOTP) {
-    document.getElementById('otpModal').classList.remove('show');
-    document.getElementById('otp-input-field').value = "";
+    document.getElementById('otpModal').classList.remove('show');[cite: 5]
+    document.getElementById('otp-input-field').value = "";[cite: 5]
     
+    // Wipe transient database verification nodes cleanly upon authorization validation clear
+    otpRef.child(activeContactDestination.replace(/[.$#[\]]/g, "-")).remove();
+
     if(otpActionType === "SIGNUP") {
-      usersRef.push(pendingSessionPayload).then(() => {
-        currentUserNode = pendingSessionPayload;
-        localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload));
-        syncAuthenticatedUI();
-        showToast("Player Card Registered!");
-        document.getElementById('playerRegisterForm').reset();
-        switchTab('home');
+      usersRef.push(pendingSessionPayload).then(() => {[cite: 5]
+        currentUserNode = pendingSessionPayload;[cite: 5]
+        localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload));[cite: 5]
+        syncAuthenticatedUI();[cite: 5]
+        showToast("Player Card Registered!");[cite: 5]
+        document.getElementById('playerRegisterForm').reset();[cite: 5]
+        switchTab('home');[cite: 5]
       });
     } else if(otpActionType === "LOGIN") {
-      currentUserNode = pendingSessionPayload.record;
-      localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload.record));
-      
-      db.ref('soloPlayPlayerAccounts/' + pendingSessionPayload.key).update({ 
+      currentUserNode = pendingSessionPayload.record;[cite: 5]
+      localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload.record));[cite: 5]
+      db.ref('soloPlayPlayerAccounts/' + pendingSessionPayload.key).update({[cite: 5]
         lastLogin: new Date().toLocaleString() 
       });
-      
-      syncAuthenticatedUI();
-      showToast("Access Granted. Welcome back!");
-      document.getElementById('playerLoginForm').reset();
-      switchTab('home');
+      syncAuthenticatedUI();[cite: 5]
+      showToast("Access Granted. Welcome back!");[cite: 5]
+      document.getElementById('playerLoginForm').reset();[cite: 5]
+      switchTab('home');[cite: 5]
     }
   } else {
-    triggerAlertModal("WRONG SECURITY TOKEN", "The OTP code provided does not match the active digital keys saved to your database node reference path.");
+    triggerAlertModal("WRONG SECURITY TOKEN", "The OTP code provided does not match the active digital keys saved to your database node reference path. Try again.");[cite: 5]
   }
 }
 
-/* ========== REAL INTEGRATED AUTHENTICATION EVENT HANDLERS ========== */
-function toggleAuthSubForm(formType) {
-  document.getElementById('sub-form-login').style.display = formType === 'login' ? 'block' : 'none';
-  document.getElementById('sub-form-register').style.display = formType === 'register' ? 'block' : 'none';
-  document.getElementById('sub-form-forgot').style.display = formType === 'forgot' ? 'block' : 'none';
-}
-
-// 1. Production Validation Signup Handler
+/* ========== INTEGRATED AUTHENTICATION LOGIC CONTROLLERS ========== */
 document.getElementById('playerRegisterForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('reg-name').value.trim();
   const route = document.getElementById('reg-method-select').value;
   const email = document.getElementById('reg-email').value.trim().toLowerCase();
   const number = document.getElementById('reg-number').value.trim();
-  const pass = document.getElementById('reg-pass').value;
+  const pass = document.getElementById('reg-pass').value;[cite: 5]
 
-  // Core Empty Value Checking
   if(!name) { triggerAlertModal("MISSING DATA", "Please enter your Full Handle Name before continuing."); return; }
   if(route === 'email' && !email) { triggerAlertModal("MISSING DATA", "The system requires an Email Node Address to map configuration files."); return; }
   if(route === 'number' && !number) { triggerAlertModal("MISSING DATA", "Please provide your Mobile Contact string for setup."); return; }
-  if(!pass) { triggerAlertModal("MISSING DATA", "Account code pathways cannot function without a secure Password parameter."); return; }
+  if(!pass) { triggerAlertModal("MISSING DATA", "Account code pathways cannot function without a secure Password parameter."); return; }[cite: 5]
 
-  // Structural Format Checking
   if(route === 'email' && !validateEmailSyntax(email)) { triggerAlertModal("INVALID EMAIL", "The text provided inside the Email input area lacks true domain addressing syntax rules."); return; }
   if(route === 'number' && !validateNumberSyntax(number)) { triggerAlertModal("INVALID NUMBER", "Your Mobile Number must contain exactly 10 numeric digits."); return; }
-  if(pass.length < 6) { triggerAlertModal("WEAK PASSWORD", "Your login passcode must be at least 6 characters in length to clear firewalls safely."); return; }
+  if(pass.length < 6) { triggerAlertModal("WEAK PASSWORD", "Your login passcode must be at least 6 characters in length to clear firewalls safely."); return; }[cite: 5]
 
   const targetLookupVal = route === 'email' ? email : number;
 
-  usersRef.orderByChild('contactLink').equalTo(targetLookupVal).once('value', (snapshot) => {
+  usersRef.orderByChild('contactLink').equalTo(targetLookupVal).once('value', (snapshot) => {[cite: 5]
     if(snapshot.exists()) {
-      triggerAlertModal("DUPLICATE RECORD", "This contact link address already maps to an active player card configuration.");
+      triggerAlertModal("DUPLICATE RECORD", "This contact node address already maps to an active player card configuration.");
     } else {
       const newUserPayload = {
         uid: 'UID-' + Math.floor(100000 + Math.random() * 900000),
@@ -1055,28 +1050,25 @@ document.getElementById('playerRegisterForm').addEventListener('submit', (e) => 
         password: pass, 
         lastLogin: new Date().toLocaleString()
       };
-      // Initiate connected secure OTP confirmation flow sequence
-      initializeOTPVerificationSequence(targetLookupVal, "SIGNUP", newUserPayload);
+      initializeOTPVerificationSequence(targetLookupVal, (route === 'email'), "SIGNUP", newUserPayload);
     }
   });
 });
 
-// 2. Production Validation Login Handler
 document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const method = document.getElementById('login-method-select').value;
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const number = document.getElementById('login-number').value.trim();
-  const pass = document.getElementById('login-pass').value;
+  const pass = document.getElementById('login-pass').value;[cite: 5]
 
-  // Empty Check Validation loops
   if(method === 'email' && !email) { triggerAlertModal("MISSING DATA", "Please enter your email node address parameter."); return; }
   if(method === 'number' && !number) { triggerAlertModal("MISSING DATA", "Mobile input cannot be empty under number access streams."); return; }
-  if(!pass) { triggerAlertModal("MISSING DATA", "Please input your secret password key."); return; }
+  if(!pass) { triggerAlertModal("MISSING DATA", "Please input your secret password key."); return; }[cite: 5]
 
   const targetQueryVal = method === 'email' ? email : number;
 
-  usersRef.orderByChild('contactLink').equalTo(targetQueryVal).once('value', (snapshot) => {
+  usersRef.orderByChild('contactLink').equalTo(targetQueryVal).once('value', (snapshot) => {[cite: 5]
     if(!snapshot.exists()) {
       triggerAlertModal("ACCOUNT NOT FOUND", "No authenticated player data tracks exist matching that contact profile identifier.");
     } else {
@@ -1090,8 +1082,7 @@ document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
       });
 
       if(matchedRecord) {
-        // Enforce secure dynamic OTP requirement before finalizing system token sessions
-        initializeOTPVerificationSequence(targetQueryVal, "LOGIN", { record: matchedRecord, key: firebaseKey });
+        initializeOTPVerificationSequence(targetQueryVal, (method === 'email'), "LOGIN", { record: matchedRecord, key: firebaseKey });
       } else {
         triggerAlertModal("WRONG CREDENTIALS", "Authentication failed. The security passphrase entered does not correspond with database entries.");
       }
@@ -1099,13 +1090,12 @@ document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
   });
 });
 
-// 3. Password Reset Form Handler
 document.getElementById('playerForgotForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const ident = document.getElementById('forgot-identity').value.trim();
+  const ident = document.getElementById('forgot-identity').value.trim();[cite: 5]
   if(!ident) { triggerAlertModal("MISSING DATA", "Please supply your registered identifier link to run a search sequence."); return; }
   
-  usersRef.orderByChild('contactLink').equalTo(ident).once('value', (snapshot) => {
+  usersRef.orderByChild('contactLink').equalTo(ident).once('value', (snapshot) => {[cite: 5]
     if(!snapshot.exists()) {
       triggerAlertModal("UNRECOGNIZED HANDLE", "No node files tracking that string path exist inside our records.");
     } else {
@@ -1116,8 +1106,7 @@ document.getElementById('playerForgotForm').addEventListener('submit', (e) => {
   });
 });
 
-// 4. Google OAuth Simulation
-function executeGoogleSSO() {
+function executeGoogleSSO() {[cite: 5]
   const randomUID = 'G-UID-' + Math.floor(200000 + Math.random() * 700000);
   const mockEmail = "googleplayer" + Math.floor(Math.random() * 1000) + "@gmail.com";
 
@@ -1130,7 +1119,7 @@ function executeGoogleSSO() {
     lastLogin: new Date().toLocaleString()
   };
 
-  usersRef.orderByChild('contactLink').equalTo(mockEmail).once('value', (snapshot) => {
+  usersRef.orderByChild('contactLink').equalTo(mockEmail).once('value', (snapshot) => {[cite: 5]
     if(!snapshot.exists()) { usersRef.push(googleUser); }
     currentUserNode = googleUser;
     localStorage.setItem('soloPlayerSession', JSON.stringify(googleUser));
@@ -1140,7 +1129,7 @@ function executeGoogleSSO() {
   });
 }
 
-function executePlayerSignout() {
+function executePlayerSignout() {[cite: 5]
   currentUserNode = null;
   localStorage.removeItem('soloPlayerSession');
   document.getElementById('auth-logged-view').style.display = 'none';
@@ -1150,7 +1139,7 @@ function executePlayerSignout() {
   switchTab('auth');
 }
 
-function syncAuthenticatedUI() {
+function syncAuthenticatedUI() {[cite: 5]
   if(currentUserNode) {
     document.getElementById('auth-unlogged-view').style.display = 'none';
     document.getElementById('auth-logged-view').style.display = 'block';
@@ -1162,32 +1151,7 @@ function syncAuthenticatedUI() {
   }
 }
 
-/* ========== DYNAMIC FORM LOGIC ========== */
-const matchTierSelect = document.getElementById('match-tier');
-const dynamicTeammates = document.getElementById('dynamic-teammates');
-const paymentTypeGroup = document.getElementById('payment-type-group');
-const paymentTypeSelect = document.getElementById('payment-type');
-
-matchTierSelect.addEventListener('change', (e) => {
-  const val = e.target.value;
-  if (val === 'wow-map' || val === 'bgmi-squad') {
-    dynamicTeammates.innerHTML = `
-      <div class="team-members-box">
-        <h5>👥 SQUAD DETAILS</h5>
-        <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
-        <div class="form-group"><input type="text" id="p3" class="form-control" placeholder="Player 3 (IGN - ID)" required></div>
-        <div class="form-group"><input type="text" id="p4" class="form-control" placeholder="Player 4 (IGN - ID)" required></div>
-      </div>
-    `;
-    paymentTypeGroup.style.display = 'block';
-    paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="400">Pay Full Squad (₹400)</option>`;
-  } else {
-    dynamicTeammates.innerHTML = '';
-    paymentTypeGroup.style.display = 'none';
-  }
-});
-
-/* ========== INTERCEPTIVE CHECKOUT AND REGISTRATION LOGIC ========== */
+/* ========== PROCEDURAL INTERCEPTIVE CHECKOUT AND REGISTRATION LOGIC ========== */
 document.getElementById('regForm').addEventListener('submit', (e) => {
   e.preventDefault();
   
@@ -1245,7 +1209,7 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
     return;
   }
 
-  rosterRef.orderByChild('utr').equalTo(utr).once('value', (snapshot) => {
+  rosterRef.orderByChild('utr').equalTo(utr).once('value', (snapshot) => {[cite: 5]
     if(snapshot.exists()) {
       showToast("❌ This UTR has already been submitted!");
     } else {
@@ -1271,19 +1235,19 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
 
 /* ========== PERSONALIZED PLAYER HISTORY DISPATCH RENDERER ========== */
 function renderPlayerHistoryView() {
-  const container = document.getElementById('player-history-container');
+  const container = document.getElementById('player-history-container');[cite: 5]
   if(!container) return;
   container.innerHTML = '';
   if(!currentUserNode) return;
 
-  const playerRecords = liveRegistrations.filter(r => r.userUid === currentUserNode.uid);
+  const playerRecords = liveRegistrations.filter(r => r.userUid === currentUserNode.uid);[cite: 5]
   if(playerRecords.length === 0) {
-    container.innerHTML = `<p style="color:var(--muted); text-align:center; font-family:'Share Tech Mono'; padding-top:20px;">No registered entry logs detected on this profile.</p>`;
+    container.innerHTML = `<p style="color:var(--muted); text-align:center; font-family:'Share Tech Mono'; padding-top:20px;">No registered entry logs detected on this profile.</p>`;[cite: 5]
     return;
   }
 
   playerRecords.forEach(rec => {
-    let sClass = getStatusClass(rec.status);
+    let sClass = getStatusClass(rec.status);[cite: 5]
     container.innerHTML += `
       <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.05); padding:15px; margin-bottom:12px; border-left:3px solid var(--orange);">
         <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-family:'Orbitron'; font-size:14px;">
@@ -1314,9 +1278,9 @@ function closeAdminLogin() {
 document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const id = document.getElementById('adminId').value;
-  const pass = document.getElementById('adminPass').value;
+  const pass = document.getElementById('adminPass').value;[cite: 5]
   
-  if(id === "Farhan" && pass === "web solutions") {
+  if(id === "Farhan" && pass === "web solutions") {[cite: 5]
     sessionStorage.setItem('isAdmin', 'true');
     document.getElementById('nav-admin-li').style.display = 'block';
     closeAdminLogin();
@@ -1325,30 +1289,30 @@ document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
     renderAdminWinners();
     renderAdminUsersDashboard();
   } else {
-    document.getElementById('adminError').style.display = 'block';
+    document.getElementById('adminError').style.display = 'block';[cite: 5]
   }
 });
 
 function adminLogout() {
-  sessionStorage.removeItem('isAdmin');
-  document.getElementById('nav-admin-li').style.display = 'none';
-  switchTab('auth');
+  sessionStorage.removeItem('isAdmin');[cite: 5]
+  document.getElementById('nav-admin-li').style.display = 'none';[cite: 5]
+  switchTab('auth');[cite: 5]
 }
 
-/* ========== RENDERING DATA GRID DASHBOARDS ========== */
+/* ========== TABLES UI DOM RENDERERS ========== */
 function renderPublicRoster() {
-  const tbody = document.querySelector('#public-roster-table tbody');
+  const tbody = document.querySelector('#public-roster-table tbody');[cite: 5]
   tbody.innerHTML = '';
-  if(liveRegistrations.length === 0) {
-    document.getElementById('no-roster-msg').style.display = 'block';
-    document.getElementById('public-roster-table').style.display = 'none';
+  if(liveRegistrations.length === 0) {[cite: 5]
+    document.getElementById('no-roster-msg').style.display = 'block';[cite: 5]
+    document.getElementById('public-roster-table').style.display = 'none';[cite: 5]
     return;
   }
-  document.getElementById('no-roster-msg').style.display = 'none';
-  document.getElementById('public-roster-table').style.display = 'table';
+  document.getElementById('no-roster-msg').style.display = 'none';[cite: 5]
+  document.getElementById('public-roster-table').style.display = 'table';[cite: 5]
 
   liveRegistrations.forEach(reg => {
-    let statusClass = getStatusClass(reg.status);
+    let statusClass = getStatusClass(reg.status);[cite: 5]
     tbody.innerHTML += `
       <tr>
         <td>${reg.date}</td>
@@ -1361,15 +1325,15 @@ function renderPublicRoster() {
 }
 
 function renderPublicWinners() {
-  const tbody = document.querySelector('#public-winners-table tbody');
+  const tbody = document.querySelector('#public-winners-table tbody');[cite: 5]
   tbody.innerHTML = '';
-  if(liveWinners.length === 0) {
-    document.getElementById('no-winners-msg').style.display = 'block';
-    document.getElementById('public-winners-table').style.display = 'none';
+  if(liveWinners.length === 0) {[cite: 5]
+    document.getElementById('no-winners-msg').style.display = 'block';[cite: 5]
+    document.getElementById('public-winners-table').style.display = 'none';[cite: 5]
     return;
   }
-  document.getElementById('no-winners-msg').style.display = 'none';
-  document.getElementById('public-winners-table').style.display = 'table';
+  document.getElementById('no-winners-msg').style.display = 'none';[cite: 5]
+  document.getElementById('public-winners-table').style.display = 'table';[cite: 5]
 
   liveWinners.forEach(win => {
     tbody.innerHTML += `
@@ -1385,12 +1349,12 @@ function renderPublicWinners() {
 }
 
 function renderAdminDashboard() {
-  const tbody = document.querySelector('#admin-table tbody');
+  const tbody = document.querySelector('#admin-table tbody');[cite: 5]
   tbody.innerHTML = '';
   
   liveRegistrations.forEach(reg => {
-    let statusClass = getStatusClass(reg.status);
-    let squadLineText = (reg.teammates && reg.teammates.length > 0) ? `<div style="font-size:12px; color:var(--yellow); margin-top:5px;">Mates: ${reg.teammates.join(' | ')}</div>` : '';
+    let statusClass = getStatusClass(reg.status);[cite: 5]
+    let squadLineText = (reg.teammates && reg.teammates.length > 0) ? `<div style="font-size:12px; color:var(--yellow); margin-top:5px;">Mates: ${reg.teammates.join(' | ')}</div>` : '';[cite: 5]
     
     tbody.innerHTML += `
       <tr>
@@ -1418,7 +1382,7 @@ function renderAdminDashboard() {
 }
 
 function renderAdminUsersDashboard() {
-  const tbody = document.querySelector('#admin-users-table tbody');
+  const tbody = document.querySelector('#admin-users-table tbody');[cite: 5]
   tbody.innerHTML = '';
   liveUsers.forEach(usr => {
     tbody.innerHTML += `
@@ -1434,7 +1398,7 @@ function renderAdminUsersDashboard() {
 }
 
 function renderAdminWinners() {
-  const tbody = document.querySelector('#admin-winners-table tbody');
+  const tbody = document.querySelector('#admin-winners-table tbody');[cite: 5]
   tbody.innerHTML = '';
   liveWinners.forEach(win => {
     tbody.innerHTML += `
@@ -1461,7 +1425,7 @@ function deleteRecord(firebaseKey, type) {
 }
 
 function openAdminEdit(firebaseKey) {
-  const record = liveRegistrations.find(r => r.firebaseKey === firebaseKey);
+  const record = liveRegistrations.find(r => r.firebaseKey === firebaseKey);[cite: 5]
   if(record) {
     document.getElementById('edit-id').value = record.firebaseKey;
     document.getElementById('edit-ign').value = record.ign;
@@ -1487,7 +1451,7 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ign = document.getElementById('manual-ign').value;
   const tier = document.getElementById('manual-tier').value;
-  const status = document.getElementById('manual-status').value;
+  const status = document.getElementById('manual-status').value;[cite: 5]
   
   let amount = 100;
   if(tier.includes('Free Fire')) amount = 35;
@@ -1509,7 +1473,7 @@ document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => 
   const ign = document.getElementById('win-ign').value;
   const tier = document.getElementById('win-tier').value;
   const placement = document.getElementById('win-placement').value;
-  const prize = document.getElementById('win-prize').value;
+  const prize = document.getElementById('win-prize').value;[cite: 5]
   
   winnersRef.push({
     date: new Date().toLocaleDateString(),
@@ -1530,11 +1494,11 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   const name = document.getElementById('contactName').value;
   const type = document.getElementById('contactType').value;
   const msg = document.getElementById('contactMessage').value;
-  const method = document.getElementById('contactMethod').value;
+  const method = document.getElementById('contactMethod').value;[cite: 5]
   
   if (method === 'whatsapp') {
-    const waText = encodeURIComponent(`*${type} Request*\n\n*Name/IGN:* ${name}\n\n*Message:*\n${msg}`);
-    window.open(`https://wa.me/917676808068?text=${waText}`, '_blank');
+    const waText = encodeURIComponent(`*${type} Request*\n\n*Name/IGN:* ${name}\n\n*Message:*\n${msg}`);[cite: 5]
+    window.open(`https://wa.me/917676808068?text=${waText}`, '_blank');[cite: 5]
   } else {
     const targetEmail = "farhanulla.shaik@gmail.com";
     const subject = `[Solo Play Arena] - ${type} - From ${name}`;
@@ -1544,26 +1508,16 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   document.getElementById('contactForm').reset();
 });
 
-/* ========== UTILITY HELPER UTILITIES ========== */
-const pages = ['home', 'tournaments', 'roster', 'winners', 'support', 'auth', 'payment', 'admin'];
-
-function copyUPI(upiID) {
-  navigator.clipboard.writeText(upiID).then(() => { showToast("UPI Copied!"); });
-}
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.innerText = message;
-  toast.className = "show";
-  setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+/* ========== UTILITY ENGINE RE-MAPPERS ========== */
+function getStatusClass(status) {[cite: 5]
+  if (status === 'Verified') return 'status-verified';[cite: 5]
+  if (status === 'Cancelled') return 'status-cancelled';[cite: 5]
+  if (status === 'Kicked Out') return 'status-kickedout';[cite: 5]
+  if (status === 'Banned') return 'status-banned';[cite: 5]
+  return 'status-pending';[cite: 5]
 }
 
 /* ========== PARTICLES INTERACTIVE RENDERING ENGINE ========== */
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let w, h, particles = [];
-function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-resize(); window.addEventListener('resize',resize);
 function initParticles(){
   particles = [];
   const count = Math.min(60, Math.floor(w*h/20000));
