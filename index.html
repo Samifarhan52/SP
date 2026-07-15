@@ -10,10 +10,10 @@
 <style>
 /* ========== RESET & BASE ========== */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth; height: 100%;}
 body{
   font-family:'Rajdhani',sans-serif; background:#05060d; color:#e6f1ff;
-  overflow-x:hidden; min-height:100vh; display: flex; flex-direction: column;
+  overflow-x:hidden; min-height: 100%; display: flex; flex-direction: column;
 }
 :root{
   --bg:#05060d; --panel:#0f1424; --cyan:#00f0ff; --magenta:#ff2bd6;
@@ -92,7 +92,7 @@ nav{
 }
 
 /* ========== MAIN LAYOUT ========== */
-.container{ max-width: 1250px; margin: 140px auto 50px; padding: 0 30px; flex: 1; width: 100%;}
+.container{ max-width: 1250px; margin: 140px auto 50px; padding: 0 30px; flex: 1 0 auto; width: 100%; position: relative; z-index: 5;}
 .split-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; align-items: flex-start; }
 @media(max-width: 950px){ .split-layout { grid-template-columns: 1fr; } }
 
@@ -207,6 +207,14 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .t-card.squad-theme .prizes li span { color: var(--green); }
 .t-card.squad-theme .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
 
+/* FREE FIRE ACTIVE THEME */
+.t-card.ff-active { border-color: var(--red); background: rgba(0,0,0,0.5); }
+.t-card.ff-active:hover { box-shadow: 0 15px 30px rgba(255,51,51,0.2); transform: translateY(-5px); }
+.t-card.ff-active h2 { color: var(--red); }
+.t-card.ff-active .entry-fee { color: var(--muted); }
+.t-card.ff-active .prizes li span { color: var(--red); }
+.t-card.ff-active .btn { background: linear-gradient(90deg, #330000, var(--red)); color: #fff; }
+
 /* Dynamic Helper Utilities */
 .text-cyan { color: var(--cyan) !important; }
 .text-orange { color: var(--orange) !important; }
@@ -214,9 +222,9 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .text-magenta { color: var(--magenta) !important; }
 .link-toggle { color: var(--cyan); cursor: pointer; text-decoration: underline; font-family: 'Share Tech Mono', monospace; }
 
-/* ========== FOOTER ========== */
+/* ========== FOOTER STICKY FIX ========== */
 footer {
-  margin-top: auto; padding: 40px 30px; background: rgba(5,6,13,0.9);
+  flex-shrink: 0; padding: 40px 30px; background: rgba(5,6,13,0.9);
   border-top: 1px solid rgba(255,140,0,0.15); text-align: center; position: relative; z-index: 10; backdrop-filter: blur(10px);
 }
 .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; align-items: center; }
@@ -239,7 +247,7 @@ footer {
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
 
-<!-- Real-time Validation Error / Notification Modal Component -->
+<!-- Validation Error / Notification Modal Layout Component -->
 <div class="modal-overlay" id="alertModal">
   <div class="modal-box" style="border-color: var(--red); box-shadow: 0 0 30px rgba(255,51,51,0.3);">
     <button class="close-btn" onclick="closeAlertModal()">×</button>
@@ -249,7 +257,7 @@ footer {
   </div>
 </div>
 
-<!-- Real-time Secure OTP Code Verification Modal Entry Gate -->
+<!-- Two-Factor Authenticating Code Entry Verification Terminal Window Box Gateway Modal -->
 <div class="modal-overlay" id="otpModal">
   <div class="modal-box" style="border-color: var(--green); box-shadow: 0 0 30px rgba(57,255,136,0.3);">
     <div class="modal-title" style="color: var(--green);">🔒 TWO-FACTOR AUTHENTICATION</div>
@@ -262,7 +270,7 @@ footer {
   </div>
 </div>
 
-<!-- Admin Override Authentication Modal -->
+<!-- Admin Override Override System Command Center Gatekeeper Modal -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminLogin()">×</button>
@@ -282,7 +290,7 @@ footer {
   </div>
 </div>
 
-<!-- Admin Record Row Modification Modal -->
+<!-- Admin Record Row Modification Overlay Modal Tool -->
 <div class="modal-overlay" id="adminEditModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminEdit()">×</button>
@@ -339,7 +347,7 @@ footer {
         <div class="hero-badge">SOLO PLAY CREDENTIAL CORE</div>
         <h1>IDENTITY<br><span>VERIFICATION</span></h1>
         <p style="color:var(--muted); font-size:16px; line-height:1.6; margin-top:15px;">
-          Access restricted. Create your verified player card or complete your dual OTP signature sequence loops to step into active website operations.
+          Access restricted. Create your verified player card or complete your dual OAuth identity signature sequence loops to step into active website operations.
         </p>
       </div>
 
@@ -406,6 +414,10 @@ footer {
               <label>Password</label>
               <input type="password" id="reg-pass" class="form-control" placeholder="Minimum 6 characters">
             </div>
+            <div class="form-group">
+              <label style="color:var(--orange);">Verification Safeguard</label>
+              <p style="font-size:12px; color:var(--muted); line-height:1.3; margin-top:-5px; margin-bottom:5px;">Note: Manual registration paths execute a self-contained 2FA screen validation node step.</p>
+            </div>
             <button type="submit" class="btn" style="background:linear-gradient(90deg, var(--green), var(--cyan)); color:#000;">Generate Setup OTP</button>
           </form>
           <div style="margin-top:20px; font-size:14px; text-align:center;">
@@ -413,7 +425,7 @@ footer {
           </div>
         </div>
 
-        <!-- Sub-Form 3: Forgot Block -->
+        <!-- Sub-Form 3: Forgot Passphrase Recovery Block -->
         <div id="sub-form-forgot" style="display:none;">
           <div class="panel-header">🔄 IDENTITY RECOVERY</div>
           <form id="playerForgotForm">
@@ -425,13 +437,6 @@ footer {
             Remember credentials? <span class="link-toggle" onclick="toggleAuthSubForm('login')">Return to Login</span>
           </div>
         </div>
-
-        <div style="margin:25px 0; display:flex; align-items:center; justify-content:center; gap:10px;">
-          <span style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></span>
-          <span style="font-family:'Share Tech Mono'; font-size:12px; color:var(--muted);">OR SIGN IN VIA</span>
-          <span style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></span>
-        </div>
-        <button class="btn btn-outline" type="button" onclick="executeGoogleSSO()"><i class="fa-brands fa-google text-orange"></i> Google Identity Authentication</button>
       </div>
     </div>
 
@@ -439,7 +444,7 @@ footer {
     <div id="auth-logged-view" style="display:none;">
       <div class="split-layout">
         <div class="info-section">
-          <div class="hero-badge text-green">🔐 ACCOUNT  ACTIVE</div>
+          <div class="hero-badge text-green">🔐 ACCOUNT NODE ACTIVE</div>
           <h1>WELCOME BACK, <br><span id="profile-display-name">PLAYER</span></h1>
           <div class="content-card" style="margin-top:20px;">
             <h4>📋 USER NODES IDENTITY DATAS</h4>
@@ -447,7 +452,7 @@ footer {
             <p style="font-size:14px; margin-bottom:5px;"><strong>System Contact Node:</strong> <span id="profile-node-email">N/A</span></p>
             <p style="font-size:14px;"><strong>Account Tier Status:</strong> <span class="status-badge status-verified">Verified Player</span></p>
           </div>
-          <button class="btn btn-outline" style="max-width:200px;" onclick="executePlayerSignout()"> Logout</button>
+          <button class="btn btn-outline" style="max-width:200px;" onclick="executePlayerSignout()">Terminate Session Logout</button>
         </div>
 
         <div class="panel" style="grid-column: span 1;">
@@ -823,12 +828,34 @@ footer {
 
 <script>
 /* =========================================================
-   🔥 GLOBAL SYSTEM LAYOUT PAGES DEFINITION ENGINE 🔥 
+   🔥 INTERACTION INPUT TOGGLES (DECLARED FIRST TO FIX LOAD ERRORS) 🔥 
    ========================================================= */
-const pages = ['home', 'tournaments', 'roster', 'winners', 'support', 'auth', 'payment', 'admin'];
+function toggleLoginInputs(val) {
+  const emailInput = document.getElementById('login-email-wrapper');
+  const numberInput = document.getElementById('login-number-wrapper');
+  if(emailInput && numberInput) {
+    emailInput.style.display = val === 'email' ? 'block' : 'none';
+    numberInput.style.display = val === 'number' ? 'block' : 'none';
+  }
+}
+
+// Ensure layout functions load prior to parsing
+toggleLoginInputs('email');
+
+function toggleRegInputs(val) {
+  const emailInput = document.getElementById('reg-email-wrapper');
+  const numberInput = document.getElementById('reg-number-wrapper');
+  if(emailInput && numberInput) {
+    emailInput.style.display = val === 'email' ? 'block' : 'none';
+    numberInput.style.display = val === 'number' ? 'block' : 'none';
+  }
+}
+
+// Ensure layout functions load prior to parsing
+toggleRegInputs('email');
 
 /* =========================================================
-   🔥 FIREBASE CONFIGURATION & SYSTEM INITIALIZATION 🔥 
+   🔥 FIREBASE CONFIGURATION & INITIALIZATION 🔥 
    ========================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyCNHWvdt2r9LNgtiBlwsufVJ4AdNsdPHPs",
@@ -897,6 +924,7 @@ winnersRef.on('value', (snapshot) => {
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminWinners(); }
 });
 
+// 🔥 CRITICAL FIXED LIVE LISTENER: Added continuous monitoring to stream new user signups instantly
 usersRef.on('value', (snapshot) => {
   liveUsers = [];
   snapshot.forEach((childSnapshot) => {
@@ -904,6 +932,7 @@ usersRef.on('value', (snapshot) => {
     usr.firebaseKey = childSnapshot.key;
     liveUsers.push(usr);
   });
+  // Trigger table data updates right when mutations occur across DB nodes
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminUsersDashboard(); }
 });
 
@@ -920,16 +949,6 @@ function validateEmailSyntax(email) {
 }
 function validateNumberSyntax(num) {
   return /^\d{10}$/.test(num);
-}
-
-function toggleLoginInputs(val) {
-  document.getElementById('login-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
-  document.getElementById('login-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
-}
-// Fixed backward visibility configuration rules
-function toggleRegInputs(val) {
-  document.getElementById('reg-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
-  document.getElementById('reg-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
 }
 
 /* ========== TAB MULTI-VIEW ROUTING INTERFACE ENGINE ========== */
@@ -1036,7 +1055,7 @@ function toggleAuthSubForm(formType) {
   document.getElementById('sub-form-forgot').style.display = formType === 'forgot' ? 'block' : 'none';
 }
 
-// 1. Account Signup Event Listener
+// Account Signup Event Listener
 document.getElementById('playerRegisterForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('reg-name').value.trim();
@@ -1073,7 +1092,7 @@ document.getElementById('playerRegisterForm').addEventListener('submit', (e) => 
   });
 });
 
-// 2. Account Login Event Listener
+// Account Login Event Listener
 document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const method = document.getElementById('login-method-select').value;
@@ -1109,7 +1128,7 @@ document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
   });
 });
 
-// 3. Password Reset Request Listener
+// Password Reset Request Listener
 document.getElementById('playerForgotForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ident = document.getElementById('forgot-identity').value.trim();
@@ -1119,36 +1138,12 @@ document.getElementById('playerForgotForm').addEventListener('submit', (e) => {
     if(!snapshot.exists()) {
       triggerAlertModal("UNRECOGNIZED HANDLE", "No node files tracking that string path exist inside our records.");
     } else {
-      showToast("🔧 System recovery email simulation dispatched!");
+      showToast("🔧 System recovery simulation dispatched!");
       toggleAuthSubForm('login');
       document.getElementById('playerForgotForm').reset();
     }
   });
 });
-
-// 4. Guest Single-Sign-On Simulation
-function executeGoogleSSO() {
-  const randomUID = 'G-UID-' + Math.floor(200000 + Math.random() * 700000);
-  const mockEmail = "googleplayer" + Math.floor(Math.random() * 1000) + "@gmail.com";
-
-  const googleUser = {
-    uid: randomUID,
-    name: "Google Warrior",
-    contactLink: mockEmail,
-    type: "email",
-    password: "OAUTH-GOOGLE-SSO-TOKEN",
-    lastLogin: new Date().toLocaleString()
-  };
-
-  usersRef.orderByChild('contactLink').equalTo(mockEmail).once('value', (snapshot) => {
-    if(!snapshot.exists()) { usersRef.push(googleUser); }
-    currentUserNode = googleUser;
-    localStorage.setItem('soloPlayerSession', JSON.stringify(googleUser));
-    syncAuthenticatedUI();
-    showToast("Linked Google Session!");
-    switchTab('home');
-  });
-}
 
 function executePlayerSignout() {
   currentUserNode = null;
@@ -1178,24 +1173,26 @@ const dynamicTeammates = document.getElementById('dynamic-teammates');
 const paymentTypeGroup = document.getElementById('payment-type-group');
 const paymentTypeSelect = document.getElementById('payment-type');
 
-matchTierSelect.addEventListener('change', (e) => {
-  const val = e.target.value;
-  if (val === 'wow-map' || val === 'bgmi-squad') {
-    dynamicTeammates.innerHTML = `
-      <div class="team-members-box">
-        <h5>👥 SQUAD DETAILS</h5>
-        <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
-        <div class="form-group"><input type="text" id="p3" class="form-control" placeholder="Player 3 (IGN - ID)" required></div>
-        <div class="form-group"><input type="text" id="p4" class="form-control" placeholder="Player 4 (IGN - ID)" required></div>
-      </div>
-    `;
-    paymentTypeGroup.style.display = 'block';
-    paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="400">Pay Full Squad (₹400)</option>`;
-  } else {
-    dynamicTeammates.innerHTML = '';
-    paymentTypeGroup.style.display = 'none';
-  }
-});
+if(matchTierSelect) {
+  matchTierSelect.addEventListener('change', (e) => {
+    const val = e.target.value;
+    if (val === 'wow-map' || val === 'bgmi-squad') {
+      dynamicTeammates.innerHTML = `
+        <div class="team-members-box">
+          <h5>👥 SQUAD DETAILS</h5>
+          <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
+          <div class="form-group"><input type="text" id="p3" class="form-control" placeholder="Player 3 (IGN - ID)" required></div>
+          <div class="form-group"><input type="text" id="p4" class="form-control" placeholder="Player 4 (IGN - ID)" required></div>
+        </div>
+      `;
+      paymentTypeGroup.style.display = 'block';
+      paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="400">Pay Full Squad (₹400)</option>`;
+    } else {
+      dynamicTeammates.innerHTML = '';
+      paymentTypeGroup.style.display = 'none';
+    }
+  });
+}
 
 /* ========== FORM SUBMISSION AND SLOT CHECKOUT INTERACTION ========== */
 document.getElementById('regForm').addEventListener('submit', (e) => {
@@ -1339,7 +1336,6 @@ document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
   }
 });
 
-/* ========== NAVIGATION HELPERS ========== */
 function adminLogout() {
   sessionStorage.removeItem('isAdmin');
   document.getElementById('nav-admin-li').style.display = 'none';
@@ -1349,6 +1345,7 @@ function adminLogout() {
 /* ========== DATABASES UI DISPATCH RENDERERS ========== */
 function renderPublicRoster() {
   const tbody = document.querySelector('#public-roster-table tbody');
+  if(!tbody) return;
   tbody.innerHTML = '';
   if(liveRegistrations.length === 0) {
     document.getElementById('no-roster-msg').style.display = 'block';
@@ -1373,6 +1370,7 @@ function renderPublicRoster() {
 
 function renderPublicWinners() {
   const tbody = document.querySelector('#public-winners-table tbody');
+  if(!tbody) return;
   tbody.innerHTML = '';
   if(liveWinners.length === 0) {
     document.getElementById('no-winners-msg').style.display = 'block';
@@ -1397,6 +1395,7 @@ function renderPublicWinners() {
 
 function renderAdminDashboard() {
   const tbody = document.querySelector('#admin-table tbody');
+  if(!tbody) return;
   tbody.innerHTML = '';
   
   liveRegistrations.forEach(reg => {
@@ -1430,6 +1429,7 @@ function renderAdminDashboard() {
 
 function renderAdminUsersDashboard() {
   const tbody = document.querySelector('#admin-users-table tbody');
+  if(!tbody) return;
   tbody.innerHTML = '';
   liveUsers.forEach(usr => {
     tbody.innerHTML += `
@@ -1446,6 +1446,7 @@ function renderAdminUsersDashboard() {
 
 function renderAdminWinners() {
   const tbody = document.querySelector('#admin-winners-table tbody');
+  if(!tbody) return;
   tbody.innerHTML = '';
   liveWinners.forEach(win => {
     tbody.innerHTML += `
@@ -1515,7 +1516,6 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   showToast("Player Added to Roster!");
 });
 
-// Fixed broken variable reference (win-ign renamed to ign)
 document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ign = document.getElementById('win-ign').value;
@@ -1556,28 +1556,13 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   document.getElementById('contactForm').reset();
 });
 
-/* ========== UTILITY HELPER UTILITIES ========== */
-function copyUPI(upiID) {
-  navigator.clipboard.writeText(upiID).then(() => { showToast("UPI Copied!"); });
-}
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.innerText = message;
-  toast.className = "show";
-  setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-}
-
+/* ========== STATUS UI MAPPER ========== */
 function getStatusClass(status) {
   if (status === 'Verified') return 'status-verified';
   if (status === 'Cancelled') return 'status-cancelled';
   if (status === 'Kicked Out') return 'status-kickedout';
   if (status === 'Banned') return 'status-banned';
   return 'status-pending';
-}
-
-if(sessionStorage.getItem('isAdmin') === 'true') {
-  document.getElementById('nav-admin-li').style.display = 'block';
 }
 
 /* ========== PARTICLES INTERACTIVE RENDERING ENGINE ========== */
