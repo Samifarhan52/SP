@@ -411,7 +411,6 @@ footer {
     </div>
     
     <div class="tourney-grid">
-      <!-- Free Fire BR Card Restructured to match uniform layout -->
       <div class="t-card ff-active">
         <div class="royal-badge" style="background:var(--red); color:#fff;">BR MATCH</div>
         <h2>FREE FIRE BR</h2><div class="entry-fee">Fee: ₹35 / player</div>
@@ -893,24 +892,36 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
 
 document.getElementById('paymentForm').addEventListener('submit', (e) => {
   e.preventDefault();
-  const utr = document.getElementById('utr').value;
-  currentRegistration.utr = utr;
+  const utr = document.getElementById('utr').value.trim();
 
-  rosterRef.push(currentRegistration); 
+  if(!utr) {
+    showToast("Please enter a valid UTR ID.");
+    return;
+  }
 
-  let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
-  if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
-  msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}`;
-  if(teamDetailsText !== "") { msg += teamDetailsText; }
-  msg += `%0A*UTR:* ${utr}%0A%0APlease check my screenshot and verify!`;
-  
-  window.open(`https://wa.me/917676808068?text=${msg}`, '_blank');
-  
-  document.getElementById('regForm').reset();
-  document.getElementById('paymentForm').reset();
-  document.getElementById('dynamic-teammates').innerHTML = '';
-  document.getElementById('payment-type-group').style.display = 'none';
-  switchTab('roster'); 
+  // 🔒 Anti-Fraud: Asynchronous checking step against DB UTR records before initiating WhatsApp
+  rosterRef.orderByChild('utr').equalTo(utr).once('value', (snapshot) => {
+    if(snapshot.exists()) {
+      showToast("❌ This UTR has already been submitted!");
+    } else {
+      currentRegistration.utr = utr;
+      rosterRef.push(currentRegistration); 
+
+      let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
+      if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
+      msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}`;
+      if(teamDetailsText !== "") { msg += teamDetailsText; }
+      msg += `%0A*UTR:* ${utr}%0A%0APlease check my screenshot and verify!`;
+      
+      window.open(`https://wa.me/917676808068?text=${msg}`, '_blank');
+      
+      document.getElementById('regForm').reset();
+      document.getElementById('paymentForm').reset();
+      document.getElementById('dynamic-teammates').innerHTML = '';
+      document.getElementById('payment-type-group').style.display = 'none';
+      switchTab('roster'); 
+    }
+  });
 });
 
 /* ========== STATUS UI MAPPER ========== */
