@@ -200,30 +200,19 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .t-card.tdm4 .prizes li span { color: var(--magenta); }
 .t-card.tdm4 .btn { background: linear-gradient(90deg, #1a001a, var(--magenta)); }
 
-.t-card.tdm1 { border-color: var(--green); }
-.t-card.tdm1:hover { box-shadow: 0 15px 30px rgba(57,255,136,0.2); }
-.t-card.tdm1 h2 { color: var(--green); }
-.t-card.tdm1 .entry-fee { color: var(--muted); }
-.t-card.tdm1 .prizes li span { color: var(--green); }
-.t-card.tdm1 .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
-
-.t-card.duo { border-color: var(--orange); }
-.t-card.duo:hover { box-shadow: 0 15px 30px rgba(255,140,0,0.2); }
-.t-card.duo h2 { color: var(--orange); }
-.t-card.duo .entry-fee { color: var(--muted); }
-.t-card.duo .prizes li span { color: var(--orange); }
-.t-card.duo .btn { background: linear-gradient(90deg, #261200, var(--orange)); }
+.t-card.squad-theme { border-color: var(--green); }
+.t-card.squad-theme:hover { box-shadow: 0 15px 30px rgba(57,255,136,0.2); }
+.t-card.squad-theme h2 { color: var(--green); }
+.t-card.squad-theme .entry-fee { color: var(--muted); }
+.t-card.squad-theme .prizes li span { color: var(--green); }
+.t-card.squad-theme .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
 
 /* FREE FIRE ACTIVE THEME */
-.t-card.ff-active { border-color: var(--red); background: linear-gradient(180deg, rgba(255,51,51,0.05), rgba(0,0,0,0.6));}
-.t-card.ff-active:hover { box-shadow: 0 15px 30px rgba(255,51,51,0.2); }
-.t-card.ff-active h2 { color: var(--red); text-shadow: 0 0 15px rgba(255,51,51,0.5); font-size: 26px;}
-.t-card.ff-active .entry-fee { color: var(--red); font-weight: bold; }
-.t-card.ff-active .prizes { list-style: none; margin-bottom: 20px; padding: 0; }
-.t-card.ff-active .prizes li { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px; text-align: left;}
-.t-card.ff-active .prizes li:last-child { border-bottom: none; }
-.t-card.ff-active .prizes li b { font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 4px; font-size: 15px;}
-.t-card.ff-active .prizes li span { color: var(--muted); font-size: 14px; line-height: 1.4;}
+.t-card.ff-active { border-color: var(--red); background: rgba(0,0,0,0.5); }
+.t-card.ff-active:hover { box-shadow: 0 15px 30px rgba(255,51,51,0.2); transform: translateY(-5px); }
+.t-card.ff-active h2 { color: var(--red); }
+.t-card.ff-active .entry-fee { color: var(--muted); }
+.t-card.ff-active .prizes li span { color: var(--red); }
 .t-card.ff-active .btn { background: linear-gradient(90deg, #330000, var(--red)); color: #fff; }
 
 .t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
@@ -303,11 +292,9 @@ footer {
         <label>Match Tier / Plan</label>
         <select id="edit-tier" class="form-control" required>
           <option value="Free Fire BR">Free Fire BR</option>
-          <option value="Standard Match">Standard Match</option>
-          <option value="Royal Match">Royal Match</option>
-          <option value="TDM (4v4 AR)">TDM (4v4 AR)</option>
-          <option value="TDM (1v1 Sniper)">TDM (1v1 Sniper)</option>
-          <option value="DUO Match">DUO Match</option>
+          <option value="Solo 1v1">Solo 1v1</option>
+          <option value="BGMI Squad">BGMI Squad</option>
+          <option value="WoW Map">WoW Map</option>
         </select>
       </div>
       <div class="form-group">
@@ -330,7 +317,7 @@ footer {
     <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
     <div class="modal-text" style="margin-bottom: 10px;">
       New intense battle modes have been added to the arena! <br><br>
-      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new <span style="color: var(--red); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Free Fire BR (48 Players)</span> match or BGMI TDMs. Assemble your squad and claim your rewards!
+      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new battlegrounds. Assemble your squad and claim your rewards!
     </div>
     <div style="display: flex; gap: 15px; margin-top: 20px;">
       <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000; margin-top:0;" onclick="goToTournaments()">Enter The Arena</button>
@@ -366,12 +353,17 @@ footer {
           <h4 style="color: var(--yellow);">🏆 SELECT YOUR TIER</h4>
           <p style="margin-bottom:10px;">Check the <strong>Tournaments Tab</strong> for full prize details.</p>
           <ul style="color:var(--muted); margin-left: 20px; font-size:15px; line-height:1.6;">
-            <li><strong style="color:var(--red);">Free Fire BR (48 Players):</strong> Entry ₹35 | Massive Membership & Diamond Prizes!</li>
-            <li><strong>Standard Match:</strong> Entry ₹25 | Win 60 UC</li>
-            <li><strong>Royal Match:</strong> Entry ₹100 | Win 300 UC</li>
-            <li><strong>TDM (4v4 AR):</strong> Entry ₹100/player | Win 120 UC Each</li>
-            <li><strong>DUO Match:</strong> Entry ₹100/player | Win 300+25 UC</li>
+            <li style="margin-bottom: 5px;"><strong style="color:var(--red);">Free Fire BR (48 Players):</strong> Entry ₹35 | Multi-Tier Diamond Coupon Rewards!</li>
+            <li style="margin-bottom: 5px;"><strong style="color:var(--cyan);">BGMI Solo 1v1:</strong> Entry ₹100 | Win ₹125 Google Coupon Code</li>
+            <li style="margin-bottom: 5px;"><strong style="color:var(--green);">BGMI Squad:</strong> Entry ₹100 per person / ₹400 Team | Win ₹125 Google Coupon Code to each person in team</li>
+            <li style="margin-bottom: 5px;"><strong style="color:var(--magenta);">BGMI WoW Map:</strong> Entry ₹100 per person / ₹400 Team | Win ₹125 Google Coupon Code to each person in team</li>
           </ul>
+        </div>
+        
+        <!-- Dynamic Map Allocation Rule Note -->
+        <div class="content-card" style="border-left: 3px dashed var(--orange); background: rgba(255,140,0,0.03);">
+          <h4 style="color: var(--orange); font-family: 'Share Tech Mono', monospace;"><i class="fa-solid fa-circle-info"></i> MAP ALLOCATION RULE</h4>
+          <p style="font-size: 14px; color: var(--muted);">Based on final registration setups, we will organize and announce exactly which custom arena map will be designated for the match day parameters.</p>
         </div>
       </div>
 
@@ -382,11 +374,9 @@ footer {
             <label>Select Match Tier</label>
             <select id="match-tier" class="form-control" required style="border-color:var(--yellow); color:var(--yellow); font-weight:bold;">
               <option value="ff-br">Free Fire BR (48 Players) (Fee: ₹35)</option>
-              <option value="standard">BGMI Standard Match (Fee: ₹25)</option>
-              <option value="royal">BGMI Royal Match (Fee: ₹100)</option>
-              <option value="tdm-4v4">BGMI TDM (4v4 AR) - Squad Reg</option>
-              <option value="tdm-1v1">BGMI TDM (1v1 Sniper) (Fee: ₹95)</option>
-              <option value="duo">BGMI DUO Match - Duo Reg</option>
+              <option value="solo-1v1">BGMI Solo 1v1 (Fee: ₹100)</option>
+              <option value="bgmi-squad">BGMI Squad - Squad/Solo Reg</option>
+              <option value="wow-map">BGMI WoW Map - Squad/Solo Reg</option>
             </select>
           </div>
           <div class="form-group"><label>Your Player ID (UID)</label><input type="number" id="pid" class="form-control" required placeholder="e.g. 5123456789"></div>
@@ -415,63 +405,48 @@ footer {
   <div id="tournaments-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px; margin-bottom:15px;">CHOOSE YOUR <span style="color:var(--yellow)">BATTLE</span></h1>
+      <p style="color: var(--muted); font-size: 15px; margin-bottom: 25px;">
+        ⚠️ <strong>Map Selection:</strong> Based on final total registration footprints, we will actively organize which map environment will run live.
+      </p>
     </div>
     
     <div class="tourney-grid">
-      <div class="t-card ff-active" style="grid-column: 1 / -1; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
-        <div class="royal-badge" style="background:var(--red); color:#fff;">BR MATCH (48 PLAYERS)</div>
-        <h2 style="margin-top: 15px;">FREE FIRE (SOLO)</h2>
-        <div class="entry-fee">Fee: ₹35 / player</div>
-        
-        <ul class="prizes" style="width: 100%; max-width: 600px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,51,51,0.2);">
-          <li>
-            <b>🥇 1st Place</b> 
-            <span> (₹400) worth Google Code<br> 
-            <i style="color:var(--green)">Rewards: 400 ruppes Cupon code</i></span>
-          </li>
-          <li>
-            <b>🥈 2nd Place</b> 
-            <span>Weekly Membership (₹159) worth Google Code<br>
-            <i style="color:var(--green)"> Rewards: 159 ruppes Cupon code</i></span>
-          </li>
-          <li>
-            <b>🥉 3rd Place</b> 
-            <span>Weekly Membership (₹50) worth Google Code<br>
-            <i style="color:var(--green)"> Rewards: 50 ruppes Cupon code</i></span>
-          </li>
+      <!-- Free Fire BR Card Restructured to match uniform layout -->
+      <div class="t-card ff-active">
+        <div class="royal-badge" style="background:var(--red); color:#fff;">BR MATCH</div>
+        <h2>FREE FIRE BR</h2><div class="entry-fee">Fee: ₹35 / player</div>
+        <ul class="prizes">
+          <li>1st Place Winner <span>₹400 Google Code</span></li>
+          <li>2nd Place Winner <span>₹159 Weekly Code</span></li>
+          <li>3rd Place Winner <span>₹50 Weekly Code</span></li>
         </ul>
-        <button class="btn" style="max-width: 300px; margin-top: 10px;" onclick="selectTournament('ff-br')">Select & Register</button>
+        <button class="btn" onclick="selectTournament('ff-br')">Select & Register</button>
       </div>
 
       <div class="t-card standard">
-        <h2>BGMI STANDARD</h2><div class="entry-fee">Fee: ₹25 / player</div>
-        <ul class="prizes"><li>1st Place <span>60 UC</span></li></ul>
-        <button class="btn" onclick="selectTournament('standard')">Select & Register</button>
+        <h2>BGMI SOLO 1v1</h2><div class="entry-fee">Fee: ₹100 / player</div>
+        <ul class="prizes"><li>1st Place Winner <span>₹125 Google Coupon Code</span></li></ul>
+        <button class="btn" onclick="selectTournament('solo-1v1')">Select & Register</button>
       </div>
-      
-      <div class="t-card royal">
-        <div class="royal-badge">High Stakes</div>
-        <h2>BGMI ROYAL</h2><div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes"><li>1st Place <span>300 UC</span></li><li>2nd Place <span>120 UC</span></li></ul>
-        <button class="btn" onclick="selectTournament('royal')">Select & Register</button>
+
+      <div class="t-card squad-theme">
+        <div class="royal-badge" style="background:var(--green); color:#000;">SQUAD LINEUP</div>
+        <h2>BGMI SQUAD</h2><div class="entry-fee">Fee: ₹100 Per Person / ₹400 Team</div>
+        <ul class="prizes">
+          <li>Winning Outcome <span>₹125 Google Coupon Code</span></li>
+          <li>Distribution Model <span style="text-align: right; color: var(--green);">Sent to each person in team</span></li>
+        </ul>
+        <button class="btn" onclick="selectTournament('bgmi-squad')">Select & Register</button>
       </div>
       
       <div class="t-card tdm4">
-        <h2>BGMI TDM (4v4)</h2><div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes"><li>Winning Squad <span>120 UC / player</span></li></ul>
-        <button class="btn" onclick="selectTournament('tdm-4v4')">Select & Register</button>
-      </div>
-      
-      <div class="t-card tdm1">
-        <h2>BGMI TDM (1v1)</h2><div class="entry-fee">Fee: ₹95 / player</div>
-        <ul class="prizes"><li>1st Place <span>120 UC</span></li></ul>
-        <button class="btn" onclick="selectTournament('tdm-1v1')">Select & Register</button>
-      </div>
-      
-      <div class="t-card duo">
-        <h2>BGMI DUO MATCH</h2><div class="entry-fee">Fee: ₹100 / player</div>
-        <ul class="prizes"><li>1st Place Duo <span>300 + 25 UC</span></li></ul>
-        <button class="btn" onclick="selectTournament('duo')">Select & Register</button>
+        <div class="royal-badge" style="background:var(--magenta); color:#fff;">CUSTOM WoW PLAN</div>
+        <h2>BGMI WoW MAP</h2><div class="entry-fee">Fee: ₹100 Per Person / ₹400 Team</div>
+        <ul class="prizes">
+          <li>Winning Outcome <span>₹125 Google Coupon Code</span></li>
+          <li>Distribution Model <span style="text-align: right; color: var(--magenta);">Sent to each person in team</span></li>
+        </ul>
+        <button class="btn" onclick="selectTournament('wow-map')">Select & Register</button>
       </div>
     </div>
 
@@ -625,11 +600,9 @@ footer {
           <label>Match Tier</label>
           <select id="manual-tier" class="form-control" required>
             <option value="Free Fire BR">Free Fire BR</option>
-            <option value="Standard Match">BGMI Standard</option>
-            <option value="Royal Match">BGMI Royal</option>
-            <option value="TDM (4v4 AR)">BGMI TDM (4v4 AR)</option>
-            <option value="TDM (1v1 Sniper)">BGMI TDM (1v1 Sniper)</option>
-            <option value="DUO Match">BGMI DUO</option>
+            <option value="Solo 1v1">Solo 1v1</option>
+            <option value="BGMI Squad">BGMI Squad</option>
+            <option value="WoW Map">WoW Map</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:0; flex:1; min-width:150px;">
@@ -655,11 +628,9 @@ footer {
           <label>Match Tier</label>
           <select id="win-tier" class="form-control" required>
             <option value="Free Fire BR">Free Fire BR</option>
-            <option value="Standard Match">BGMI Standard</option>
-            <option value="Royal Match">BGMI Royal</option>
-            <option value="TDM (4v4 AR)">BGMI TDM (4v4 AR)</option>
-            <option value="TDM (1v1 Sniper)">BGMI TDM (1v1 Sniper)</option>
-            <option value="DUO Match">BGMI DUO</option>
+            <option value="Solo 1v1">Solo 1v1</option>
+            <option value="BGMI Squad">BGMI Squad</option>
+            <option value="WoW Map">WoW Map</option>
           </select>
         </div>
         <div class="form-group" style="margin-bottom:0; flex:1; min-width:100px;">
@@ -668,7 +639,7 @@ footer {
         </div>
         <div class="form-group" style="margin-bottom:0; flex:2; min-width:200px;">
           <label>Prize Given</label>
-          <input type="text" id="win-prize" class="form-control" placeholder="e.g. 300 UC / Monthly Memb + Booyah" required>
+          <input type="text" id="win-prize" class="form-control" placeholder="e.g. ₹125 Google Coupon Code" required>
         </div>
         <button type="submit" class="btn" style="width:auto; padding:14px 25px; background:linear-gradient(90deg, #664400, var(--yellow)); color:#000;">Publish to Site</button>
       </form>
@@ -750,13 +721,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const rosterRef = db.ref('soloPlayRegistrations');
-const winnersRef = db.ref('soloPlayWinners'); // New reference for Winners
+const winnersRef = db.ref('soloPlayWinners'); 
 
 /* ========== LIVE DATA LISTENERS ========== */
 let liveRegistrations = []; 
 let liveWinners = []; 
 
-// Listen for Roster Changes
 rosterRef.on('value', (snapshot) => {
   liveRegistrations = [];
   snapshot.forEach((childSnapshot) => {
@@ -770,7 +740,6 @@ rosterRef.on('value', (snapshot) => {
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminDashboard(); }
 });
 
-// Listen for Winners Changes
 winnersRef.on('value', (snapshot) => {
   liveWinners = [];
   snapshot.forEach((childSnapshot) => {
@@ -783,7 +752,6 @@ winnersRef.on('value', (snapshot) => {
   renderPublicWinners();
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminWinners(); }
 });
-
 
 /* ========== MODAL LOGIC ========== */
 window.addEventListener('load', () => {
@@ -863,7 +831,7 @@ const paymentTypeSelect = document.getElementById('payment-type');
 
 matchTierSelect.addEventListener('change', (e) => {
   const val = e.target.value;
-  if (val === 'tdm-4v4') {
+  if (val === 'wow-map' || val === 'bgmi-squad') {
     dynamicTeammates.innerHTML = `
       <div class="team-members-box">
         <h5>👥 SQUAD DETAILS</h5>
@@ -874,15 +842,6 @@ matchTierSelect.addEventListener('change', (e) => {
     `;
     paymentTypeGroup.style.display = 'block';
     paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="400">Pay Full Squad (₹400)</option>`;
-  } else if (val === 'duo') {
-    dynamicTeammates.innerHTML = `
-      <div class="team-members-box">
-        <h5>👥 DUO PARTNER</h5>
-        <div class="form-group"><input type="text" id="p2" class="form-control" placeholder="Player 2 (IGN - ID)" required></div>
-      </div>
-    `;
-    paymentTypeGroup.style.display = 'block';
-    paymentTypeSelect.innerHTML = `<option value="100">Pay My Share (₹100)</option><option value="200">Pay Full Duo (₹200)</option>`;
   } else {
     dynamicTeammates.innerHTML = '';
     paymentTypeGroup.style.display = 'none';
@@ -897,25 +856,23 @@ let paymentTypeText = "";
 document.getElementById('regForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const tierVal = matchTierSelect.value;
-  let fee = 25, tierName = "Standard Match";
+  let fee = 100, tierName = "Solo 1v1";
   let mates = [];
   teamDetailsText = "";
   paymentTypeText = "";
 
-  if(tierVal === 'royal') { fee = 100; tierName = "Royal Match"; }
-  else if(tierVal === 'ff-br') { fee = 35; tierName = "Free Fire BR"; }
-  else if(tierVal === 'tdm-1v1') { fee = 95; tierName = "TDM (1v1 Sniper)"; }
-  else if(tierVal === 'tdm-4v4') { 
-    fee = parseInt(paymentTypeSelect.value); tierName = "TDM (4v4 AR)"; 
+  if(tierVal === 'ff-br') { fee = 35; tierName = "Free Fire BR"; }
+  else if(tierVal === 'bgmi-squad') {
+    fee = parseInt(paymentTypeSelect.value); tierName = "BGMI Squad"; 
     paymentTypeText = paymentTypeSelect.options[paymentTypeSelect.selectedIndex].text;
     mates = [document.getElementById('p2').value, document.getElementById('p3').value, document.getElementById('p4').value];
     teamDetailsText += `%0A*P2 Details:* ${mates[0]}%0A*P3 Details:* ${mates[1]}%0A*P4 Details:* ${mates[2]}`;
   }
-  else if(tierVal === 'duo') {
-    fee = parseInt(paymentTypeSelect.value); tierName = "DUO Match";
+  else if(tierVal === 'wow-map') { 
+    fee = parseInt(paymentTypeSelect.value); tierName = "WoW Map"; 
     paymentTypeText = paymentTypeSelect.options[paymentTypeSelect.selectedIndex].text;
-    mates = [document.getElementById('p2').value];
-    teamDetailsText += `%0A*P2 Details:* ${mates[0]}`;
+    mates = [document.getElementById('p2').value, document.getElementById('p3').value, document.getElementById('p4').value];
+    teamDetailsText += `%0A*P2 Details:* ${mates[0]}%0A*P3 Details:* ${mates[1]}%0A*P4 Details:* ${mates[2]}`;
   }
 
   currentRegistration = {
@@ -934,13 +891,12 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
   switchTab('payment');
 });
 
-// Finalize Payment / Save to FIREBASE
 document.getElementById('paymentForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const utr = document.getElementById('utr').value;
   currentRegistration.utr = utr;
 
-  rosterRef.push(currentRegistration); // Push to Live DB
+  rosterRef.push(currentRegistration); 
 
   let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
   if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
@@ -966,9 +922,7 @@ function getStatusClass(status) {
   return 'status-pending';
 }
 
-/* ========== RENDERING TABLES (PUBLIC & ADMIN) ========== */
-
-// 1. Public Roster
+/* ========== RENDERING TABLES ========== */
 function renderPublicRoster() {
   const tbody = document.querySelector('#public-roster-table tbody');
   tbody.innerHTML = '';
@@ -995,7 +949,6 @@ function renderPublicRoster() {
   });
 }
 
-// 2. Public Winners
 function renderPublicWinners() {
   const tbody = document.querySelector('#public-winners-table tbody');
   tbody.innerHTML = '';
@@ -1022,7 +975,6 @@ function renderPublicWinners() {
   });
 }
 
-// 3. Admin Roster
 function renderAdminDashboard() {
   const tbody = document.querySelector('#admin-table tbody');
   tbody.innerHTML = '';
@@ -1046,7 +998,6 @@ function renderAdminDashboard() {
   });
 }
 
-// 4. Admin Winners
 function renderAdminWinners() {
   const tbody = document.querySelector('#admin-winners-table tbody');
   tbody.innerHTML = '';
@@ -1067,9 +1018,7 @@ function renderAdminWinners() {
   });
 }
 
-/* ========== ADMIN FUNCTIONS (Delete, Edit, Add) ========== */
-
-// Universal Delete function for both tables
+/* ========== ADMIN CONTROLS ========== */
 function deleteRecord(firebaseKey, type) {
   if(confirm("Are you sure you want to delete this record completely?")) {
     if(type === 'roster') db.ref('soloPlayRegistrations/' + firebaseKey).remove();
@@ -1077,7 +1026,6 @@ function deleteRecord(firebaseKey, type) {
   }
 }
 
-// Edit Roster Modal functions
 function openAdminEdit(firebaseKey) {
   const record = liveRegistrations.find(r => r.firebaseKey === firebaseKey);
   if(record) {
@@ -1101,18 +1049,14 @@ document.getElementById('adminEditForm').addEventListener('submit', (e) => {
   closeAdminEdit();
 });
 
-// Admin Add Manual Player to Roster
 document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ign = document.getElementById('manual-ign').value;
   const tier = document.getElementById('manual-tier').value;
   const status = document.getElementById('manual-status').value;
   
-  let amount = 0;
-  if(tier.includes('Standard')) amount = 25;
-  else if(tier.includes('Free Fire')) amount = 35;
-  else if(tier.includes('1v1')) amount = 95;
-  else amount = 100; // Royal, 4v4, Duo
+  let amount = 100;
+  if(tier.includes('Free Fire')) amount = 35;
 
   rosterRef.push({
     id: 'REG-MANUAL-' + Math.floor(Math.random() * 1000000),
@@ -1125,7 +1069,6 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
   showToast("Player Added to Roster!");
 });
 
-// Admin Add Winner to Hall of Fame
 document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const ign = document.getElementById('win-ign').value;
@@ -1146,8 +1089,7 @@ document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => 
   showToast("Winner Published Live!");
 });
 
-
-/* ========== SUPPORT & COLLAB FORM LOGIC ========== */
+/* ========== SUPPORT SYSTEM ========== */
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('contactName').value;
@@ -1183,7 +1125,7 @@ if(sessionStorage.getItem('isAdmin') === 'true') {
   document.getElementById('nav-admin-li').style.display = 'block';
 }
 
-/* ========== PARTICLES (Background) ========== */
+/* ========== ENGINE PARTICLES ========== */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let w, h, particles = [];
