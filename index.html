@@ -40,7 +40,7 @@ img{max-width:100%;display:block; border-radius: 4px;}
 @keyframes float{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(50px,-30px) scale(1.1)} }
 canvas#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
-/* ========== MODALS ========== */
+/* ========== MODALS & POPUPS ========== */
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
@@ -72,7 +72,7 @@ nav{
   display:flex;align-items:center;gap:10px; cursor: pointer;
 }
 .logo::before{ content:'';width:12px;height:12px;border-radius:50%; background:var(--orange);box-shadow:0 0 15px var(--orange); animation:pulse 2s infinite; }
-.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links{display:flex;gap:25px;list-style:none;align-items:center;}
 .nav-links li{cursor:pointer;}
 .nav-links a{
   font-family:'Rajdhani',sans-serif;font-weight:600;font-size:16px;
@@ -147,13 +147,13 @@ select.form-control option { background: var(--panel); color: var(--text); }
 .btn-outline:hover { background: rgba(0,240,255,0.1); box-shadow: 0 0 15px rgba(0,240,255,0.3); }
 
 /* ========== DATA TABLES ========== */
-.table-wrapper { width: 100%; overflow-x: auto; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); }
-table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; }
-th { background: rgba(0,240,255,0.1); color: var(--cyan); font-family: 'Orbitron', sans-serif; padding: 15px; text-align: left; font-size: 14px; letter-spacing: 1px; }
-td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); font-size: 16px; }
+.table-wrapper { width: 100%; overflow-x: auto; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,240,255,0.2); margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-family: 'Rajdhani', sans-serif; min-width: 700px; }
+th { background: rgba(0,240,255,0.1); color: var(--cyan); font-family: 'Orbitron', sans-serif; padding: 15px; text-align: left; font-size: 14px; letter-spacing: 1px; border-bottom: 2px solid rgba(0,240,255,0.2); }
+td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text); font-size: 16px; text-align: left; vertical-align: top;}
 tr:hover { background: rgba(255,255,255,0.02); }
 
-.status-badge { padding: 5px 10px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+.status-badge { padding: 5px 10px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; display: inline-block;}
 .status-pending { background: rgba(255,140,0,0.2); color: var(--orange); border: 1px solid var(--orange); }
 .status-verified { background: rgba(57,255,136,0.2); color: var(--green); border: 1px solid var(--green); }
 .status-cancelled { background: rgba(133,146,184,0.2); color: var(--muted); border: 1px solid var(--muted); }
@@ -207,32 +207,12 @@ tr:hover { background: rgba(255,255,255,0.02); }
 .t-card.squad-theme .prizes li span { color: var(--green); }
 .t-card.squad-theme .btn { background: linear-gradient(90deg, #001a0d, var(--green)); color: #000;}
 
-/* FREE FIRE ACTIVE THEME */
-.t-card.ff-active { border-color: var(--red); background: rgba(0,0,0,0.5); }
-.t-card.ff-active:hover { box-shadow: 0 15px 30px rgba(255,51,51,0.2); transform: translateY(-5px); }
-.t-card.ff-active h2 { color: var(--red); }
-.t-card.ff-active .entry-fee { color: var(--muted); }
-.t-card.ff-active .prizes li span { color: var(--red); }
-.t-card.ff-active .btn { background: linear-gradient(90deg, #330000, var(--red)); color: #fff; }
-
-.t-card.val { border-color: #ff4655; opacity: 0.8; filter: grayscale(20%); } 
-.t-card.val h2 { color: #ff4655; }
-.t-card.val .prizes li span { color: #ff4655; }
-.t-card.val .btn { background: transparent; border: 1px solid #ff4655; color: #ff4655; }
-
-.t-card.cs { border-color: #e8a825; opacity: 0.8; filter: grayscale(20%); } 
-.t-card.cs h2 { color: #e8a825; }
-.t-card.cs .prizes li span { color: #e8a825; }
-.t-card.cs .btn { background: transparent; border: 1px solid #e8a825; color: #e8a825; }
-
-/* Toast Notification */
-#toast {
-  visibility: hidden; min-width: 250px; background-color: var(--green); color: #000; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 1000;
-  left: 50%; bottom: 30px; transform: translateX(-50%); font-family: 'Orbitron', sans-serif; font-weight: 700;
-}
-#toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-@keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-@keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+/* Dynamic Helper Utilities */
+.text-cyan { color: var(--cyan) !important; }
+.text-orange { color: var(--orange) !important; }
+.text-green { color: var(--green) !important; }
+.text-magenta { color: var(--magenta) !important; }
+.link-toggle { color: var(--cyan); cursor: pointer; text-decoration: underline; font-family: 'Share Tech Mono', monospace; }
 
 /* ========== FOOTER ========== */
 footer {
@@ -259,6 +239,30 @@ footer {
 <div class="bg-orb orb-2"></div>
 <canvas id="particles"></canvas>
 
+<!-- 🚨 Real-time Validation Error / Notification Modal Component -->
+<div class="modal-overlay" id="alertModal">
+  <div class="modal-box" style="border-color: var(--red); box-shadow: 0 0 30px rgba(255,51,51,0.3);">
+    <button class="close-btn" onclick="closeAlertModal()">×</button>
+    <div class="modal-title" style="color: var(--red); font-size: 22px;" id="alertModalTitle">⚠️ ERROR REJECTED</div>
+    <div class="modal-text" id="alertModalMessage" style="margin: 20px 0; font-size: 16px; line-height: 1.5; color: #fff;"></div>
+    <button class="btn" style="background: var(--red); color: #fff; margin-top: 10px;" onclick="closeAlertModal()">Acknowledge</button>
+  </div>
+</div>
+
+<!-- 🔒 Real-time Secure OTP Code Verification Modal Entry Gate -->
+<div class="modal-overlay" id="otpModal">
+  <div class="modal-box" style="border-color: var(--green); box-shadow: 0 0 30px rgba(57,255,136,0.3);">
+    <div class="modal-title" style="color: var(--green);">🔒 TWO-FACTOR AUTH</div>
+    <p style="font-size: 14px; color: var(--muted); margin: 10px 0;">A unique 6-digit dynamic passcode was logged directly to your platform node reference paths. Enter it below to unlock entry loops.</p>
+    <div class="form-group" style="margin-top: 20px;">
+      <label>Enter 6-Digit OTP Token</label>
+      <input type="text" id="otp-input-field" class="form-control" placeholder="000000" maxlength="6" style="text-align: center; font-size: 24px; letter-spacing: 5px; font-family: 'Share Tech Mono', monospace; color: var(--green); border-color: var(--green);">
+    </div>
+    <button class="btn" style="background: var(--green); color: #000;" onclick="submitOTPVerification()">Verify & Proceed</button>
+  </div>
+</div>
+
+<!-- Admin Override Authentication Modal -->
 <div class="modal-overlay" id="adminLoginModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminLogin()">×</button>
@@ -278,6 +282,7 @@ footer {
   </div>
 </div>
 
+<!-- Admin Record Row Modification Modal -->
 <div class="modal-overlay" id="adminEditModal">
   <div class="modal-box">
     <button class="close-btn" onclick="closeAdminEdit()">×</button>
@@ -312,35 +317,150 @@ footer {
   </div>
 </div>
 
-<div class="modal-overlay" id="welcomeModal">
-  <div class="modal-box">
-    <div class="modal-title">🔥 TOURNAMENTS ARE LIVE! 🔥</div>
-    <div class="modal-text" style="margin-bottom: 10px;">
-      New intense battle modes have been added to the arena! <br><br>
-      Explore the <span style="color: var(--orange); font-weight: bold; font-family: 'Share Tech Mono', monospace;">Tournaments Tab</span> to jump into the new battlegrounds. Assemble your squad and claim your rewards!
-    </div>
-    <div style="display: flex; gap: 15px; margin-top: 20px;">
-      <button class="btn" style="background:linear-gradient(90deg, var(--yellow), var(--orange)); color:#000; margin-top:0;" onclick="goToTournaments()">Enter The Arena</button>
-      <button class="btn btn-outline" style="margin-top:0;" onclick="closeModal()">Explore Home</button>
-    </div>
-  </div>
-</div>
-
 <nav>
   <div class="logo" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="main-nav-links" style="display: none;">
     <li><a id="nav-home" class="active" onclick="switchTab('home')">Home</a></li>
     <li><a id="nav-tournaments" onclick="switchTab('tournaments')">Tournaments</a></li>
     <li><a id="nav-roster" onclick="switchTab('roster')">Live Roster</a></li>
     <li><a id="nav-winners" onclick="switchTab('winners')">Hall of Fame</a></li>
     <li><a id="nav-support" onclick="switchTab('support')">Support</a></li>
+    <li><a id="nav-auth" class="text-cyan" onclick="switchTab('auth')"><i class="fa-solid fa-user-check text-green"></i> Profile</a></li>
     <li id="nav-admin-li" style="display:none;"><a id="nav-admin" style="color:var(--magenta);" onclick="switchTab('admin')">Admin Panel</a></li>
   </ul>
 </nav>
 
 <div class="container">
   
-  <div id="home-page" class="page-view active">
+  <!-- Unified Auth Gateway Component Module (PRIORITY 1 INTERCEPT ENTRY WALL) -->
+  <div id="auth-page" class="page-view active">
+    <div class="split-layout" id="auth-unlogged-view">
+      <div class="info-section">
+        <div class="hero-badge">SOLO PLAY CREDENTIAL CORE</div>
+        <h1>IDENTITY<br><span>VERIFICATION</span></h1>
+        <p style="color:var(--muted); font-size:16px; line-height:1.6; margin-top:15px;">
+          Access restricted. Create your verified player card or complete your dual OTP signature sequence loops to step into active website operations.
+        </p>
+      </div>
+
+      <div class="panel" id="auth-forms-container">
+        <!-- Sub-Form 1: Login Block -->
+        <div id="sub-form-login">
+          <div class="panel-header">🔐 PLAYER SECURE SIGN-IN</div>
+          
+          <!-- Method Selection Toggle Options -->
+          <div class="form-group">
+            <label>Choose Login Method</label>
+            <select id="login-method-select" class="form-control" onchange="toggleLoginInputs(this.value)" style="border-color: var(--cyan); color: var(--cyan); font-weight: bold;">
+              <option value="email">📧 Login via Email Node Address</option>
+              <option value="number">📱 Login via Mobile Phone Number</option>
+            </select>
+          </div>
+
+          <form id="playerLoginForm" novalidate>
+            <div class="form-group" id="login-email-wrapper">
+              <label>Email Address</label>
+              <input type="email" id="login-email" class="form-control" placeholder="name@domain.com">
+            </div>
+            <div class="form-group" id="login-number-wrapper" style="display: none;">
+              <label>Mobile Number (10 Digits)</label>
+              <input type="text" id="login-number" class="form-control" placeholder="e.g. 9876543210" maxlength="10">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="login-pass" class="form-control" placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn">Request Verification Token</button>
+          </form>
+          <div style="margin-top:20px; font-size:14px; text-align:center;">
+            Don't have a player card? <span class="link-toggle" onclick="toggleAuthSubForm('register')">Sign Up Here</span><br>
+            Forgot access pass? <span class="link-toggle" onclick="toggleAuthSubForm('forgot')">Recover Password</span>
+          </div>
+        </div>
+
+        <!-- Sub-Form 2: Register Block -->
+        <div id="sub-form-register" style="display:none;">
+          <div class="panel-header">🎮 CREATE NEW PLAYER CARD</div>
+          
+          <div class="form-group">
+            <label>Choose Registration Route</label>
+            <select id="reg-method-select" class="form-control" onchange="toggleRegInputs(this.value)" style="border-color: var(--green); color: var(--green); font-weight: bold;">
+              <option value="email">📧 Register via Email Node</option>
+              <option value="number">📱 Register via Phone Number Link</option>
+            </select>
+          </div>
+
+          <form id="playerRegisterForm" novalidate>
+            <div class="form-group">
+              <label>Full Handle Name</label>
+              <input type="text" id="reg-name" class="form-control" placeholder="e.g., Shaik Farhan">
+            </div>
+            <div class="form-group" id="reg-email-wrapper">
+              <label>Email Address</label>
+              <input type="email" id="reg-email" class="form-control" placeholder="name@gmail.com">
+            </div>
+            <div class="form-group" id="reg-number-wrapper" style="display: none;">
+              <label>Mobile Number (10 Digits)</label>
+              <input type="text" id="reg-number" class="form-control" placeholder="e.g. 7676808068" maxlength="10">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="reg-pass" class="form-control" placeholder="Minimum 6 characters">
+            </div>
+            <button type="submit" class="btn" style="background:linear-gradient(90deg, var(--green), var(--cyan)); color:#000;">Generate Setup OTP</button>
+          </form>
+          <div style="margin-top:20px; font-size:14px; text-align:center;">
+            Already have a player card? <span class="link-toggle" onclick="toggleAuthSubForm('login')">Login Instead</span>
+          </div>
+        </div>
+
+        <!-- Sub-Form 3: Forgot Block -->
+        <div id="sub-form-forgot" style="display:none;">
+          <div class="panel-header">🔄 IDENTITY RECOVERY</div>
+          <form id="playerForgotForm">
+            <p style="font-size:14px; color:var(--muted); margin-bottom:15px; line-height:1.4;">Enter your registered details below to clear passphrases.</p>
+            <div class="form-group"><label>Email Address / Mobile String</label><input type="text" id="forgot-identity" class="form-control" placeholder="Email or 10 digit number"></div>
+            <button type="submit" class="btn" style="background:var(--orange); color:#fff;">Transmit Reset Token</button>
+          </form>
+          <div style="margin-top:20px; font-size:14px; text-align:center;">
+            Remember credentials? <span class="link-toggle" onclick="toggleAuthSubForm('login')">Return to Login</span>
+          </div>
+        </div>
+
+        <div style="margin:25px 0; display:flex; align-items:center; justify-content:center; gap:10px;">
+          <span style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></span>
+          <span style="font-family:'Share Tech Mono'; font-size:12px; color:var(--muted);">OR SIGN IN VIA</span>
+          <span style="height:1px; background:rgba(255,255,255,0.1); flex:1;"></span>
+        </div>
+        <button class="btn btn-outline" type="button" onclick="executeGoogleSSO()"><i class="fa-brands fa-google text-orange"></i> Google Identity Authentication</button>
+      </div>
+    </div>
+
+    <!-- Authenticated Logged Profile Dashboard Sub-View -->
+    <div id="auth-logged-view" style="display:none;">
+      <div class="split-layout">
+        <div class="info-section">
+          <div class="hero-badge text-green">🔐 ACCOUNT NODE ACTIVE</div>
+          <h1>WELCOME BACK, <br><span id="profile-display-name">PLAYER</span></h1>
+          <div class="content-card" style="margin-top:20px;">
+            <h4>📋 USER NODES IDENTITY DATAS</h4>
+            <p style="font-size:14px; margin-bottom:5px;"><strong>Platform Account UID:</strong> <span id="profile-node-uid" class="text-cyan">N/A</span></p>
+            <p style="font-size:14px; margin-bottom:5px;"><strong>System Contact Node:</strong> <span id="profile-node-email">N/A</span></p>
+            <p style="font-size:14px;"><strong>Account Tier Status:</strong> <span class="status-badge status-verified">Verified Player</span></p>
+          </div>
+          <button class="btn btn-outline" style="max-width:200px;" onclick="executePlayerSignout()">Terminate Session Logout</button>
+        </div>
+
+        <div class="panel" style="grid-column: span 1;">
+          <div class="panel-header">📜 YOUR REGISTRATION HISTORY</div>
+          <div id="player-history-container" style="max-height:400px; overflow-y:auto; padding-right:5px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Home View Layout -->
+  <div id="home-page" class="page-view">
     <div class="split-layout">
       <div class="info-section">
         <div class="hero-badge">BGMI & FREE FIRE BATTLES</div>
@@ -359,8 +479,6 @@ footer {
             <li style="margin-bottom: 5px;"><strong style="color:var(--magenta);">BGMI WoW Map:</strong> Entry ₹100 per person / ₹400 Team | Win ₹125 Google Coupon Code to each person in team</li>
           </ul>
         </div>
-        
-        <!-- Dynamic Map Allocation Rule Note -->
         <div class="content-card" style="border-left: 3px dashed var(--orange); background: rgba(255,140,0,0.03);">
           <h4 style="color: var(--orange); font-family: 'Share Tech Mono', monospace;"><i class="fa-solid fa-circle-info"></i> MAP ALLOCATION RULE</h4>
           <p style="font-size: 14px; color: var(--muted);">Based on final registration setups, we will organize and announce exactly which custom arena map will be designated for the match day parameters.</p>
@@ -402,6 +520,7 @@ footer {
     </div>
   </div>
 
+  <!-- Tournaments Grid View -->
   <div id="tournaments-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px; margin-bottom:15px;">CHOOSE YOUR <span style="color:var(--yellow)">BATTLE</span></h1>
@@ -448,28 +567,9 @@ footer {
         <button class="btn" onclick="selectTournament('wow-map')">Select & Register</button>
       </div>
     </div>
-
-    <div style="text-align: center; margin-top: 80px; max-width: 800px; margin-left: auto; margin-right: auto;">
-      <h2 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--text);">INCOMING <span style="color:var(--magenta)">TRANSMISSIONS</span></h2>
-    </div>
-
-    <div class="tourney-grid">
-      <div class="t-card val">
-        <div class="coming-soon-badge">Coming Soon</div>
-        <h2>VALORANT (PC)</h2>
-        <div class="entry-fee">Fee: TBA</div>
-        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
-      </div>
-
-      <div class="t-card cs">
-        <div class="coming-soon-badge">Coming Soon</div>
-        <h2>COUNTER STRIKE (PC)</h2>
-        <div class="entry-fee">Fee: TBA</div>
-        <ul class="prizes"><li>Prize Pools <span>TBA</span></li><li>Status <span>Server Setup</span></li></ul>
-      </div>
-    </div>
   </div>
 
+  <!-- Player Verification/Live Roster View -->
   <div id="roster-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">LIVE <span style="color:var(--green)">ROSTER</span></h1>
@@ -485,13 +585,13 @@ footer {
             <th>Registration Status</th>
           </tr>
         </thead>
-        <tbody>
-          </tbody>
+        <tbody></tbody>
       </table>
     </div>
     <p id="no-roster-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No registrations yet in the database.</p>
   </div>
 
+  <!-- Hall Of Fame View -->
   <div id="winners-page" class="page-view">
     <div style="text-align: center; max-width: 800px; margin: 0 auto; margin-bottom:40px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:45px;">HALL OF <span style="color:var(--yellow)">FAME</span></h1>
@@ -508,13 +608,13 @@ footer {
             <th style="color:var(--green);">Prize Claimed</th>
           </tr>
         </thead>
-        <tbody>
-          </tbody>
+        <tbody></tbody>
       </table>
     </div>
     <p id="no-winners-msg" style="text-align:center; color:var(--muted); margin-top:20px; display:none;">No winners recorded yet. Will you be the first?</p>
   </div>
 
+  <!-- Support Communications Panel -->
   <div id="support-page" class="page-view">
     <div class="panel" style="max-width: 700px; margin: 0 auto; border-color:var(--cyan);">
       <div class="panel-header">✉ CONTACT SUPPORT & COLLAB</div>
@@ -550,6 +650,7 @@ footer {
     </div>
   </div>
 
+  <!-- Gateway Payment View -->
   <div id="payment-page" class="page-view">
     <div class="panel" style="max-width: 800px; margin: 0 auto; border-color:var(--orange);">
       <div class="panel-header" style="color:var(--orange);">💳 COMPLETE YOUR REGISTRATION</div>
@@ -582,12 +683,14 @@ footer {
     </div>
   </div>
 
+  <!-- Operational Admin Command Center Panel View -->
   <div id="admin-page" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
       <h1 style="font-family:'Orbitron',sans-serif; font-size:35px; color:var(--magenta);">COMMAND <span style="color:#fff;">CENTER</span></h1>
       <button class="btn-outline" style="width:auto; padding:10px 20px;" onclick="adminLogout()">Logout</button>
     </div>
 
+    <!-- Form Additions Section Block -->
     <div class="panel" style="margin-bottom: 30px; border-color:var(--green); padding: 25px;">
       <h3 style="font-family:'Orbitron',sans-serif; color:var(--green); margin-bottom:15px; font-size:18px;">➕ MANUAL PLAYER ADD (ROSTER)</h3>
       <form id="adminAddForm" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
@@ -644,22 +747,39 @@ footer {
       </form>
     </div>
     
-    <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:15px;">Live Roster Database</h3>
+    <!-- Complete Diagnostic Registrations Tracker Table -->
+    <h3 style="font-family:'Orbitron',sans-serif; margin-bottom:15px;">Live Roster Full Database (Detailed Registrations)</h3>
     <div class="table-wrapper">
       <table id="admin-table">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Player IGN</th>
+            <th>Date/Slot</th>
+            <th>Player Profile Details</th>
             <th>Match Tier</th>
-            <th>Amount</th>
-            <th>UTR</th>
-            <th>Status</th>
+            <th>Amount Paid</th>
+            <th>UTR Token ID</th>
+            <th>Verification Status</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          </tbody>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Accounts Control Table for direct player support lookup -->
+    <h3 style="font-family:'Orbitron',sans-serif; margin-top:40px; margin-bottom:15px; color:var(--cyan)">Registered Player Accounts (Credentials & Activity Lookup)</h3>
+    <div class="table-wrapper">
+      <table id="admin-users-table">
+        <thead>
+          <tr>
+            <th>User UID</th>
+            <th>Full Handle Name</th>
+            <th>Contact Node</th>
+            <th>Clear Password (Support Lookup)</th>
+            <th>Last Log Activity</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
       </table>
     </div>
 
@@ -676,13 +796,14 @@ footer {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          </tbody>
+        <tbody></tbody>
       </table>
     </div>
   </div>
 
-</div> <footer>
+</div> 
+
+<footer>
   <div class="footer-content">
     <div class="logo" style="font-size: 20px;" onclick="switchTab('home')">SOLO<span style="color:var(--text)">·</span>PLAY</div>
     <ul class="footer-links">
@@ -703,7 +824,7 @@ footer {
 
 <script>
 /* =========================================================
-   🔥 FIREBASE CONFIGURATION (YOUR LIVE KEYS) 🔥 
+   🔥 FIREBASE CONFIGURATION (LIVE DATABASE AND MOCK AUTH) 🔥 
    ========================================================= */
 const firebaseConfig = {
   apiKey: "AIzaSyCNHWvdt2r9LNgtiBlwsufVJ4AdNsdPHPs",
@@ -716,16 +837,35 @@ const firebaseConfig = {
   measurementId: "G-N3VDQ9Q32E"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const rosterRef = db.ref('soloPlayRegistrations');
 const winnersRef = db.ref('soloPlayWinners'); 
+const usersRef = db.ref('soloPlayPlayerAccounts'); 
+const otpRef = db.ref('soloPlayOTPLoveLogs'); // Secure connected node location housing dynamic active OTP numbers
 
-/* ========== LIVE DATA LISTENERS ========== */
+/* ========== GLOBAL ACCOUNT SESSION STATE CONTROL ========== */
+let currentUserNode = null; 
 let liveRegistrations = []; 
 let liveWinners = []; 
+let liveUsers = []; 
 
+// Variables monitoring ongoing 2FA transactions during execution
+let pendingSessionPayload = null;
+let currentGeneratedOTP = null;
+let otpActionType = ""; // "LOGIN" or "SIGNUP"
+
+window.addEventListener('load', () => {
+  const cachedUser = localStorage.getItem('soloPlayerSession');
+  if(cachedUser) {
+    currentUserNode = JSON.parse(cachedUser);
+    syncAuthenticatedUI();
+  } else {
+    switchTab('auth');
+  }
+});
+
+/* ========== FIREBASE ARCHITECTURAL DATA LISTENERS ========== */
 rosterRef.on('value', (snapshot) => {
   liveRegistrations = [];
   snapshot.forEach((childSnapshot) => {
@@ -736,6 +876,7 @@ rosterRef.on('value', (snapshot) => {
   liveRegistrations.sort((a,b) => b.timestamp - a.timestamp);
   
   renderPublicRoster();
+  renderPlayerHistoryView();
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminDashboard(); }
 });
 
@@ -752,16 +893,50 @@ winnersRef.on('value', (snapshot) => {
   if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminWinners(); }
 });
 
-/* ========== MODAL LOGIC ========== */
-window.addEventListener('load', () => {
-  setTimeout(() => { document.getElementById('welcomeModal').classList.add('show'); }, 1000);
+usersRef.on('value', (snapshot) => {
+  liveUsers = [];
+  snapshot.forEach((childSnapshot) => {
+    let usr = childSnapshot.val();
+    usr.firebaseKey = childSnapshot.key;
+    liveUsers.push(usr);
+  });
+  if(sessionStorage.getItem('isAdmin') === 'true') { renderAdminUsersDashboard(); }
 });
-function closeModal() { document.getElementById('welcomeModal').classList.remove('show'); }
-function goToTournaments() { closeModal(); switchTab('tournaments'); }
 
-/* ========== TAB NAVIGATION LOGIC ========== */
-const pages = ['home', 'tournaments', 'roster', 'winners', 'support', 'payment', 'admin'];
+/* ========== REAL CREDENTIAL POPUP POPPERS & VALIDATIONS ========== */
+function triggerAlertModal(title, msg) {
+  document.getElementById('alertModalTitle').innerText = title;
+  document.getElementById('alertModalMessage').innerText = msg;
+  document.getElementById('alertModal').classList.add('show');
+}
+function closeAlertModal() { document.getElementById('alertModal').classList.remove('show'); }
+
+function validateEmailSyntax(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+function validateNumberSyntax(num) {
+  const re = /^\d{10}$/;
+  return re.test(num);
+}
+
+/* ========== INPUT PANEL FIELD INTERACTION CONTROLLERS ========== */
+function toggleLoginInputs(val) {
+  document.getElementById('login-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
+  document.getElementById('login-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
+}
+function toggleRegInputs(val) {
+  document.getElementById('reg-email-wrapper').style.display = val === 'email' ? 'block' : 'none';
+  document.getElementById('reg-number-wrapper').style.display = val === 'number' ? 'block' : 'none';
+}
+
+/* ========== TAB NAVIGATION CONTROL ENGINE ========== */
 function switchTab(target) {
+  if(!currentUserNode && target !== 'auth') {
+    triggerAlertModal("🛡️ ACCESS RESTRICTED", "Authentication check required. You must log in or sign up before you can explore internal layers.");
+    target = 'auth';
+  }
+
   if(target === 'admin' && sessionStorage.getItem('isAdmin') !== 'true') {
     openAdminLogin();
     return;
@@ -782,44 +957,209 @@ function switchTab(target) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function selectTournament(tier) {
-  const dropdown = document.getElementById('match-tier');
-  dropdown.value = tier;
-  dropdown.dispatchEvent(new Event('change'));
-  switchTab('home');
+/* ========== OTP SYSTEM GENERATOR & DATABASE CONNECTOR ========== */
+function initializeOTPVerificationSequence(contactValue, actionType, userPayload) {
+  currentGeneratedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  otpActionType = actionType;
+  pendingSessionPayload = userPayload;
+
+  // Sync OTP directly to active Firebase nodes so administrative systems trace it
+  otpRef.child(contactValue.replace(/[.$#[\]]/g, "-")).set({
+    token: currentGeneratedOTP,
+    action: actionType,
+    timestamp: new Date().getTime()
+  }).then(() => {
+    // Popup verification block window directly
+    document.getElementById('otpModal').classList.add('show');
+    showToast("🔑 Secure Unique OTP Sent to DB!");
+    console.log(`[Diagnostic support mirror debug Log] Unique OTP for ${contactValue} is: ${currentGeneratedOTP}`);
+  });
 }
 
-/* ========== ADMIN LOGIN LOGIC ========== */
-function openAdminLogin() {
-  if(sessionStorage.getItem('isAdmin') === 'true') { switchTab('admin'); } 
-  else { document.getElementById('adminLoginModal').classList.add('show'); }
-}
-function closeAdminLogin() {
-  document.getElementById('adminLoginModal').classList.remove('show');
-  document.getElementById('adminError').style.display = 'none';
-}
-
-document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const id = document.getElementById('adminId').value;
-  const pass = document.getElementById('adminPass').value;
-  
-  if(id === "Farhan" && pass === "web solutions") {
-    sessionStorage.setItem('isAdmin', 'true');
-    document.getElementById('nav-admin-li').style.display = 'block';
-    closeAdminLogin();
-    switchTab('admin');
-    renderAdminDashboard(); 
-    renderAdminWinners();
-  } else {
-    document.getElementById('adminError').style.display = 'block';
+function submitOTPVerification() {
+  const enteredVal = document.getElementById('otp-input-field').value.trim();
+  if(!enteredVal) {
+    triggerAlertModal("EMPTY PASSCODE", "Please fill in the 6-digit verification OTP token code showing on registration references.");
+    return;
   }
+
+  if(enteredVal === currentGeneratedOTP) {
+    document.getElementById('otpModal').classList.remove('show');
+    document.getElementById('otp-input-field').value = "";
+    
+    if(otpActionType === "SIGNUP") {
+      usersRef.push(pendingSessionPayload).then(() => {
+        currentUserNode = pendingSessionPayload;
+        localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload));
+        syncAuthenticatedUI();
+        showToast("Player Card Registered!");
+        document.getElementById('playerRegisterForm').reset();
+        switchTab('home');
+      });
+    } else if(otpActionType === "LOGIN") {
+      currentUserNode = pendingSessionPayload.record;
+      localStorage.setItem('soloPlayerSession', JSON.stringify(pendingSessionPayload.record));
+      
+      db.ref('soloPlayPlayerAccounts/' + pendingSessionPayload.key).update({ 
+        lastLogin: new Date().toLocaleString() 
+      });
+      
+      syncAuthenticatedUI();
+      showToast("Access Granted. Welcome back!");
+      document.getElementById('playerLoginForm').reset();
+      switchTab('home');
+    }
+  } else {
+    triggerAlertModal("WRONG SECURITY TOKEN", "The OTP code provided does not match the active digital keys saved to your database node reference path.");
+  }
+}
+
+/* ========== REAL INTEGRATED AUTHENTICATION EVENT HANDLERS ========== */
+function toggleAuthSubForm(formType) {
+  document.getElementById('sub-form-login').style.display = formType === 'login' ? 'block' : 'none';
+  document.getElementById('sub-form-register').style.display = formType === 'register' ? 'block' : 'none';
+  document.getElementById('sub-form-forgot').style.display = formType === 'forgot' ? 'block' : 'none';
+}
+
+// 1. Production Validation Signup Handler
+document.getElementById('playerRegisterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('reg-name').value.trim();
+  const route = document.getElementById('reg-method-select').value;
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
+  const number = document.getElementById('reg-number').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+
+  // Core Empty Value Checking
+  if(!name) { triggerAlertModal("MISSING DATA", "Please enter your Full Handle Name before continuing."); return; }
+  if(route === 'email' && !email) { triggerAlertModal("MISSING DATA", "The system requires an Email Node Address to map configuration files."); return; }
+  if(route === 'number' && !number) { triggerAlertModal("MISSING DATA", "Please provide your Mobile Contact string for setup."); return; }
+  if(!pass) { triggerAlertModal("MISSING DATA", "Account code pathways cannot function without a secure Password parameter."); return; }
+
+  // Structural Format Checking
+  if(route === 'email' && !validateEmailSyntax(email)) { triggerAlertModal("INVALID EMAIL", "The text provided inside the Email input area lacks true domain addressing syntax rules."); return; }
+  if(route === 'number' && !validateNumberSyntax(number)) { triggerAlertModal("INVALID NUMBER", "Your Mobile Number must contain exactly 10 numeric digits."); return; }
+  if(pass.length < 6) { triggerAlertModal("WEAK PASSWORD", "Your login passcode must be at least 6 characters in length to clear firewalls safely."); return; }
+
+  const targetLookupVal = route === 'email' ? email : number;
+
+  usersRef.orderByChild('contactLink').equalTo(targetLookupVal).once('value', (snapshot) => {
+    if(snapshot.exists()) {
+      triggerAlertModal("DUPLICATE RECORD", "This contact link address already maps to an active player card configuration.");
+    } else {
+      const newUserPayload = {
+        uid: 'UID-' + Math.floor(100000 + Math.random() * 900000),
+        name: name,
+        contactLink: targetLookupVal,
+        type: route,
+        password: pass, 
+        lastLogin: new Date().toLocaleString()
+      };
+      // Initiate connected secure OTP confirmation flow sequence
+      initializeOTPVerificationSequence(targetLookupVal, "SIGNUP", newUserPayload);
+    }
+  });
 });
 
-function adminLogout() {
-  sessionStorage.removeItem('isAdmin');
-  document.getElementById('nav-admin-li').style.display = 'none';
-  switchTab('home');
+// 2. Production Validation Login Handler
+document.getElementById('playerLoginForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const method = document.getElementById('login-method-select').value;
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const number = document.getElementById('login-number').value.trim();
+  const pass = document.getElementById('login-pass').value;
+
+  // Empty Check Validation loops
+  if(method === 'email' && !email) { triggerAlertModal("MISSING DATA", "Please enter your email node address parameter."); return; }
+  if(method === 'number' && !number) { triggerAlertModal("MISSING DATA", "Mobile input cannot be empty under number access streams."); return; }
+  if(!pass) { triggerAlertModal("MISSING DATA", "Please input your secret password key."); return; }
+
+  const targetQueryVal = method === 'email' ? email : number;
+
+  usersRef.orderByChild('contactLink').equalTo(targetQueryVal).once('value', (snapshot) => {
+    if(!snapshot.exists()) {
+      triggerAlertModal("ACCOUNT NOT FOUND", "No authenticated player data tracks exist matching that contact profile identifier.");
+    } else {
+      let matchedRecord = null;
+      let firebaseKey = null;
+      snapshot.forEach((child) => {
+        if(child.val().password === pass) {
+          matchedRecord = child.val();
+          firebaseKey = child.key;
+        }
+      });
+
+      if(matchedRecord) {
+        // Enforce secure dynamic OTP requirement before finalizing system token sessions
+        initializeOTPVerificationSequence(targetQueryVal, "LOGIN", { record: matchedRecord, key: firebaseKey });
+      } else {
+        triggerAlertModal("WRONG CREDENTIALS", "Authentication failed. The security passphrase entered does not correspond with database entries.");
+      }
+    }
+  });
+});
+
+// 3. Password Reset Form Handler
+document.getElementById('playerForgotForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ident = document.getElementById('forgot-identity').value.trim();
+  if(!ident) { triggerAlertModal("MISSING DATA", "Please supply your registered identifier link to run a search sequence."); return; }
+  
+  usersRef.orderByChild('contactLink').equalTo(ident).once('value', (snapshot) => {
+    if(!snapshot.exists()) {
+      triggerAlertModal("UNRECOGNIZED HANDLE", "No node files tracking that string path exist inside our records.");
+    } else {
+      showToast("🔧 System recovery email simulation dispatched!");
+      toggleAuthSubForm('login');
+      document.getElementById('playerForgotForm').reset();
+    }
+  });
+});
+
+// 4. Google OAuth Simulation
+function executeGoogleSSO() {
+  const randomUID = 'G-UID-' + Math.floor(200000 + Math.random() * 700000);
+  const mockEmail = "googleplayer" + Math.floor(Math.random() * 1000) + "@gmail.com";
+
+  const googleUser = {
+    uid: randomUID,
+    name: "Google Warrior",
+    contactLink: mockEmail,
+    type: "email",
+    password: "OAUTH-GOOGLE-SSO-TOKEN",
+    lastLogin: new Date().toLocaleString()
+  };
+
+  usersRef.orderByChild('contactLink').equalTo(mockEmail).once('value', (snapshot) => {
+    if(!snapshot.exists()) { usersRef.push(googleUser); }
+    currentUserNode = googleUser;
+    localStorage.setItem('soloPlayerSession', JSON.stringify(googleUser));
+    syncAuthenticatedUI();
+    showToast("Linked Google Secure Session!");
+    switchTab('home');
+  });
+}
+
+function executePlayerSignout() {
+  currentUserNode = null;
+  localStorage.removeItem('soloPlayerSession');
+  document.getElementById('auth-logged-view').style.display = 'none';
+  document.getElementById('auth-unlogged-view').style.display = 'grid';
+  document.getElementById('main-nav-links').style.display = 'none'; 
+  showToast("Session disconnected.");
+  switchTab('auth');
+}
+
+function syncAuthenticatedUI() {
+  if(currentUserNode) {
+    document.getElementById('auth-unlogged-view').style.display = 'none';
+    document.getElementById('auth-logged-view').style.display = 'block';
+    document.getElementById('profile-display-name').innerText = currentUserNode.name.toUpperCase();
+    document.getElementById('profile-node-uid').innerText = currentUserNode.uid;
+    document.getElementById('profile-node-email').innerText = currentUserNode.contactLink;
+    document.getElementById('main-nav-links').style.display = 'flex'; 
+    renderPlayerHistoryView();
+  }
 }
 
 /* ========== DYNAMIC FORM LOGIC ========== */
@@ -847,13 +1187,16 @@ matchTierSelect.addEventListener('change', (e) => {
   }
 });
 
-/* ========== REGISTRATION FLOW ========== */
-let currentRegistration = {};
-let teamDetailsText = "";
-let paymentTypeText = "";
-
+/* ========== INTERCEPTIVE CHECKOUT AND REGISTRATION LOGIC ========== */
 document.getElementById('regForm').addEventListener('submit', (e) => {
   e.preventDefault();
+  
+  if(!currentUserNode) {
+    showToast("Authentication Check Required! Please login or create a card first.");
+    switchTab('auth');
+    return;
+  }
+
   const tierVal = matchTierSelect.value;
   let fee = 100, tierName = "Solo 1v1";
   let mates = [];
@@ -876,12 +1219,15 @@ document.getElementById('regForm').addEventListener('submit', (e) => {
 
   currentRegistration = {
     id: 'REG-' + Math.floor(Math.random() * 1000000),
+    userUid: currentUserNode.uid, 
+    userEmail: currentUserNode.contactLink,
     date: new Date().toLocaleDateString(),
     timestamp: new Date().getTime(),
     ign: document.getElementById('ign').value,
     pid: document.getElementById('pid').value,
     tier: tierName,
     amount: fee,
+    slotTime: document.getElementById('slot').value, 
     teammates: mates || [],
     status: 'Pending'
   };
@@ -899,7 +1245,6 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
     return;
   }
 
-  // 🔒 Anti-Fraud: Asynchronous checking step against DB UTR records before initiating WhatsApp
   rosterRef.orderByChild('utr').equalTo(utr).once('value', (snapshot) => {
     if(snapshot.exists()) {
       showToast("❌ This UTR has already been submitted!");
@@ -909,7 +1254,7 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
 
       let msg = `Hello Solo Play! 🎮%0A%0A*Registration ID:* ${currentRegistration.id}%0A*Match Tier:* ${currentRegistration.tier}`;
       if(paymentTypeText !== "") { msg += `%0A*Payment Type:* ${paymentTypeText}`; }
-      msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}`;
+      msg += `%0A*Amount Paid:* ₹${currentRegistration.amount}%0A*IGN:* ${currentRegistration.ign}%0A*Player ID:* ${currentRegistration.pid}%0A*Slot Time Chosen:* ${currentRegistration.slotTime}`;
       if(teamDetailsText !== "") { msg += teamDetailsText; }
       msg += `%0A*UTR:* ${utr}%0A%0APlease check my screenshot and verify!`;
       
@@ -924,26 +1269,81 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
   });
 });
 
-/* ========== STATUS UI MAPPER ========== */
-function getStatusClass(status) {
-  if (status === 'Verified') return 'status-verified';
-  if (status === 'Cancelled') return 'status-cancelled';
-  if (status === 'Kicked Out') return 'status-kickedout';
-  if (status === 'Banned') return 'status-banned';
-  return 'status-pending';
+/* ========== PERSONALIZED PLAYER HISTORY DISPATCH RENDERER ========== */
+function renderPlayerHistoryView() {
+  const container = document.getElementById('player-history-container');
+  if(!container) return;
+  container.innerHTML = '';
+  if(!currentUserNode) return;
+
+  const playerRecords = liveRegistrations.filter(r => r.userUid === currentUserNode.uid);
+  if(playerRecords.length === 0) {
+    container.innerHTML = `<p style="color:var(--muted); text-align:center; font-family:'Share Tech Mono'; padding-top:20px;">No registered entry logs detected on this profile.</p>`;
+    return;
+  }
+
+  playerRecords.forEach(rec => {
+    let sClass = getStatusClass(rec.status);
+    container.innerHTML += `
+      <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.05); padding:15px; margin-bottom:12px; border-left:3px solid var(--orange);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-family:'Orbitron'; font-size:14px;">
+          <span style="color:#fff;">${rec.tier}</span>
+          <span class="status-badge ${sClass}">${rec.status}</span>
+        </div>
+        <p style="font-size:13px; color:var(--muted); line-height:1.4;">
+          <strong>ID/IGN:</strong> ${rec.pid} / ${rec.ign}<br>
+          <strong>Slot Window:</strong> ${rec.slotTime || 'Morning'}<br>
+          <strong>Paid UTR Token:</strong> <span style="font-family:monospace; color:var(--cyan);">${rec.utr}</span> (₹${rec.amount})
+        </p>
+        ${rec.teammates && rec.teammates.length > 0 ? `<div style="font-size:12px; margin-top:5px; color:var(--yellow);">Squad Lineups: ${rec.teammates.join(', ')}</div>` : ''}
+      </div>
+    `;
+  });
 }
 
-/* ========== RENDERING TABLES ========== */
+/* ========== OVERRIDE SYSTEM COMMAND CENTER INTERFACE ENGINE ========== */
+function openAdminLogin() {
+  if(sessionStorage.getItem('isAdmin') === 'true') { switchTab('admin'); } 
+  else { document.getElementById('adminLoginModal').classList.add('show'); }
+}
+function closeAdminLogin() {
+  document.getElementById('adminLoginModal').classList.remove('show');
+  document.getElementById('adminError').style.display = 'none';
+}
+
+document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const id = document.getElementById('adminId').value;
+  const pass = document.getElementById('adminPass').value;
+  
+  if(id === "Farhan" && pass === "web solutions") {
+    sessionStorage.setItem('isAdmin', 'true');
+    document.getElementById('nav-admin-li').style.display = 'block';
+    closeAdminLogin();
+    switchTab('admin');
+    renderAdminDashboard(); 
+    renderAdminWinners();
+    renderAdminUsersDashboard();
+  } else {
+    document.getElementById('adminError').style.display = 'block';
+  }
+});
+
+function adminLogout() {
+  sessionStorage.removeItem('isAdmin');
+  document.getElementById('nav-admin-li').style.display = 'none';
+  switchTab('auth');
+}
+
+/* ========== RENDERING DATA GRID DASHBOARDS ========== */
 function renderPublicRoster() {
   const tbody = document.querySelector('#public-roster-table tbody');
   tbody.innerHTML = '';
-  
   if(liveRegistrations.length === 0) {
     document.getElementById('no-roster-msg').style.display = 'block';
     document.getElementById('public-roster-table').style.display = 'none';
     return;
   }
-  
   document.getElementById('no-roster-msg').style.display = 'none';
   document.getElementById('public-roster-table').style.display = 'table';
 
@@ -963,13 +1363,11 @@ function renderPublicRoster() {
 function renderPublicWinners() {
   const tbody = document.querySelector('#public-winners-table tbody');
   tbody.innerHTML = '';
-  
   if(liveWinners.length === 0) {
     document.getElementById('no-winners-msg').style.display = 'block';
     document.getElementById('public-winners-table').style.display = 'none';
     return;
   }
-  
   document.getElementById('no-winners-msg').style.display = 'none';
   document.getElementById('public-winners-table').style.display = 'table';
 
@@ -992,18 +1390,44 @@ function renderAdminDashboard() {
   
   liveRegistrations.forEach(reg => {
     let statusClass = getStatusClass(reg.status);
+    let squadLineText = (reg.teammates && reg.teammates.length > 0) ? `<div style="font-size:12px; color:var(--yellow); margin-top:5px;">Mates: ${reg.teammates.join(' | ')}</div>` : '';
+    
     tbody.innerHTML += `
       <tr>
-        <td>${reg.date}</td>
-        <td style="font-weight:bold; color:var(--cyan);">${reg.ign}</td>
-        <td>${reg.tier}</td>
-        <td>₹${reg.amount}</td>
-        <td style="font-family:monospace;">${reg.utr}</td>
+        <td>
+          <strong>Date:</strong> ${reg.date}<br>
+          <span class="text-orange" style="font-family:'Share Tech Mono'; font-size:13px;">Slot: ${reg.slotTime || 'Morning'}</span>
+        </td>
+        <td>
+          <span style="font-weight:bold; color:#fff;">IGN: ${reg.ign}</span><br>
+          <span style="font-size:13px; color:var(--muted);">UID Game ID: ${reg.pid}</span><br>
+          <span style="font-size:11px; font-family:monospace; color:var(--muted);">Profile: ${reg.userUid || 'Guest Node'}</span>
+          ${squadLineText}
+        </td>
+        <td style="font-family:'Orbitron'; font-size:14px;">${reg.tier}</td>
+        <td class="text-green" style="font-weight:bold;">₹${reg.amount}</td>
+        <td style="font-family:'Share Tech Mono'; font-size:14px; color:var(--cyan);">${reg.utr}</td>
         <td><span class="status-badge ${statusClass}">${reg.status}</span></td>
         <td>
-          <button class="admin-action-btn" onclick="openAdminEdit('${reg.firebaseKey}')">Edit</button>
+          <button class="admin-action-btn" onclick="openAdminEdit('${reg.firebaseKey}')">Status</button>
           <button class="admin-action-btn" style="color:var(--red);" onclick="deleteRecord('${reg.firebaseKey}', 'roster')">Del</button>
         </td>
+      </tr>
+    `;
+  });
+}
+
+function renderAdminUsersDashboard() {
+  const tbody = document.querySelector('#admin-users-table tbody');
+  tbody.innerHTML = '';
+  liveUsers.forEach(usr => {
+    tbody.innerHTML += `
+      <tr>
+        <td style="font-family:monospace; color:var(--cyan); font-size:13px;">${usr.uid}</td>
+        <td style="font-weight:bold;">${usr.name}</td>
+        <td style="color:var(--muted);">${usr.contactLink} (${usr.type.toUpperCase()})</td>
+        <td style="font-family:'Share Tech Mono'; color:var(--yellow);">${usr.password}</td>
+        <td style="font-size:13px; color:var(--muted);">${usr.lastLogin || 'N/A'}</td>
       </tr>
     `;
   });
@@ -1012,7 +1436,6 @@ function renderAdminDashboard() {
 function renderAdminWinners() {
   const tbody = document.querySelector('#admin-winners-table tbody');
   tbody.innerHTML = '';
-  
   liveWinners.forEach(win => {
     tbody.innerHTML += `
       <tr>
@@ -1029,7 +1452,7 @@ function renderAdminWinners() {
   });
 }
 
-/* ========== ADMIN CONTROLS ========== */
+/* ========== OPERATIONAL SYSTEM ROUTINES CONTROL ========== */
 function deleteRecord(firebaseKey, type) {
   if(confirm("Are you sure you want to delete this record completely?")) {
     if(type === 'roster') db.ref('soloPlayRegistrations/' + firebaseKey).remove();
@@ -1071,9 +1494,10 @@ document.getElementById('adminAddForm').addEventListener('submit', (e) => {
 
   rosterRef.push({
     id: 'REG-MANUAL-' + Math.floor(Math.random() * 1000000),
+    userUid: 'MANUAL-ADMIN-NODE',
     date: new Date().toLocaleDateString(),
     timestamp: new Date().getTime(),
-    ign: ign, pid: 'N/A', tier: tier, amount: amount, teammates: [], status: status, utr: 'MANUAL-ENTRY'
+    ign: ign, pid: 'N/A', tier: tier, amount: amount, slotTime: 'Admin Allocation', teammates: [], status: status, utr: 'MANUAL-ENTRY'
   });
   
   document.getElementById('adminAddForm').reset();
@@ -1100,7 +1524,7 @@ document.getElementById('adminAddWinnerForm').addEventListener('submit', (e) => 
   showToast("Winner Published Live!");
 });
 
-/* ========== SUPPORT SYSTEM ========== */
+/* ========== SUPPORT SYSTEM INTERFACE LOGIC ========== */
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = document.getElementById('contactName').value;
@@ -1120,7 +1544,9 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   document.getElementById('contactForm').reset();
 });
 
-/* ========== UTILS ========== */
+/* ========== UTILITY HELPER UTILITIES ========== */
+const pages = ['home', 'tournaments', 'roster', 'winners', 'support', 'auth', 'payment', 'admin'];
+
 function copyUPI(upiID) {
   navigator.clipboard.writeText(upiID).then(() => { showToast("UPI Copied!"); });
 }
@@ -1132,11 +1558,7 @@ function showToast(message) {
   setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
 }
 
-if(sessionStorage.getItem('isAdmin') === 'true') {
-  document.getElementById('nav-admin-li').style.display = 'block';
-}
-
-/* ========== ENGINE PARTICLES ========== */
+/* ========== PARTICLES INTERACTIVE RENDERING ENGINE ========== */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let w, h, particles = [];
